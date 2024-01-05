@@ -122,6 +122,21 @@ export function NavBar() {
 
                 <div
                     className={`icons-row flex ${
+                        activeLink === 'create' ? 'active' : ''
+                    }`}
+                    onClick={() => handleClick('create')}
+                >
+                    <img
+                        className="icon-img"
+                        src={Create}
+                        alt="Create"
+                        title="Create"
+                    />
+                    <span className="icon-text">Create</span>
+                </div>
+
+                <div
+                    className={`icons-row flex ${
                         activeLink === 'profile' ? 'active' : ''
                     }`}
                     onClick={() => handleClick('profile')}

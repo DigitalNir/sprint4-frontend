@@ -1,0 +1,47 @@
+.story-preview {
+    .story-preview-header {
+        position: relative;
+        max-width: 100%;
+        line-height: 18px;
+        .avatar {
+            width: 42px;
+            height: 42px;
+            margin-inline-end: 12px;
+        }
+
+        .username {
+            font-weight: 500;
+            color: #000000;
+            font-size: rem(14px);
+            margin-inline-end: 4px;
+        }
+
+        .dot {
+            font-size: 14px;
+            margin-inline-end: 4px;
+        }
+
+        .time {
+            font-size: 14px;
+            color: #737373;
+        }
+
+        .location {
+            font-size: 12px;
+        }
+        .icon-img {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            right: 0;
+        }
+        .username-time-location {
+            background-color: green;
+            width: 100%;
+        }
+    }
+
+    .story-img {
+        max-height: 585px;
+    }
+}

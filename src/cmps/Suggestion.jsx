@@ -1,7 +1,7 @@
 export function Suggestion() {
     return (
         <aside className="suggestion">
-            <h1>Suggestion</h1>{' '}
+            <span className="suggested-for-you">Suggested for you</span>
         </aside>
     )
 }
