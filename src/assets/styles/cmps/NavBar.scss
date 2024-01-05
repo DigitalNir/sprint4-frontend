@@ -64,3 +64,22 @@
     bottom: 3px;
     margin-block-end: 24px;
 }
+
+@media only screen and (max-width: 1264px) {
+    .nav-bar {
+        min-width: 72px;
+        flex: 0.05;
+        .icon-text {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (min-width: 1265px) {
+    .nav-bar {
+        // min-width: max-content;
+        .icon-text {
+            display: block;
+        }
+    }
+}
