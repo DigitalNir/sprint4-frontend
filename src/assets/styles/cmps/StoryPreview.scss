@@ -31,8 +31,9 @@
         }
         .icon-img {
             position: absolute;
-            width: 24px;
-            height: 24px;
+            width: 40px;
+            height: 40px;
+            padding: 8px;
             right: 0;
         }
         .username-time-location {
@@ -43,5 +44,51 @@
 
     .story-img {
         max-height: 585px;
+    }
+
+    .story-interaction-container {
+        .story-icons {
+            position: relative;
+            .icon-img {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+
+                &.save {
+                    position: absolute;
+                    right: 0;
+                }
+            }
+        }
+        .like-count,
+        .username,
+        .snippet,
+        .view-comment,
+        .add-comment {
+            margin-block-start: 8px;
+            line-height: 18px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+        }
+        .username {
+            margin-inline-end: 4px;
+        }
+        .snippet {
+            font-weight: 400;
+        }
+        .view-comment,
+        .add-comment {
+            color: #737373;
+            font-weight: 400;
+        }
+        .add-comment {
+            border: none;
+            outline: none;
+            &::placeholder {
+                color: #737373;
+                font-weight: 400;
+            }
+        }
     }
 }
