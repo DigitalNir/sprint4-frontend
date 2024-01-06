@@ -34,7 +34,7 @@ export function StoryPreview() {
             />
             <section className="story-interaction-container flex column">
                 <div className="story-icons flex align-center">
-                    <img
+                    {/* <img
                         className="icon-img"
                         src={Like}
                         alt="Like"
@@ -57,7 +57,11 @@ export function StoryPreview() {
                         src={Save}
                         alt="Save"
                         title="Save"
-                    />
+                    /> */}
+                    <div className="icon-img like" title="Like"></div>
+                    <div className="icon-img comment" title="Comment"></div>
+                    <div className="icon-img share" title="Share"></div>
+                    <div className="icon-img save" title="Save"></div>
                 </div>
                 <span className="like-count">5 likes</span>
                 <div className="username-story-snippet flex align-center">
