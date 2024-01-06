@@ -100,7 +100,8 @@
         .username,
         .snippet,
         .view-comment,
-        .add-comment {
+        .add-comment,
+        .snippet-more {
             margin-block-start: 8px;
             line-height: 18px;
             font-size: 14px;
@@ -109,15 +110,26 @@
         }
         .username {
             margin-inline-end: 4px;
+
+            &:hover {
+                color: #737373;
+            }
         }
         .snippet {
             font-weight: 400;
         }
+
         .view-comment,
-        .add-comment {
+        .add-comment,
+        .snippet-more {
             color: #737373;
             font-weight: 400;
         }
+
+        .snippet-more {
+            margin-inline-start: 5px;
+        }
+
         .add-comment {
             border: none;
             outline: none;

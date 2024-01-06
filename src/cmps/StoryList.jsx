@@ -1,8 +1,10 @@
 import { StoryPreview } from './StoryPreview.jsx'
-export function StoryList() {
+export function StoryList({ storyData }) {
     return (
         <section className="story-list">
-            <StoryPreview />
+            {storyData.map((story) => (
+                <StoryPreview story={story} key={story._id} />
+            ))}
         </section>
     )
 }
