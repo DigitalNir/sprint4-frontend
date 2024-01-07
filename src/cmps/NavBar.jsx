@@ -18,7 +18,7 @@ export function NavBar() {
     }
 
     return (
-        <nav className="nav-bar flex column">
+        <nav className="nav-bar flex">
             <div className="logo-container">
                 <a href="/">
                     <img
@@ -29,7 +29,7 @@ export function NavBar() {
                     />
                 </a>
             </div>
-            <div className="icons-container flex column">
+            <div className="icons-container flex">
                 <div
                     className={`icons-row flex ${
                         activeLink === 'home' ? 'active' : ''

@@ -16,7 +16,7 @@ export function HomePage() {
     // }
 
     return (
-        <section className="homepage flex">
+        <section className="homepage">
             <NavBar />
             <section className="main-container flex">
                 <StoryIndex />

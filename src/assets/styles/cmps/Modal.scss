@@ -12,24 +12,26 @@
 }
 
 .modal-content {
-    width: 95vw;
-    max-width: 1000px;
-    height: 90vh;
-    max-height: 700px;
-    position: absolute;
+    max-height: 90vh;
     overflow: hidden;
     border-radius: 4px;
-    margin: 0 auto;
     background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
+    line-height: 18px;
+
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    margin: 0 40px;
 
     @include story-header-mixin;
 
     .story-img {
+        height: 100%;
+
         width: 100%;
         // flex-shrink: 1;
-        max-width: 696px;
+        max-width: 600px;
+        object-fit: cover;
+        aspect-ratio: 1 / 1.3;
     }
 }
 

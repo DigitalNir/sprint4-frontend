@@ -1,10 +1,17 @@
+.homepage {
+    display: grid;
+    grid-template-columns: minmax(auto, 240px) 1fr minmax(auto, 20px);
+    justify-items: center;
+}
+
 .nav-bar {
     display: flex;
-    flex: 0.2;
     flex-direction: column;
+    flex: 0.2;
     align-items: flex-start;
 
-    position: relative;
+    // position: sticky;
+    // top: 0;
 
     background-color: #ffffff;
     box-sizing: border-box;
@@ -15,7 +22,6 @@
     padding-left: 12px;
     padding-right: 12px;
     padding-top: 8px;
-    transform: translateX(0px);
     border-inline-end: 2px solid #efefef;
     max-width: 335px;
 }
