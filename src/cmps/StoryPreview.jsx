@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material'
 import { useState } from 'react'
 
 import ThreeDots from '../img/svg/3dots.svg'
-import { TransitionsModal } from './StoryDetail'
+import { Modal } from './Modal'
 
 const MAX_LENGTH = 43
 // import PlaceHolderImg from '../img/story/pexels-leeloo-thefirst-5386829.jpg'
@@ -91,10 +91,17 @@ export function StoryPreview({ story }) {
             </section>
             {/* Modal Component */}
             {isModalOpen && (
-                <TransitionsModal
-                    open={isModalOpen}
-                    handleClose={handleCloseModal}
-                />
+                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                    {/* Modal content here */}
+
+                    <img
+                        className="story-img"
+                        src={story.imgUrl}
+                        alt="Image"
+                        title="Image"
+                    />
+                    <p>{story.txt}</p>
+                </Modal>
             )}
         </article>
     )
