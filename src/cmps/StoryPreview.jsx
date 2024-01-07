@@ -1,5 +1,9 @@
 import { Avatar } from '@mui/material'
+import { useState } from 'react'
+
 import ThreeDots from '../img/svg/3dots.svg'
+import { TransitionsModal } from './StoryDetail'
+
 const MAX_LENGTH = 43
 // import PlaceHolderImg from '../img/story/pexels-leeloo-thefirst-5386829.jpg'
 // import Like from '../img/svg/notification.svg'
@@ -8,6 +12,8 @@ const MAX_LENGTH = 43
 // import Share from '../img/svg/message.svg'
 
 export function StoryPreview({ story }) {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     let lastSpaceIndex = story.txt.slice(0, MAX_LENGTH).lastIndexOf(' ')
 
     const snippet =
@@ -16,6 +22,14 @@ export function StoryPreview({ story }) {
             : story.txt
 
     const isShowMore = story.txt.length > MAX_LENGTH
+
+    const handleViewComment = () => {
+        setIsModalOpen(true) // Open the modal
+    }
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false) // Close the modal
+    }
 
     return (
         <article className="story-preview">
@@ -64,8 +78,8 @@ export function StoryPreview({ story }) {
                     <span className="snippet">{snippet}</span>
                     {isShowMore && <span className="snippet-more">more</span>}
                 </div>
-                <span className="view-comment">
-                    View {story.comments.length} comment
+                <span className="view-comment" onClick={handleViewComment}>
+                    View {story.comments.length} comments
                 </span>
                 <input
                     className="add-comment"
@@ -75,6 +89,13 @@ export function StoryPreview({ story }) {
                     placeholder="Add a comment..."
                 />
             </section>
+            {/* Modal Component */}
+            {isModalOpen && (
+                <TransitionsModal
+                    open={isModalOpen}
+                    handleClose={handleCloseModal}
+                />
+            )}
         </article>
     )
 }
