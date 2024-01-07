@@ -2,6 +2,7 @@
     border-block-end: 2px solid #737373;
 
     .story-header {
+        // position: relative;
         @include story-header-mixin;
     }
     .story-img {
