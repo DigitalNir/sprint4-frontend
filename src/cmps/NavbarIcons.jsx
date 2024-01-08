@@ -31,7 +31,7 @@ export function NavbarIcons({ handleIconClick, activeLink }) {
             {iconsData.map((icon) => (
                 <div
                     key={icon.name}
-                    className={`icons-row flex ${
+                    className={`icons-row ${icon.name} flex ${
                         activeLink === icon.name ? 'active' : ''
                     }`}
                     onClick={() => handleIconClick(icon.name)}
@@ -40,7 +40,7 @@ export function NavbarIcons({ handleIconClick, activeLink }) {
                         <Avatar className="avatar">N</Avatar>
                     ) : (
                         <img
-                            className="icon-img"
+                            className={`icon-img`}
                             src={icon.src}
                             alt={icon.alt}
                             title={icon.title}

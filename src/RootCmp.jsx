@@ -3,14 +3,14 @@ import { Routes, Route } from 'react-router'
 
 import routes from './routes'
 
-// import { AppHeader } from './cmps/AppHeader'
 import { AppFooter } from './cmps/AppFooter'
 import { UserDetails } from './pages/UserDetails'
+import { AppHeader } from './cmps/AppHeader'
 
 export function RootCmp() {
     return (
         <div>
-            {/* <AppHeader /> */}
+            <AppHeader />
             <main>
                 <Routes>
                     {routes.map((route) => (

@@ -66,8 +66,9 @@
 .icons-container {
 }
 
-.icon-more {
+.icons-row.more {
     position: absolute;
+    left: 0;
     bottom: 3px;
     margin-block-end: 24px;
 }
@@ -111,6 +112,16 @@
         //         display: none;
         //     }
         // }
+
+        .icons-row {
+            &.more,
+            &.explore,
+            &.message,
+            &.notification {
+                display: none;
+            }
+        }
+
         .icon-text {
             display: none;
         }

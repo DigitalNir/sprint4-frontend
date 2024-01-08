@@ -1,9 +1,12 @@
 .story-preview {
-    border-block-end: 2px solid #737373;
-
+    border-bottom-color: #dbdbdb;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin-block-end: 10px;
     .story-header {
         // position: relative;
         @include story-header-mixin;
+        margin-block-end: 10px;
     }
     .story-img {
         max-height: 585px;
