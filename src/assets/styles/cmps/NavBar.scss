@@ -15,7 +15,7 @@
     }
 }
 
-.icons-container {
+.nav-bar {
     flex-direction: column;
     .icons-row {
         // background-color: red;
@@ -63,6 +63,9 @@
     }
 }
 
+.icons-container {
+}
+
 .icon-more {
     position: absolute;
     bottom: 3px;
@@ -81,27 +84,33 @@
     .nav-bar {
         // position: fixed;
         // min-width: 72px;
+        max-width: 100%;
         flex-direction: row;
         // flex: 0.05;
+        position: fixed;
+        height: fit-content;
+        width: 100vw;
+        top: unset;
         bottom: 0;
         border: 0;
+        z-index: 1000;
 
         .logo-container {
             display: none;
         }
 
-        .icons-container {
-            flex-direction: row;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #fff;
-            left: 0;
-            z-index: 20;
-            .icon-more {
-                display: none;
-            }
-        }
+        // .icons-container {
+        //     flex-direction: row;
+        //     position: fixed;
+        //     bottom: 0;
+        //     width: 100%;
+        //     background-color: #fff;
+        //     left: 0;
+        //     z-index: 20;
+        //     .icon-more {
+        //         display: none;
+        //     }
+        // }
         .icon-text {
             display: none;
         }
@@ -112,6 +121,7 @@
     .nav-bar {
         // position: fixed;
         // min-width: max-content;
+        // z-index: 10000;
         .icon-text {
             display: block;
         }

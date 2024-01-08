@@ -5,3 +5,11 @@
     max-width: 630px;
     width: 100%;
 }
+
+@media only screen and (max-width: 766px) {
+    .main-container {
+        .story-index {
+            margin-top: 0px;
+        }
+    }
+}

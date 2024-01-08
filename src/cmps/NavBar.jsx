@@ -1,19 +1,12 @@
 import React, { useState } from 'react'
-import { Avatar } from '@mui/material'
 import Logo from '../img/svg/logo.svg'
-import Home from '../img/svg/home.svg'
-import Search from '../img/svg/search.svg'
-import Explore from '../img/svg/explore.svg'
-import Reels from '../img/svg/reels.svg'
-import Message from '../img/svg/message.svg'
-import Notification from '../img/svg/notification.svg'
-import Create from '../img/svg/create.svg'
-import More from '../img/svg/more.svg'
+
+import { NavbarIcons } from './NavbarIcons'
 
 export function NavBar() {
     const [activeLink, setActiveLink] = useState(null)
 
-    const handleClick = (linkName) => {
+    const handleIconClick = (linkName) => {
         setActiveLink(linkName)
     }
 
@@ -29,8 +22,15 @@ export function NavBar() {
                     />
                 </a>
             </div>
-            <div className="icons-container flex">
-                <div
+            <NavbarIcons
+                activeLink={activeLink}
+                handleIconClick={() => handleIconClick(linkName)}
+            />
+        </nav>
+    )
+}
+
+/*                <div
                     className={`icons-row flex ${
                         activeLink === 'home' ? 'active' : ''
                     }`}
@@ -158,8 +158,4 @@ export function NavBar() {
                         title="More"
                     />
                     <span className="icon-text">More</span>
-                </div>
-            </div>
-        </nav>
-    )
-}
+                </div> */
