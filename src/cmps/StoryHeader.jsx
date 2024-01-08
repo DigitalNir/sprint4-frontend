@@ -31,7 +31,7 @@ export function StoryHeader({ story, cmpName }) {
                 )}
             </div>
             <img
-                className="icon-img"
+                className="icon-img more"
                 src={ThreeDots}
                 alt="More options"
                 title="More options"

@@ -1,6 +1,7 @@
 import React from 'react'
 import { StoryHeader } from '../cmps/StoryHeader'
 import { Avatar } from '@mui/material'
+import { StoryIcons } from '../cmps/StoryIcons'
 
 export function StoryDetail({ story }) {
     return (
@@ -14,14 +15,25 @@ export function StoryDetail({ story }) {
             <section className="story-detail">
                 <StoryHeader story={story} />
                 <div className="story-text-comments">
-                    <div className="story-user-text flex align-center">
+                    <div className="story-avatar-user-text flex align-center">
                         <Avatar className="avatar">
                             {story.by.fullname.charAt(0)}
                         </Avatar>
-                        <span style={{ whiteSpace: 'pre-wrap' }}>
-                            {story.by.fullname + ` ` + story.txt}
-                        </span>
-                        {/* <p>{story.txt}</p> */}
+                        <div className="story-user-text flex column">
+                            <span
+                                className="story-username"
+                                style={{ whiteSpace: 'pre-wrap' }}
+                            >
+                                {story.by.fullname + ` `}
+                                <span className="story-txt">{story.txt}</span>
+                            </span>
+                            <span
+                                className="story-time"
+                                style={{ whiteSpace: 'pre' }}
+                            >
+                                15h {`  `}
+                            </span>
+                        </div>
                     </div>
                     <div className="story-comments flex column">
                         {story.comments.map((comment) => (
@@ -29,11 +41,15 @@ export function StoryDetail({ story }) {
                                 <Avatar className="avatar">
                                     {comment.by.fullname.charAt(0)}
                                 </Avatar>
-                                <div className="comment-text flex column">
-                                    <span style={{ whiteSpace: 'pre-wrap' }}>
-                                        {comment.by.fullname +
-                                            ` ` +
-                                            comment.txt}
+                                <div className="comment-text-username flex column">
+                                    <span
+                                        className="comment-username"
+                                        style={{ whiteSpace: 'pre-wrap' }}
+                                    >
+                                        {comment.by.fullname + ` `}{' '}
+                                        <span className="comment-text">
+                                            {comment.txt}
+                                        </span>
                                     </span>
                                     <span
                                         className="comment-time"
@@ -49,6 +65,7 @@ export function StoryDetail({ story }) {
                         ))}
                     </div>
                 </div>
+                <StoryIcons story={story} />
             </section>
         </>
     )

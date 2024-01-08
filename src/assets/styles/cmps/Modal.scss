@@ -24,6 +24,28 @@
 
     @include story-header-mixin;
 
+    .icon-img {
+        width: 24px;
+        height: 24px;
+        padding: 8px;
+
+        &.save {
+            right: 40px;
+        }
+    }
+
+    .story-icons {
+        // outline: none;
+        border-top-color: rgb(239, 239, 239);
+        border-top-style: solid;
+        border-top-width: 1px;
+        padding: 6px 16px 8px 16px;
+    }
+
+    .like-count {
+        margin-inline-start: 16px;
+    }
+
     .story-img {
         height: 100%;
 

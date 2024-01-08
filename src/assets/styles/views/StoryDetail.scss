@@ -17,16 +17,42 @@
 
     .story-text-comments {
         padding: 16px;
+
         p {
             margin: 0;
         }
 
-        .story-user-text {
+        .story-avatar-user-text {
             padding: 5px 16px 16px 0;
+
+            .story-txt {
+                font-weight: 400;
+            }
+            .story-time {
+                margin-block-start: 8px;
+                margin-block-end: 4px;
+                color: #737373;
+                font-size: 12px;
+            }
+        }
+
+        .story-username {
+            font-weight: 600;
+            color: #262626;
         }
 
         .comment {
             padding-block-start: 12px;
+
+            .comment-text {
+                font-weight: 400;
+            }
+
+            .comment-username {
+                font-weight: 600;
+                color: #262626;
+            }
+
             .comment-time {
                 margin-block-start: 8px;
                 margin-block-end: 4px;

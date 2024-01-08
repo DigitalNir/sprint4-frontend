@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Modal } from './Modal'
 import { StoryDetail } from '../pages/StoryDetail'
 import { StoryHeader } from './StoryHeader'
+import { StoryIcons } from './StoryIcons'
 
 const MAX_LENGTH = 43
 
@@ -36,16 +37,7 @@ export function StoryPreview({ story }) {
                 title="Image"
             />
             <section className="story-interaction-container flex column">
-                <div className="story-icons flex align-center">
-                    <button className="icon-img like" title="Like"></button>
-                    <button
-                        className="icon-img comment"
-                        title="Comment"
-                    ></button>
-                    <button className="icon-img share" title="Share"></button>
-                    <button className="icon-img save" title="Save"></button>
-                </div>
-                <span className="like-count">{story.likedBy.length} likes</span>
+                <StoryIcons story={story} />
                 <div className="username-story-snippet flex align-center">
                     <span className="username">{story.by.fullname}</span>
                     <span className="snippet">{snippet}</span>
