@@ -24,7 +24,7 @@ export function NavBar() {
             </div>
             <NavbarIcons
                 activeLink={activeLink}
-                handleIconClick={() => handleIconClick(linkName)}
+                handleIconClick={handleIconClick}
             />
         </nav>
     )
