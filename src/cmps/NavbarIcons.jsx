@@ -25,7 +25,7 @@ const iconsData = [
     { name: 'more', src: More, alt: 'More', title: 'More' },
 ]
 
-export function NavbarIcons({ handleIconClick, activeLink }) {
+export function NavBarIcons({ handleIconClick, activeLink }) {
     return (
         <>
             {iconsData.map((icon) => (
