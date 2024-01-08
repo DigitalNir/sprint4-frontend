@@ -1,6 +1,7 @@
 .homepage {
     display: grid;
     grid-template-columns: minmax(auto, 240px) 1fr minmax(auto, 20px);
+    // grid-template-rows: minmax(auto, 240px) 1fr;
     justify-items: center;
 }
 

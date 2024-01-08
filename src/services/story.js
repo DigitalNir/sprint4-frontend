@@ -112,7 +112,7 @@ export const storyData = [
                     fullname: 'Mike',
                     imgUrl: 'http://example.com/profile/mike.jpg',
                 },
-                txt: 'These shots are incredible!',
+                txt: 'These shots are incredible! I wish I could visit there as soon as possible!',
             },
         ],
         likedBy: [

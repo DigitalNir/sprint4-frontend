@@ -5,6 +5,7 @@ import { CHANGE_COUNT } from '../store/user.reducer'
 import { StoryIndex } from './StoryIndex'
 import { NavBar } from '../cmps/NavBar'
 import { Suggestion } from '../cmps/Suggestion.jsx'
+import { AppHeader } from '../cmps/AppHeader.jsx'
 
 export function HomePage() {
     // const dispatch = useDispatch()
@@ -17,6 +18,7 @@ export function HomePage() {
 
     return (
         <section className="homepage">
+            {/* <AppHeader /> */}
             <NavBar />
             <section className="main-container flex">
                 <StoryIndex />
