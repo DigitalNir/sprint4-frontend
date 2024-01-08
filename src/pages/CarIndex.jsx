@@ -1,14 +1,19 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { loadCars, addCar, updateCar, removeCar, addToCart } from '../store/car.actions.js'
+import {
+    loadCars,
+    addCar,
+    updateCar,
+    removeCar,
+    addToCart,
+} from '../store/story.actions.js'
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import { userService } from '../services/user.service.js'
 import { carService } from '../services/car.service.js'
 
 export function CarIndex() {
-
-    const cars = useSelector(storeState => storeState.carModule.cars)
+    const cars = useSelector((storeState) => storeState.storyModule.cars)
 
     useEffect(() => {
         loadCars()
@@ -17,7 +22,7 @@ export function CarIndex() {
     async function onRemoveCar(carId) {
         try {
             await removeCar(carId)
-            showSuccessMsg('Car removed')            
+            showSuccessMsg('Car removed')
         } catch (err) {
             showErrorMsg('Cannot remove car')
         }
@@ -31,7 +36,7 @@ export function CarIndex() {
             showSuccessMsg(`Car added (id: ${savedCar._id})`)
         } catch (err) {
             showErrorMsg('Cannot add car')
-        }        
+        }
     }
 
     async function onUpdateCar(car) {
@@ -42,10 +47,10 @@ export function CarIndex() {
             showSuccessMsg(`Car updated, new price: ${savedCar.price}`)
         } catch (err) {
             showErrorMsg('Cannot update car')
-        }        
+        }
     }
 
-    function onAddToCart(car){
+    function onAddToCart(car) {
         console.log(`Adding ${car.vendor} to Cart`)
         addToCart(car)
         showSuccessMsg('Added to Cart')
@@ -57,8 +62,7 @@ export function CarIndex() {
             showSuccessMsg(`Car msg added, it now has: ${3}`)
         } catch (err) {
             showErrorMsg('Cannot update car')
-        }        
-
+        }
     }
 
     function shouldShowActionBtns(car) {
@@ -74,21 +78,54 @@ export function CarIndex() {
             <main>
                 <button onClick={onAddCar}>Add Car ⛐</button>
                 <ul className="car-list">
-                    {cars.map(car =>
+                    {cars.map((car) => (
                         <li className="car-preview" key={car._id}>
                             <h4>{car.vendor}</h4>
                             <h1>⛐</h1>
-                            <p>Price: <span>${car.price.toLocaleString()}</span></p>
-                            <p>Owner: <span>{car.owner && car.owner.fullname}</span></p>
-                            {shouldShowActionBtns(car) && <div>
-                                <button onClick={() => { onRemoveCar(car._id) }}>x</button>
-                                <button onClick={() => { onUpdateCar(car) }}>Edit</button>
-                            </div>}
+                            <p>
+                                Price:{' '}
+                                <span>${car.price.toLocaleString()}</span>
+                            </p>
+                            <p>
+                                Owner:{' '}
+                                <span>{car.owner && car.owner.fullname}</span>
+                            </p>
+                            {shouldShowActionBtns(car) && (
+                                <div>
+                                    <button
+                                        onClick={() => {
+                                            onRemoveCar(car._id)
+                                        }}
+                                    >
+                                        x
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            onUpdateCar(car)
+                                        }}
+                                    >
+                                        Edit
+                                    </button>
+                                </div>
+                            )}
 
-                            <button onClick={() => { onAddCarMsg(car) }}>Add car msg</button>
-                            <button className="buy" onClick={() => { onAddToCart(car) }}>Add to cart</button>
-                        </li>)
-                    }
+                            <button
+                                onClick={() => {
+                                    onAddCarMsg(car)
+                                }}
+                            >
+                                Add car msg
+                            </button>
+                            <button
+                                className="buy"
+                                onClick={() => {
+                                    onAddToCart(car)
+                                }}
+                            >
+                                Add to cart
+                            </button>
+                        </li>
+                    ))}
                 </ul>
             </main>
         </div>

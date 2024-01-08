@@ -2,11 +2,6 @@ import { Avatar } from '@mui/material'
 import ThreeDots from '../img/svg/3dots.svg'
 
 export function StoryHeader({ story, cmpName }) {
-    console.log(
-        '🚀 ~ file: StoryHeader.jsx:5 ~ StoryHeader ~ cmpName:',
-        cmpName
-    )
-
     const shouldRender = cmpName === 'StoryPreview' ? true : false
 
     return (
