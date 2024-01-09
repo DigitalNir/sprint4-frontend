@@ -101,23 +101,18 @@ function getEmptyStory() {
 
 // Comments
 
-async function addComment(story, txt, fullname) {
+async function addComment(story, txt) {
     // Later, this is all done by the backend
     try {
         // const story = getById(storyId)
 
         if (!story.comments) story.comments = []
-        // Later remove the comment from the following line + remove  'moshe-placeholder-fullname' from this function arguments
-        // const user = userService.getLoggedinUser()
+
+        const user = userService.getLoggedinUser()
 
         const comment = {
             id: utilService.makeId(),
-            by: {
-                fullname: fullname,
-                // _id: user._id,
-                // fullname: user.fullname,
-                // imgUrl: user.imgUrl,
-            },
+            by: user,
             txt,
         }
 
@@ -130,19 +125,6 @@ async function addComment(story, txt, fullname) {
         throw err
     }
 }
-
-// async function addComment(storyId, comment) {
-//     comment.createdAt = Date.now()
-//     const story = getById(storyId)
-//     story.comments.unshift(comment)
-//     try {
-//         await save(story)
-//         console.log('Succesfuly saved story with new comment')
-//     } catch (err) {
-//         console.log('Cannot save story with new comment', err)
-//         throw err
-//     }
-// }
 
 function getEmptyComment() {
     return {

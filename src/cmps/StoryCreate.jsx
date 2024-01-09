@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { storyService } from '../services/story.service.local'
 import { utilService } from '../services/util.service'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getActionUpdateStory } from '../store/story.actions'
 import { useNavigate } from 'react-router'
 export function StoryCreate({ onCloseModal }) {
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [text, setText] = useState('')
+    const user = useSelector((storeState) => storeState.userModule.user)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -33,7 +35,7 @@ export function StoryCreate({ onCloseModal }) {
             let storyToAdd = storyService.getEmptyStory()
 
             storyToAdd.createdAt = Date.now()
-            storyToAdd.by.fullname = 'Moshe Ufnik'
+            storyToAdd.by = user
             storyToAdd.txt = text
             storyToAdd.imgUrl = previewUrl
 

@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { storyService } from '../services/story.service.local'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getActionUpdateStory } from '../store/story.actions'
 
 export function AddComment({ story }) {
     const [commentText, setCommentText] = useState('')
     const dispatch = useDispatch()
+    // const user = useSelector((storeState) => storeState.userModule.user)
+
     async function handleSubmitComment(ev) {
         try {
             ev.preventDefault()
@@ -14,11 +16,10 @@ export function AddComment({ story }) {
 
             let commentToAdd = storyService.getEmptyComment()
             commentToAdd.txt = commentText
-            commentToAdd.by.fullname = 'moshe-placeholder-fullname'
+
             const updatedStory = await storyService.addComment(
                 story,
-                commentToAdd.txt,
-                commentToAdd.by.fullname
+                commentToAdd.txt
             )
 
             console.log('Successfully added comment')
