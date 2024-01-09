@@ -33,11 +33,8 @@ function post(entityType, newEntity) {
 }
 
 function put(entityType, updatedEntity) {
-    // console.log('updatedEntity from storage ', updatedEntity)
-    // updatedEntity = JSON.parse(JSON.stringify(updatedEntity))
-    console.log('updatedEntity from storage ', updatedEntity)
+    updatedEntity = JSON.parse(JSON.stringify(updatedEntity))
     return query(entityType).then((entities) => {
-        console.log('entiites,', entities)
         const idx = entities.findIndex(
             (entity) => entity._id === updatedEntity._id
         )

@@ -1,0 +1,9 @@
+.add-comment {
+    margin-block-end: 17px;
+    border: none;
+    outline: none;
+    &::placeholder {
+        color: #737373;
+        font-weight: 400;
+    }
+}

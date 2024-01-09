@@ -41,7 +41,7 @@ export function NavBar() {
             {isModalOpen && activeLink === 'create' && (
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     {/* Modal content here */}
-                    <StoryCreate />
+                    <StoryCreate onCloseModal={handleCloseModal} />
                 </Modal>
             )}
         </>

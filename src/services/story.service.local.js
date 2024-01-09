@@ -104,7 +104,6 @@ function getEmptyStory() {
 async function addComment(story, txt, fullname) {
     // Later, this is all done by the backend
     try {
-        console.log('add comment from story service ', story, txt, fullname)
         // const story = getById(storyId)
 
         if (!story.comments) story.comments = []
@@ -124,7 +123,7 @@ async function addComment(story, txt, fullname) {
 
         story.comments.push(comment)
         const storyToUpdate = await storageService.put(STORAGE_KEY, story)
-        console.log('Story to update', storyToUpdate)
+        console.log('Story to update from service', storyToUpdate)
         return storyToUpdate
     } catch (err) {
         console.log('Cannot get story in order to add comment', err)

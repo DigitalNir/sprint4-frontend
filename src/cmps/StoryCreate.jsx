@@ -1,10 +1,15 @@
 import { useState } from 'react'
 import { storyService } from '../services/story.service.local'
 import { utilService } from '../services/util.service'
-export function StoryCreate() {
+import { useDispatch } from 'react-redux'
+import { getActionUpdateStory } from '../store/story.actions'
+import { useNavigate } from 'react-router'
+export function StoryCreate({ onCloseModal }) {
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [text, setText] = useState('')
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     function handleFileChange(ev) {
         const file = ev.target.files[0]
@@ -22,24 +27,38 @@ export function StoryCreate() {
         setText(ev.target.value)
     }
 
-    function handleSubmit(ev) {
-        ev.preventDefault()
-        let storyToAdd = storyService.getEmptyStory()
-        console.log(
-            '🚀 ~ file: StoryCreate.jsx:27 ~ handleSubmit ~ storyToAdd:',
-            storyToAdd
-        )
-        storyToAdd.createdAt = Date.now()
-        storyToAdd.by.fullname = 'Moshe Ufnik'
-        storyToAdd.txt = text
-        storyToAdd.imgUrl = previewUrl
-        console.log('hi adding story')
-        onAddStory(storyToAdd)
+    async function handleSubmit(ev) {
+        try {
+            ev.preventDefault()
+            let storyToAdd = storyService.getEmptyStory()
+
+            storyToAdd.createdAt = Date.now()
+            storyToAdd.by.fullname = 'Moshe Ufnik'
+            storyToAdd.txt = text
+            storyToAdd.imgUrl = previewUrl
+
+            const addedStory = await onAddStory(storyToAdd)
+            console.log(
+                '🚀 ~ file: StoryCreate.jsx:41 ~ handleSubmit ~ addedStory:',
+                addedStory
+            )
+            dispatch(getActionUpdateStory(addedStory))
+            navigate('/')
+            onCloseModal()
+            console.log('Succesfuly added story')
+        } catch (err) {
+            console.log('Cannot add story', err)
+        }
     }
 
     async function onAddStory(storyToAdd) {
+        console.log(
+            '🚀 ~ file: StoryCreate.jsx:55 ~ onAddStory ~ storyToAdd:',
+            storyToAdd
+        )
         try {
             const addedStory = await storyService.save(storyToAdd)
+            return addedStory
             // showSuccessMsg(`Story added (id: ${addedStory._id})`)
         } catch (err) {
             console.log('Cannot add story:', err)

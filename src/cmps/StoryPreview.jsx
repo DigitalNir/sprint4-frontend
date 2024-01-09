@@ -7,12 +7,13 @@ import { StoryIcons } from './StoryIcons'
 import { storyService } from '../services/story.service.local'
 import { useDispatch } from 'react-redux'
 import { getActionUpdateStory } from '../store/story.actions'
+import { AddComment } from './AddComment'
 
 const MAX_LENGTH = 43
 
 export function StoryPreview({ story }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [commentText, setCommentText] = useState('')
+
     const dispatch = useDispatch()
 
     let lastSpaceIndex = story.txt.slice(0, MAX_LENGTH).lastIndexOf(' ')
@@ -30,32 +31,6 @@ export function StoryPreview({ story }) {
 
     function handleCloseModal() {
         setIsModalOpen(false) // Close the modal
-    }
-
-    async function handleSubmitComment(ev) {
-        try {
-            ev.preventDefault()
-
-            if (!commentText) return
-
-            let commentToAdd = storyService.getEmptyComment()
-            commentToAdd.txt = commentText
-            commentToAdd.by.fullname = 'moshe-placeholder-fullname'
-            console.log('story from preview as prop: ', story)
-            const updatedStory = await storyService.addComment(
-                story,
-                commentToAdd.txt,
-                commentToAdd.by.fullname
-            )
-            console.log('updatedStory after service', updatedStory)
-
-            console.log('Successfully added comment')
-            setCommentText('') // Reset the input field after submission
-
-            // dispatch(getActionUpdateStory(updatedStory))
-        } catch (err) {
-            console.log('Cannot add comment', err)
-        }
     }
 
     const commentStr = story.comments.length > 1 ? 'comments' : 'comment'
@@ -89,17 +64,7 @@ export function StoryPreview({ story }) {
                         View {`${story.comments.length} ${commentStr}`}
                     </span>
                 )}
-                <form onSubmit={(ev) => handleSubmitComment(ev)}>
-                    <input
-                        className="add-comment"
-                        type="text"
-                        name="add-comment"
-                        id="add-comment"
-                        placeholder="Add a comment..."
-                        value={commentText}
-                        onChange={(ev) => setCommentText(ev.target.value)}
-                    />
-                </form>
+                <AddComment story={story} />
             </section>
             {/* Modal Component */}
             {isModalOpen && (

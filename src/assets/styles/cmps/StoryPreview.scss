@@ -7,6 +7,9 @@
         // position: relative;
         @include story-header-mixin;
         margin-block-end: 10px;
+        .icon-img {
+            cursor: pointer;
+        }
     }
     .story-img {
         max-height: 585px;
@@ -45,16 +48,6 @@
 
         .snippet-more {
             margin-inline-start: 5px;
-        }
-
-        .add-comment {
-            margin-block-end: 17px;
-            border: none;
-            outline: none;
-            &::placeholder {
-                color: #737373;
-                font-weight: 400;
-            }
         }
     }
 }

@@ -3,6 +3,7 @@ import { StoryHeader } from '../cmps/StoryHeader'
 import { Avatar } from '@mui/material'
 import { StoryIcons } from '../cmps/StoryIcons'
 import { utilService } from '../services/util.service'
+import { AddComment } from '../cmps/AddComment'
 
 export function StoryDetail({ story }) {
     return (
@@ -72,6 +73,7 @@ export function StoryDetail({ story }) {
                     </div>
                 </div>
                 <StoryIcons story={story} />
+                <AddComment story={story} />
             </section>
         </>
     )
