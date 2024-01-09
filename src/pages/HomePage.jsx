@@ -1,29 +1,58 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { CHANGE_COUNT } from '../store/user.reducer'
 import { StoryIndex } from './StoryIndex'
 import { NavBar } from '../cmps/NavBar'
 import { Suggestion } from '../cmps/Suggestion.jsx'
-import { AppHeader } from '../cmps/AppHeader.jsx'
+// import { AppHeader } from '../cmps/AppHeader.jsx'
+import { userService } from '../services/user.service.js'
+import { LoginSignup } from '../cmps/LoginSignup.jsx'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { login, logout, signup } from '../store/user.actions.js'
 
 export function HomePage() {
-    // const dispatch = useDispatch()
-    // const count = useSelector(storeState => storeState.userModule.count)
+    const user = useSelector((storeState) => storeState.userModule.user)
 
-    // function changeCount(diff) {
-    //     console.log('Changing count by:', diff);
-    //     dispatch({ type: CHANGE_COUNT, diff })
-    // }
+    async function onLogin(credentials) {
+        try {
+            const user = await login(credentials)
+            showSuccessMsg(`Welcome: ${user.fullname}`)
+        } catch (err) {
+            showErrorMsg('Cannot login')
+        }
+    }
+    async function onSignup(credentials) {
+        try {
+            const user = await signup(credentials)
+            showSuccessMsg(`Welcome new user: ${user.fullname}`)
+        } catch (err) {
+            showErrorMsg('Cannot signup')
+        }
+    }
+    async function onLogout() {
+        try {
+            await logout()
+            showSuccessMsg(`Bye now`)
+        } catch (err) {
+            showErrorMsg('Cannot logout')
+        }
+    }
 
-    return (
-        <section className="homepage">
-            {/* <AppHeader /> */}
-            <NavBar />
-            <section className="main-container flex">
-                <StoryIndex />
-                <Suggestion />
+    const loggedinUser = userService.getLoggedinUser()
+    if (!loggedinUser)
+        return <LoginSignup onLogin={onLogin} onSignup={onSignup} />
+    else {
+        return (
+            <section className="homepage">
+                {/* <AppHeader /> */}
+                <NavBar />
+                <section className="main-container flex">
+                    <StoryIndex />
+                    <Suggestion />
+                </section>
             </section>
-        </section>
-    )
+        )
+    }
+}
+{
 }

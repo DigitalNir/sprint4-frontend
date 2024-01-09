@@ -13,6 +13,7 @@ const MAX_LENGTH = 43
 
 export function StoryPreview({ story }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isShowMore, setIsShowMore] = useState(story.txt.length > MAX_LENGTH)
 
     const dispatch = useDispatch()
 
@@ -22,8 +23,6 @@ export function StoryPreview({ story }) {
         story.txt.length > MAX_LENGTH
             ? story.txt.slice(0, lastSpaceIndex) + '... '
             : story.txt
-
-    const isShowMore = story.txt.length > MAX_LENGTH
 
     function handleViewComment() {
         setIsModalOpen(true) // Open the modal
@@ -55,9 +54,23 @@ export function StoryPreview({ story }) {
                 <span className="like-count">{likeStr}</span>
 
                 <div className="username-story-snippet flex align-center">
-                    <span className="username">{story.by.fullname}</span>
-                    <span className="snippet">{snippet}</span>
-                    {isShowMore && <span className="snippet-more">more</span>}
+                    <span>
+                        <span className="username">{story.by.fullname}</span>
+                        {isShowMore && (
+                            <span className="snippet">{snippet}</span>
+                        )}
+                        {isShowMore && (
+                            <span
+                                className="snippet-more"
+                                onClick={() => setIsShowMore(!isShowMore)}
+                            >
+                                more
+                            </span>
+                        )}
+                        {!isShowMore && (
+                            <span className="snippet">{story.txt}</span>
+                        )}{' '}
+                    </span>
                 </div>
                 {story.comments.length > 0 && (
                     <span className="view-comment" onClick={handleViewComment}>
