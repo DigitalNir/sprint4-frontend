@@ -12,6 +12,7 @@ export const storyService = {
     addComment,
     getDefaultFilter,
     getEmptyStory,
+    getEmptyComment,
 }
 window.storyService = storyService
 
@@ -32,8 +33,9 @@ async function query(filterBy = { txt: '' }, sortBy = { date: '' }) {
     return stories
 }
 
-function getById(storyId) {
-    return storageService.get(STORAGE_KEY, storyId)
+async function getById(storyId) {
+    const story = await storageService.get(STORAGE_KEY, storyId)
+    return story
 }
 
 async function remove(storyId) {
@@ -51,22 +53,6 @@ async function save(story) {
         savedStory = await storageService.post(STORAGE_KEY, story)
     }
     return savedStory
-}
-
-async function addComment(storyId, txt) {
-    // Later, this is all done by the backend
-    const story = await getById(storyId)
-    if (!story.comments) story.comments = []
-
-    const comment = {
-        id: utilService.makeId(),
-        by: userService.getLoggedinUser(),
-        txt,
-    }
-    story.comments.push(comment)
-    await storageService.put(STORAGE_KEY, story)
-
-    return comment
 }
 
 async function _createStories() {
@@ -112,5 +98,62 @@ function getEmptyStory() {
         tags: [], // Array of tags, initially empty
     }
 }
-// TEST DATA
-// storageService.post(STORAGE_KEY, {vendor: 'Subali Rahok 2', price: 980}).then(x => console.log(x))
+
+// Comments
+
+async function addComment(story, txt, fullname) {
+    // Later, this is all done by the backend
+    try {
+        console.log('add comment from story service ', story, txt, fullname)
+        // const story = getById(storyId)
+
+        if (!story.comments) story.comments = []
+        // Later remove the comment from the following line + remove  'moshe-placeholder-fullname' from this function arguments
+        // const user = userService.getLoggedinUser()
+
+        const comment = {
+            id: utilService.makeId(),
+            by: {
+                fullname: fullname,
+                // _id: user._id,
+                // fullname: user.fullname,
+                // imgUrl: user.imgUrl,
+            },
+            txt,
+        }
+
+        story.comments.push(comment)
+        const storyToUpdate = await storageService.put(STORAGE_KEY, story)
+        console.log('Story to update', storyToUpdate)
+        return storyToUpdate
+    } catch (err) {
+        console.log('Cannot get story in order to add comment', err)
+        throw err
+    }
+}
+
+// async function addComment(storyId, comment) {
+//     comment.createdAt = Date.now()
+//     const story = getById(storyId)
+//     story.comments.unshift(comment)
+//     try {
+//         await save(story)
+//         console.log('Succesfuly saved story with new comment')
+//     } catch (err) {
+//         console.log('Cannot save story with new comment', err)
+//         throw err
+//     }
+// }
+
+function getEmptyComment() {
+    return {
+        id: '', // Unique identifier for the comment, probably to be generated when creating a new comment
+        createdAt: '', // Current timestamp in milliseconds
+        by: {
+            _id: '', // User ID of the comment creator
+            fullname: '', // Full name of the comment creator
+            imgUrl: '', // URL to the profile image of the comment creator
+        },
+        txt: '', // Text of the comment
+    }
+}

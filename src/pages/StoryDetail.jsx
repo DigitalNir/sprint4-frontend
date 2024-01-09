@@ -2,6 +2,7 @@ import React from 'react'
 import { StoryHeader } from '../cmps/StoryHeader'
 import { Avatar } from '@mui/material'
 import { StoryIcons } from '../cmps/StoryIcons'
+import { utilService } from '../services/util.service'
 
 export function StoryDetail({ story }) {
     return (
@@ -17,14 +18,14 @@ export function StoryDetail({ story }) {
                 <div className="story-text-comments">
                     <div className="story-avatar-user-text flex align-center">
                         <Avatar className="avatar">
-                            {story.by.fullname.charAt(0)}
+                            {story?.by?.fullname.charAt(0)}
                         </Avatar>
                         <div className="story-user-text flex column">
                             <span
                                 className="story-username"
                                 style={{ whiteSpace: 'pre-wrap' }}
                             >
-                                {story.by.fullname + ` `}
+                                {story?.by?.fullname + ` `}
                                 <span className="story-txt">{story.txt}</span>
                             </span>
                             <span
@@ -39,14 +40,14 @@ export function StoryDetail({ story }) {
                         {story.comments.map((comment) => (
                             <div key={comment.id} className="comment flex">
                                 <Avatar className="avatar">
-                                    {comment.by.fullname.charAt(0)}
+                                    {comment?.by?.fullname.charAt(0)}
                                 </Avatar>
                                 <div className="comment-text-username flex column">
                                     <span
                                         className="comment-username"
                                         style={{ whiteSpace: 'pre-wrap' }}
                                     >
-                                        {comment.by.fullname + ` `}{' '}
+                                        {comment?.by?.fullname + ` `}{' '}
                                         <span className="comment-text">
                                             {comment.txt}
                                         </span>
@@ -55,7 +56,12 @@ export function StoryDetail({ story }) {
                                         className="comment-time"
                                         style={{ whiteSpace: 'pre' }}
                                     >
-                                        <span>10h {`  `}</span>
+                                        <span>
+                                            {utilService.formatTimestamp(
+                                                comment.createdAt
+                                            )}
+                                            {`  `}
+                                        </span>
                                         <span className="comment-reply">
                                             Reply
                                         </span>
