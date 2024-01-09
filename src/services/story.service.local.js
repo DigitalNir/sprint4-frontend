@@ -47,7 +47,7 @@ async function save(story) {
         savedStory = await storageService.put(STORAGE_KEY, story)
     } else {
         // Later, owner is set by the backend
-        story.by = userService.getLoggedinUser()
+        // story.by = userService.getLoggedinUser()
         savedStory = await storageService.post(STORAGE_KEY, story)
     }
     return savedStory

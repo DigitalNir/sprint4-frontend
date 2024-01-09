@@ -31,16 +31,16 @@ export function StoryIndex() {
         }
     }, [filterBy])
 
-    async function onAddStory() {
-        const storyToAdd = storyService.getEmptyStory()
-        storyToAdd.txt = prompt('Story txt?')
-        try {
-            const addedStory = await addStory(storyToAdd)
-            showSuccessMsg(`Story added (id: ${addedStory._id})`)
-        } catch (err) {
-            showErrorMsg('Cannot add story', err)
-        }
-    }
+    // async function onAddStory() {
+    //     const storyToAdd = storyService.getEmptyStory()
+    //     storyToAdd.txt = prompt('Story txt?')
+    //     try {
+    //         const addedStory = await addStory(storyToAdd)
+    //         showSuccessMsg(`Story added (id: ${addedStory._id})`)
+    //     } catch (err) {
+    //         showErrorMsg('Cannot add story', err)
+    //     }
+    // }
 
     if (!stories) return 'Loading...'
     return (
