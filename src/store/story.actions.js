@@ -35,6 +35,7 @@ export async function loadStories() {
         const { filterBy } = store.getState().storyModule
 
         const stories = await storyService.query(filterBy)
+        // const sortedStory = storyService.sortStories()
         console.log('Stories from DB:', stories)
         store.dispatch({
             type: SET_STORIES,

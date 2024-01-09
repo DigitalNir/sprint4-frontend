@@ -1,7 +1,6 @@
 export const storyData = [
     {
         _id: 's102',
-        createdAt: 1695902487423,
         txt: 'Loving the beach life!',
         imgUrl: '../img/story/beach.jpg',
         by: {
@@ -17,7 +16,6 @@ export const storyData = [
         comments: [
             {
                 id: 'c2001',
-                createdAt: 1696075287423,
                 by: {
                     _id: 'u107',
                     fullname: 'Emily',
@@ -27,7 +25,6 @@ export const storyData = [
             },
             {
                 id: 'c2002',
-                createdAt: 1682337687423,
                 by: {
                     _id: 'u108',
                     fullname: 'John',
@@ -52,7 +49,6 @@ export const storyData = [
     },
     {
         _id: 's103',
-        createdAt: 1689076887423,
         txt: 'Exploring the mountains!',
         imgUrl: '../img/story/mountains.jpg',
         by: {
@@ -68,7 +64,6 @@ export const storyData = [
         comments: [
             {
                 id: 'c3001',
-                createdAt: 1694865687423,
                 by: {
                     _id: 'u109',
                     fullname: 'Alice',
@@ -88,7 +83,6 @@ export const storyData = [
     },
     {
         _id: 's104',
-        createdAt: 1698580887423,
         txt: 'Had an amazing time trying out street photography in New York. The energy of the city is just mesmerizing. Every corner tells a different story.',
         imgUrl: '../img/story/newyork.jpg',
         by: {
@@ -104,7 +98,6 @@ export const storyData = [
         comments: [
             {
                 id: 'c4001',
-                createdAt: 1695729687423,
                 by: {
                     _id: 'u110',
                     fullname: 'Sarah',
@@ -114,7 +107,6 @@ export const storyData = [
             },
             {
                 id: 'c4002',
-                createdAt: 1699790487423,
                 by: {
                     _id: 'u111',
                     fullname: 'Mike',
@@ -134,7 +126,6 @@ export const storyData = [
     },
     {
         _id: 's105',
-        createdAt: 1680609687423,
         txt: "There's something profoundly serene about sunrises. Woke up early for this view and it was totally worth it. Nature's way of reminding us to enjoy every moment.",
         imgUrl: '../img/story/sunrise.jpg',
         by: {
@@ -150,7 +141,6 @@ export const storyData = [
         comments: [
             {
                 id: 'c5001',
-                createdAt: 1695556887423,
                 by: {
                     _id: 'u112',
                     fullname: 'Kevin',
@@ -175,7 +165,6 @@ export const storyData = [
     },
     {
         _id: 's106',
-        createdAt: 1688212887423,
         txt: "Nothing beats a good book and a cup of coffee on a lazy Sunday afternoon. Currently reading 'The Great Gatsby'. Fitzgerald's portrayal of the Jazz Age never gets old.",
         imgUrl: '../img/story/coffeebook.jpg',
         by: {
@@ -186,7 +175,6 @@ export const storyData = [
         comments: [
             {
                 id: 'c6001',
-                createdAt: 1693224087423,
                 by: {
                     _id: 'u114',
                     fullname: 'Emma',

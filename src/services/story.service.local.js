@@ -17,7 +17,7 @@ window.storyService = storyService
 
 _createStories()
 
-async function query(filterBy = { txt: '' }) {
+async function query(filterBy = { txt: '' }, sortBy = { date: '' }) {
     let stories = await storageService.query(STORAGE_KEY)
 
     stories = stories.filter((story) => {
@@ -94,6 +94,7 @@ function getDefaultFilter() {
 function getEmptyStory() {
     return {
         _id: '', // Generate a unique ID when creating a new story
+        createdAt: '',
         txt: '', // Story text
         imgUrl: '', // URL to the story image
         by: {

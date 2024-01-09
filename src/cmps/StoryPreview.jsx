@@ -27,6 +27,13 @@ export function StoryPreview({ story }) {
         setIsModalOpen(false) // Close the modal
     }
 
+    const commentStr = story.comments.length > 1 ? 'comments' : 'comment'
+
+    let likeStr
+
+    if (story.likedBy.length > 1) likeStr = `${story.likedBy.length} likes`
+    else if (story.likedBy.length === 1) likeStr = `1 like`
+    else if (story.likedBy.length === 0) likeStr = `Be the first to like this`
     return (
         <article className="story-preview">
             <StoryHeader story={story} cmpName={'StoryPreview'} />
@@ -38,14 +45,19 @@ export function StoryPreview({ story }) {
             />
             <section className="story-interaction-container flex column">
                 <StoryIcons story={story} />
+
+                <span className="like-count">{likeStr}</span>
+
                 <div className="username-story-snippet flex align-center">
                     <span className="username">{story.by.fullname}</span>
                     <span className="snippet">{snippet}</span>
                     {isShowMore && <span className="snippet-more">more</span>}
                 </div>
-                <span className="view-comment" onClick={handleViewComment}>
-                    View {story.comments.length} comments
-                </span>
+                {story.comments.length > 0 && (
+                    <span className="view-comment" onClick={handleViewComment}>
+                        View {`${story.comments.length} ${commentStr}`}
+                    </span>
+                )}
                 <input
                     className="add-comment"
                     type="text"

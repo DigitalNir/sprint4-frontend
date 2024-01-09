@@ -18,7 +18,10 @@ export function storyReducer(state = initialState, action = {}) {
     let stories
     switch (action.type) {
         case SET_STORIES:
-            newState = { ...state, stories: action.stories }
+            stories = [...action.stories].sort(
+                (a, b) => b.createdAt - a.createdAt
+            )
+            newState = { ...state, stories }
             break
         case REMOVE_STORY:
             const lastRemovedStory = state.stories.find(
