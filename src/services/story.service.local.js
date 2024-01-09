@@ -13,6 +13,7 @@ export const storyService = {
     getDefaultFilter,
     getEmptyStory,
     getEmptyComment,
+    addLike,
 }
 window.storyService = storyService
 
@@ -136,5 +137,26 @@ function getEmptyComment() {
             imgUrl: '', // URL to the profile image of the comment creator
         },
         txt: '', // Text of the comment
+    }
+}
+
+// Likes
+async function addLike(story) {
+    try {
+        if (!story.likedBy) story.likedBy = []
+
+        const user = userService.getLoggedinUser()
+        if (!user) {
+            console.log('Cannot add like - user is not logged in')
+            throw new Error('Cannot add like - user is not logged in')
+        }
+        story.likedBy.push(user)
+
+        const storyToUpdate = await storageService.put(STORAGE_KEY, story)
+        console.log('Story to update from service', storyToUpdate)
+        return storyToUpdate
+    } catch (err) {
+        console.log('Cannot add like', err)
+        throw err
     }
 }

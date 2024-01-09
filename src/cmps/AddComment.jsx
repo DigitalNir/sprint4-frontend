@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { storyService } from '../services/story.service.local'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getActionUpdateStory } from '../store/story.actions'
 
 export function AddComment({ story }) {
     const [commentText, setCommentText] = useState('')
     const dispatch = useDispatch()
-    // const user = useSelector((storeState) => storeState.userModule.user)
 
     async function handleSubmitComment(ev) {
         try {
