@@ -68,11 +68,22 @@ async function remove(storyId) {
 async function save(story) {
     let savedStory
     if (story._id) {
-        savedStory = await storageService.put(STORAGE_KEY, story)
+        try {
+            savedStory = await storageService.put(STORAGE_KEY, story)
+            console.log('Service - Succesfuly updated story')
+        } catch (err) {
+            onsole.error('Service - Cannot update story: ', err)
+            throw new Error('Service - Cannot update story: ', err)
+        }
     } else {
         // Later, owner is set by the backend
         // story.by = userService.getLoggedinUser()
-        savedStory = await storageService.post(STORAGE_KEY, story)
+        try {
+            savedStory = await storageService.post(STORAGE_KEY, story)
+            console.log('Service - Succesfuly created new story')
+        } catch (err) {
+            throw new Error('Service - Cannot create new story: ', err)
+        }
     }
     return savedStory
 }

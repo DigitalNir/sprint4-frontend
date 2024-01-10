@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router'
 import EmojiPicker from 'emoji-picker-react'
 
 import { storyService } from '../services/story.service.local'
-import { utilService } from '../services/util.service'
 import Back from '../img/svg/back.svg'
 import { Modal } from './Modal'
 
@@ -15,7 +14,6 @@ export function StoryCreate({ onCloseModal }) {
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [text, setText] = useState('')
-    // const [showEmojiPicker, setShowEmojiPicker] = useState(false)
     const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false)
     const [fileError, setFileError] = useState('') // New state for file upload error
 
@@ -57,15 +55,7 @@ export function StoryCreate({ onCloseModal }) {
             storyToAdd.imgUrl = previewUrl
 
             const addedStory = await onAddStory(storyToAdd)
-            console.log(
-                '🚀 ~ file: StoryCreate.jsx:41 ~ handleSubmit ~ addedStory:',
-                addedStory
-            )
             dispatch(getActionAddStory(addedStory))
-            console.log(
-                '🚀 ~ file: StoryCreate.jsx:65 ~ handleSubmit ~ addedStory:',
-                addedStory
-            )
             navigate('/')
             onCloseModal()
             console.log('Succesfuly added story')
@@ -75,10 +65,6 @@ export function StoryCreate({ onCloseModal }) {
     }
 
     async function onAddStory(storyToAdd) {
-        console.log(
-            '🚀 ~ file: StoryCreate.jsx:55 ~ onAddStory ~ storyToAdd:',
-            storyToAdd
-        )
         try {
             const addedStory = await storyService.save(storyToAdd)
             return addedStory
@@ -95,10 +81,6 @@ export function StoryCreate({ onCloseModal }) {
     }
 
     const handleEmojiClick = (emojiObject, event) => {
-        console.log(
-            '🚀 ~ file: StoryCreate.jsx:89 ~ handleEmojiClick ~ emojiObject:',
-            emojiObject
-        )
         if (emojiObject && emojiObject.emoji) {
             setText((prevText) => prevText + emojiObject.emoji)
             setIsEmojiModalOpen(false)
@@ -176,8 +158,6 @@ export function StoryCreate({ onCloseModal }) {
                         😊
                     </span>
                 </div>
-
-                {/* <button type="submit">Submit</button> */}
             </form>
         </div>
     )
