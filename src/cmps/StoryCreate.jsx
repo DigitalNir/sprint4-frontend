@@ -17,6 +17,8 @@ export function StoryCreate({ onCloseModal }) {
     const [text, setText] = useState('')
     // const [showEmojiPicker, setShowEmojiPicker] = useState(false)
     const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false)
+    const [fileError, setFileError] = useState('') // New state for file upload error
+
     const user = useSelector((storeState) => storeState.userModule.user)
 
     const dispatch = useDispatch()
@@ -41,7 +43,11 @@ export function StoryCreate({ onCloseModal }) {
     async function handleSubmit(ev) {
         try {
             ev.preventDefault()
-            if (!text && !previewUrl) return
+            if (!previewUrl) {
+                setFileError('File is required') // Set error message if no file
+                return
+            }
+            setFileError('') // Reset error message
 
             let storyToAdd = storyService.getEmptyStory()
 
@@ -128,15 +134,23 @@ export function StoryCreate({ onCloseModal }) {
                     Share
                 </h1>
             </header>
-            <form className="story-create-form flex " onSubmit={handleSubmit}>
+            <form className="story-create-form flex  " onSubmit={handleSubmit}>
                 {!previewUrl && (
-                    <input
-                        className="story-create-upload"
-                        type="file"
-                        onChange={handleFileChange}
-                        accept="image/*"
-                        required
-                    />
+                    <>
+                        <input
+                            className="story-create-upload"
+                            type="file"
+                            onChange={handleFileChange}
+                            accept="image/*"
+                            required
+                        />
+                        {fileError && (
+                            <div className="file-error-message">
+                                {fileError}
+                            </div>
+                        )}
+                        {/* Display error message */}
+                    </>
                 )}
                 {previewUrl && <img src={previewUrl} alt="Preview" />}
                 <div className="story-user-text-emoji ">
@@ -145,7 +159,6 @@ export function StoryCreate({ onCloseModal }) {
                         value={text}
                         placeholder="Write a caption..."
                         onChange={handleTextChange}
-                        required
                     />
 
                     {isEmojiModalOpen && (

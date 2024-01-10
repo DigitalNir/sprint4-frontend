@@ -57,6 +57,15 @@
                 cursor: pointer;
             }
         }
+
+        .file-error-message {
+            grid-column: 1/2;
+            color: red;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px;
+        }
+
         .story-create-upload {
             width: fit-content;
             height: fit-content;

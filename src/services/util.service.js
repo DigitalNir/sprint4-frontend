@@ -9,6 +9,13 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     formatTimestamp,
+    createLikeStr,
+}
+
+function createLikeStr(likedByLength) {
+    if (likedByLength > 1) return `${likedByLength} likes`
+    else if (likedByLength === 1) return `1 like`
+    else if (likedByLength === 0) return `Be the first to like this`
 }
 
 function makeId(length = 6) {

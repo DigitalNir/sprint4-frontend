@@ -85,6 +85,15 @@ li {
         &.like {
             mask-image: url('../../img/svg/notification.svg');
             -webkit-mask-image: url('../../img/svg/notification.svg');
+
+            &:hover {
+                // color: $clr-like;
+                // color: #ff3040 !important;
+                mask-image: url('../../img/svg/notification-active-like.svg');
+                -webkit-mask-image: url('../../img/svg/notification-active-like.svg');
+                background-color: #ff3040;
+                color: #ff3040;
+            }
         }
 
         &.comment {

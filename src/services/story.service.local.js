@@ -147,20 +147,28 @@ async function toggleLike(story) {
 
         const user = userService.getLoggedinUser()
         if (!user) {
-            console.log('Cannot add like - user is not logged in')
-            throw new Error('Cannot add like - user is not logged in')
+            console.error('Cannot toggle like - user is not logged in')
+            throw new Error('Cannot toggle like - user is not logged in')
         }
-        story.likedBy.push(user)
+
+        const userIdx = story.likedBy.findIndex((u) => u._id === user._id)
+
+        if (userIdx === -1) {
+            story.likedBy.push(user) // Add like
+            // console.log('Liked by user:', user)
+        } else {
+            story.likedBy.splice(userIdx, 1) // Remove like
+            // console.log('Unliked by user:', user)
+        }
+
+        // console.log('Updated story likedBy:', story.likedBy)
 
         const storyToUpdate = await storageService.put(STORAGE_KEY, story)
-        console.log('Story to update from service', storyToUpdate)
-        console.log(
-            'storyToUpdate.likedBy.length',
-            storyToUpdate.likedBy.length
-        )
+        console.log('Story updated in storage:', storyToUpdate)
+
         return storyToUpdate
     } catch (err) {
-        console.log('Cannot add like', err)
+        console.error('Cannot toggle like', err)
         throw err
     }
 }
