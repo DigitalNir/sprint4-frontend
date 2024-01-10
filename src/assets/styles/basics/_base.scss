@@ -83,16 +83,17 @@ li {
         background-color: #000000;
 
         &.like {
-            mask-image: url('../../img/svg/notification.svg');
-            -webkit-mask-image: url('../../img/svg/notification.svg');
+            background-image: url('../../img/svg/notification.svg');
 
+            background-color: white;
             &:hover {
-                // color: $clr-like;
-                // color: #ff3040 !important;
-                mask-image: url('../../img/svg/notification-active-like.svg');
-                -webkit-mask-image: url('../../img/svg/notification-active-like.svg');
-                background-color: #ff3040;
-                color: #ff3040;
+                color: #737373 !important;
+                background-color: white;
+            }
+
+            &.liked {
+                background-color: white;
+                background-image: url('../../img/svg/notification-active-like.svg');
             }
         }
 
