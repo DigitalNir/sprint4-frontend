@@ -7,6 +7,7 @@ import { StoryMoreOptions } from './storyMoreOptions'
 import { useSelector } from 'react-redux'
 export function StoryHeader({ story, cmpName }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const shouldRender = cmpName === 'StoryPreview' ? true : false
 
@@ -17,6 +18,8 @@ export function StoryHeader({ story, cmpName }) {
     function onCloseModal() {
         setIsModalOpen(false)
     }
+
+    const isShowMoreOptions = user._id === story.by._id
 
     return (
         <>
