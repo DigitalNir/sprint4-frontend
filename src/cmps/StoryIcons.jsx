@@ -1,8 +1,10 @@
+import { eventBus } from '../services/event-bus.service'
 import { storyService } from '../services/story.service.local'
 
 export function StoryIcons({ story }) {
     function handleLike() {
-        storyService.addLike(story)
+        storyService.toggleLike(story)
+        eventBus.emit('toggleLike', story)
     }
 
     return (

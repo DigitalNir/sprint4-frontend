@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getActionUpdateStory } from '../store/story.actions'
+import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
 import { useNavigate } from 'react-router'
 
 import EmojiPicker from 'emoji-picker-react'
@@ -41,7 +41,7 @@ export function StoryCreate({ onCloseModal }) {
     async function handleSubmit(ev) {
         try {
             ev.preventDefault()
-            if (!text || !previewUrl) return
+            if (!text && !previewUrl) return
 
             let storyToAdd = storyService.getEmptyStory()
 
@@ -55,7 +55,11 @@ export function StoryCreate({ onCloseModal }) {
                 '🚀 ~ file: StoryCreate.jsx:41 ~ handleSubmit ~ addedStory:',
                 addedStory
             )
-            dispatch(getActionUpdateStory(addedStory))
+            dispatch(getActionAddStory(addedStory))
+            console.log(
+                '🚀 ~ file: StoryCreate.jsx:65 ~ handleSubmit ~ addedStory:',
+                addedStory
+            )
             navigate('/')
             onCloseModal()
             console.log('Succesfuly added story')

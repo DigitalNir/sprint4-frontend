@@ -58,7 +58,11 @@
             }
         }
         .story-create-upload {
-            // border-block-start: 1px solid #dbdbdb;
+            width: fit-content;
+            height: fit-content;
+            background-color: red;
+            align-self: center;
+            // margin: 0 auto;
         }
         .story-create-textarea {
             border: none;

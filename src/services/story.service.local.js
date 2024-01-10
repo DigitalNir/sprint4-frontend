@@ -13,7 +13,7 @@ export const storyService = {
     getDefaultFilter,
     getEmptyStory,
     getEmptyComment,
-    addLike,
+    toggleLike,
 }
 window.storyService = storyService
 
@@ -141,7 +141,7 @@ function getEmptyComment() {
 }
 
 // Likes
-async function addLike(story) {
+async function toggleLike(story) {
     try {
         if (!story.likedBy) story.likedBy = []
 
@@ -154,6 +154,10 @@ async function addLike(story) {
 
         const storyToUpdate = await storageService.put(STORAGE_KEY, story)
         console.log('Story to update from service', storyToUpdate)
+        console.log(
+            'storyToUpdate.likedBy.length',
+            storyToUpdate.likedBy.length
+        )
         return storyToUpdate
     } catch (err) {
         console.log('Cannot add like', err)

@@ -2,13 +2,18 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { storyData } from '../services/story'
 import { useEffect } from 'react'
 
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import {
+    eventBus,
+    showErrorMsg,
+    showSuccessMsg,
+} from '../services/event-bus.service'
 import {
     loadStories,
     removeStory,
     addStory,
     updateStory,
     setStoryFilter,
+    getActionUpdateStory,
 } from '../store/story.actions'
 
 import { StoryList } from '../cmps/StoryList'
@@ -25,22 +30,15 @@ export function StoryIndex() {
     useEffect(() => {
         try {
             loadStories()
+            eventBus.on('toggleLike', (story) => {
+                console.log('from event bus', story)
+                dispatch(getActionUpdateStory(story))
+            })
         } catch (err) {
             console.log('err:', err)
-            showErrorMsg('Cannot load toys')
+            showErrorMsg('Cannot load stories')
         }
     }, [filterBy])
-
-    // async function onAddStory() {
-    //     const storyToAdd = storyService.getEmptyStory()
-    //     storyToAdd.txt = prompt('Story txt?')
-    //     try {
-    //         const addedStory = await addStory(storyToAdd)
-    //         showSuccessMsg(`Story added (id: ${addedStory._id})`)
-    //     } catch (err) {
-    //         showErrorMsg('Cannot add story', err)
-    //     }
-    // }
 
     if (!stories) return 'Loading...'
     return (

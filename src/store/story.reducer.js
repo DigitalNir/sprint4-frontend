@@ -22,7 +22,7 @@ export function storyReducer(state = initialState, action = {}) {
                 (a, b) => b.createdAt - a.createdAt
             )
             newState = { ...state, stories }
-            break
+            return newState
         case REMOVE_STORY:
             const lastRemovedStory = state.stories.find(
                 (story) => story._id === action.storyId
@@ -31,16 +31,21 @@ export function storyReducer(state = initialState, action = {}) {
                 (story) => story._id !== action.storyId
             )
             newState = { ...state, stories, lastRemovedStory }
-            break
+            return newState
         case ADD_STORY:
-            newState = { ...state, stories: [...state.stories, action.story] }
-            break
+            newState = { ...state, stories: [action.story, ...state.stories] }
+            console.log(
+                '🚀 ~ file: story.reducer.js:37 ~ storyReducer ~ action.story:',
+                action.story
+            )
+            console.log('newState.stories', newState.stories)
+            return newState
         case UPDATE_STORY:
             stories = state.stories.map((story) =>
                 story._id === action.story._id ? action.story : story
             )
             newState = { ...state, stories }
-            break
+            return newState
 
         case UNDO_REMOVE_STORY:
             if (state.lastRemovedStory) {
@@ -50,12 +55,13 @@ export function storyReducer(state = initialState, action = {}) {
                     lastRemovedStory: null,
                 }
             }
-            break
+            return newState
         //Filter
         case SET_FILTER_BY:
             newState = { ...state, filterBy: action.filterBy }
-            break
+            return newState
         default:
+            return initialState
     }
-    return newState
+    // return newState
 }
