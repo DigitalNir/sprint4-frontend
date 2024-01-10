@@ -72,8 +72,10 @@ export function StoryDetail({ story }) {
                         ))}
                     </div>
                 </div>
-                <StoryIcons story={story} />
-                <AddComment story={story} />
+                <div className="story-addcomment">
+                    <StoryIcons story={story} />
+                    <AddComment story={story} />
+                </div>
             </section>
         </>
     )

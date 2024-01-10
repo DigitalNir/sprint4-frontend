@@ -1,13 +1,18 @@
 import { useState } from 'react'
+import { useEffect } from 'react'
+
 import { eventBus } from '../services/event-bus.service'
 import { storyService } from '../services/story.service.local'
-import { utilService } from '../services/util.service'
 import { userService } from '../services/user.service'
+import { utilService } from '../services/util.service'
 
 export function StoryIcons({ story }) {
     const [isLiked, setIsLiked] = useState(
         story.likedBy.some((u) => u._id === userService.getLoggedinUser()._id)
     )
+    const [isAnimating, setIsAnimating] = useState(false)
+
+    // useEffect(() => {}, [isLiked])
 
     async function handleLike() {
         try {
@@ -18,6 +23,10 @@ export function StoryIcons({ story }) {
                 )
             )
 
+            setIsAnimating(true)
+            // setTimeout(() => setIsAnimating(false), 1000) // Reset animation state after 1 second
+            //  setIsAnimating(false)// Reset animation state after 1 second
+
             eventBus.emit('toggleLike', updatedStory)
         } catch (err) {
             console.error('Cannot toggle like', err)
@@ -26,9 +35,14 @@ export function StoryIcons({ story }) {
 
     let likeStr = utilService.createLikeStr(story.likedBy.length)
 
-    const iconLikeCls = `icon-img like ${isLiked ? 'liked' : ''}`
+    const iconLikeCls = `icon-img like ${isLiked ? 'liked' : ''} ${
+        isAnimating ? 'pulse' : ''
+    }`
+
+    // const iconLikeCls = `icon-img like ${isLiked ? 'liked' : ''} ${
+    //     isAnimating ? 'animate__animated animate__pulse animate__delay-1s' : ''
+    // }`
     const toggleLikeTitleCls = `${isLiked ? 'Unlike' : 'Like'}`
-    // debugger
     return (
         <>
             <div className="story-icons flex align-center">
