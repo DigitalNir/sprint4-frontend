@@ -40,8 +40,29 @@ async function getById(storyId) {
 }
 
 async function remove(storyId) {
-    // throw new Error('Nope')
-    await storageService.remove(STORAGE_KEY, storyId)
+    const user = userService.getLoggedinUser()
+
+    if (!user) {
+        console.error('Service -Cannot remove story - user is not logged in')
+        throw new Error('Service - Cannot remove story - user is not logged in')
+    }
+
+    const story = await getById(storyId)
+
+    if (story.by._id !== user._id) {
+        console.error('Service - Cannot remov story - this is not your story')
+        throw new Error(
+            'Service - Cannot remove story - this is not your story'
+        )
+    } else {
+        try {
+            await storageService.remove(STORAGE_KEY, storyId)
+            console.log('Service - Succesfuly removed story')
+        } catch (err) {
+            console.error('Service - Cannot remove story: ', err)
+            throw new Error('Service - Cannot remove story: ', err)
+        }
+    }
 }
 
 async function save(story) {

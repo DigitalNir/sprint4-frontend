@@ -4,6 +4,7 @@ import { utilService } from '../services/util.service'
 import { useState } from 'react'
 import { Modal } from './Modal'
 import { StoryMoreOptions } from './storyMoreOptions'
+import { useSelector } from 'react-redux'
 export function StoryHeader({ story, cmpName }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -45,6 +46,7 @@ export function StoryHeader({ story, cmpName }) {
                         </span>
                     )}
                 </div>
+
                 <img
                     className="icon-img more"
                     src={ThreeDots}
