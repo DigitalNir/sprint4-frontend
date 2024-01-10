@@ -4,8 +4,10 @@ import { utilService } from '../services/util.service'
 import { useState } from 'react'
 import { Modal } from './Modal'
 import { StoryMoreOptions } from './storyMoreOptions'
+import { useSelector } from 'react-redux'
 export function StoryHeader({ story, cmpName }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const user = useSelector((storeState) => storeState.userModule.user)
 
     const shouldRender = cmpName === 'StoryPreview' ? true : false
 
@@ -16,6 +18,8 @@ export function StoryHeader({ story, cmpName }) {
     function onCloseModal() {
         setIsModalOpen(false)
     }
+
+    const isShowMoreOptions = user._id === story.by._id
 
     return (
         <>
@@ -45,13 +49,15 @@ export function StoryHeader({ story, cmpName }) {
                         </span>
                     )}
                 </div>
-                <img
-                    className="icon-img more"
-                    src={ThreeDots}
-                    alt="More options"
-                    title="More options"
-                    onClick={onOpenModal}
-                />
+                {isShowMoreOptions && (
+                    <img
+                        className="icon-img more"
+                        src={ThreeDots}
+                        alt="More options"
+                        title="More options"
+                        onClick={onOpenModal}
+                    />
+                )}
             </div>
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={onCloseModal}>
