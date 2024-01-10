@@ -1,16 +1,19 @@
-import { useState } from 'react'
-
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
-import { useNavigate } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 
 import EmojiPicker from 'emoji-picker-react'
 
-import { storyService } from '../services/story.service.local'
 import Back from '../img/svg/back.svg'
 import { Modal } from './Modal'
 
+import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
+import { storyService } from '../services/story.service.local'
+
 export function StoryCreate({ onCloseModal }) {
+    const { storyId } = useParams()
+    const [story, setStory] = useState(storyService.getEmptyStory())
+
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
     const [text, setText] = useState('')
@@ -21,6 +24,18 @@ export function StoryCreate({ onCloseModal }) {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if (storyId) {
+            storyService.getById(storyId).then((fetchedStory) => {
+                setStory(fetchedStory)
+                setText(fetchedStory.txt)
+                setPreviewUrl(fetchedStory.imgUrl)
+            })
+        } else {
+            setStory(storyService.getEmptyStory())
+        }
+    }, [storyId])
 
     function handleFileChange(ev) {
         const file = ev.target.files[0]
@@ -39,41 +54,49 @@ export function StoryCreate({ onCloseModal }) {
     }
 
     async function handleSubmit(ev) {
+        ev.preventDefault()
+        if (!previewUrl && !storyId) {
+            setFileError('File is required') // Set error message if no file
+            return
+        }
+        setFileError('') // Reset error message
+
+        // let storyToAdd = storyService.getEmptyStory()
+
+        let storyToSave = {
+            ...story,
+            txt: text,
+            imgUrl: previewUrl,
+            by: user,
+        }
+        if (!storyId) {
+            storyToSave.createdAt = Date.now()
+        }
+
         try {
-            ev.preventDefault()
-            if (!previewUrl) {
-                setFileError('File is required') // Set error message if no file
-                return
+            const savedStory = await storyService.save(storyToSave)
+            if (storyId) {
+                dispatch(getActionUpdateStory(savedStory))
+            } else {
+                dispatch(getActionAddStory(savedStory))
             }
-            setFileError('') // Reset error message
-
-            let storyToAdd = storyService.getEmptyStory()
-
-            storyToAdd.createdAt = Date.now()
-            storyToAdd.by = user
-            storyToAdd.txt = text
-            storyToAdd.imgUrl = previewUrl
-
-            const addedStory = await onAddStory(storyToAdd)
-            dispatch(getActionAddStory(addedStory))
+            // onCloseModal()
             navigate('/')
-            onCloseModal()
-            console.log('Succesfuly added story')
         } catch (err) {
-            console.log('Cannot add story', err)
+            console.error('Cannot save story', err)
         }
     }
 
-    async function onAddStory(storyToAdd) {
-        try {
-            const addedStory = await storyService.save(storyToAdd)
-            return addedStory
-            // showSuccessMsg(`Story added (id: ${addedStory._id})`)
-        } catch (err) {
-            console.log('Cannot add story:', err)
-            // showErrorMsg('Cannot add story', err)
-        }
-    }
+    // async function onAddStory(storyToAdd) {
+    //     try {
+    //         const addedStory = await storyService.save(storyToAdd)
+    //         return addedStory
+    //         // showSuccessMsg(`Story added (id: ${addedStory._id})`)
+    //     } catch (err) {
+    //         console.log('Cannot add story:', err)
+    //         // showErrorMsg('Cannot add story', err)
+    //     }
+    // }
 
     function onBack() {
         navigate('/')

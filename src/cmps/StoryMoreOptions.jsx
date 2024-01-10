@@ -36,6 +36,15 @@ export function StoryMoreOptions({ onCloseModal, story }) {
         setIsStoryModalOpen(false) // Close the modal
     }
 
+    // Handler for navigating to the edit page
+    const handleEditStory = () => {
+        console.log(
+            'navigating from StoryMoreOptions to: ',
+            `/story/edit/${story._id}`
+        )
+        navigate(`/story/edit/${story._id}`)
+    }
+
     const isShowDeleteEdit = user._id === story.by._id
 
     return (
@@ -49,7 +58,7 @@ export function StoryMoreOptions({ onCloseModal, story }) {
                     >
                         Delete
                     </li>
-                    <li>Edit</li>
+                    <li onClick={handleEditStory}>Edit</li>
                 </>
             )}
 

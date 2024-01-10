@@ -80,6 +80,7 @@ async function save(story) {
         // story.by = userService.getLoggedinUser()
         try {
             savedStory = await storageService.post(STORAGE_KEY, story)
+
             console.log('Service - Succesfuly created new story')
         } catch (err) {
             throw new Error('Service - Cannot create new story: ', err)
