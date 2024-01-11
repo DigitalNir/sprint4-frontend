@@ -12,7 +12,7 @@ export const userService = {
     getUsers,
     getById,
     remove,
-    update,
+    // update,
     getByFullName,
 }
 
@@ -42,17 +42,19 @@ function remove(userId) {
     // return httpService.delete(`user/${userId}`)
 }
 
-async function update({ _id, score }) {
-    const user = await storageService.get('user', _id)
-    user.score = score
-    await storageService.put('user', user)
+// TODO - I might need to uncomment later on, and refactor to allow Editing User Profile
 
-    // const user = await httpService.put(`user/${_id}`, {_id, score})
+// async function update({ _id, score }) {
+//     const user = await storageService.get('user', _id)
+//     user.score = score
+//     await storageService.put('user', user)
 
-    // When admin updates other user's details, do not update loggedinUser
-    if (getLoggedinUser()._id === user._id) saveLocalUser(user)
-    return user
-}
+//     // const user = await httpService.put(`user/${_id}`, {_id, score})
+
+//     // When admin updates other user's details, do not update loggedinUser
+//     if (getLoggedinUser()._id === user._id) saveLocalUser(user)
+//     return user
+// }
 
 async function login(userCred) {
     const users = await storageService.query('user')
@@ -62,13 +64,20 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
-    if (!userCred.imgUrl)
-        userCred.imgUrl =
-            'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    userCred.score = 10000
-    const user = await storageService.post('user', userCred)
-    // const user = await httpService.post('auth/signup', userCred)
-    return saveLocalUser(user)
+    userCred = {
+        ...userCred,
+        following: [],
+        followers: [],
+        savedStoryIds: [],
+        imgUrl:
+            userCred.imgUrl ||
+            'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
+    }
+
+    const newUser = await storageService.post('user', userCred)
+    // const newUser = await httpService.post('auth/signup', userCred)
+
+    return saveLocalUser(newUser)
 }
 
 async function logout() {
@@ -85,14 +94,21 @@ async function logout() {
 // }
 
 function saveLocalUser(user) {
-    user = {
+    const userForSession = {
         _id: user._id,
+        username: user.username,
         fullname: user.fullname,
         imgUrl: user.imgUrl,
-        score: user.score,
+        following: user.following,
+        followers: user.followers,
+        savedStoryIds: user.savedStoryIds,
     }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-    return user
+
+    sessionStorage.setItem(
+        STORAGE_KEY_LOGGEDIN_USER,
+        JSON.stringify(userForSession)
+    )
+    return userForSession
 }
 
 function getLoggedinUser() {
