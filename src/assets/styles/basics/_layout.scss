@@ -29,16 +29,17 @@
 }
 
 .main-container {
-    flex: 0.8;
+    // flex: 0.8;
     justify-content: center;
 
     .story-index {
         margin-top: 132px;
-        flex: 0.7;
+
+        // flex: 0.7;
     }
     .suggestion {
         margin-top: 108px;
-        flex: 0.3;
+        // flex: 0.3;
     }
 }
 

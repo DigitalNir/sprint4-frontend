@@ -39,6 +39,13 @@ footer {
     // padding: 5px;
 }
 
+main {
+    // display: grid; // Asi
+    grid-template-columns: 335px 1fr; // Asi
+    gap: 23px; // Asi
+    justify-items: center; // Nir
+}
+
 img {
     width: 100%;
 }
