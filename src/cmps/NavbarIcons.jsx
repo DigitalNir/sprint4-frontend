@@ -7,6 +7,7 @@ import Notification from '../img/svg/notification.svg'
 import Create from '../img/svg/create.svg'
 import More from '../img/svg/more.svg'
 import { Avatar } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 const iconsData = [
     { name: 'home', src: Home, alt: 'Home', title: 'Home' },
@@ -26,6 +27,8 @@ const iconsData = [
 ]
 
 export function NavBarIcons({ handleIconClick, activeLink }) {
+    const user = useSelector((storeState) => storeState.userModule.user)
+
     return (
         <>
             {iconsData.map((icon) => (
@@ -37,7 +40,9 @@ export function NavBarIcons({ handleIconClick, activeLink }) {
                     onClick={() => handleIconClick(icon.name)}
                 >
                     {icon.name === 'profile' ? (
-                        <Avatar className="avatar">N</Avatar>
+                        <Avatar className="avatar">
+                            {user.fullname.charAt(0)}
+                        </Avatar>
                     ) : (
                         <img
                             className={`icon-img`}
