@@ -102,11 +102,6 @@
             gap: 50px;
             justify-content: center;
 
-            .active {
-                border-top: 1px solid #000;
-                color: #000;
-            }
-
             .profile-pics-link {
                 align-items: center;
                 color: #c4c4c4;
@@ -121,6 +116,12 @@
                 justify-content: center;
                 letter-spacing: 2px;
                 line-height: 18px;
+
+                &.active {
+                    border-top: 1px solid #000;
+
+                    color: #000;
+                }
             }
         }
     }

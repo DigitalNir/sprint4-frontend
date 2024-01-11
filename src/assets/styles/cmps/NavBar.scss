@@ -76,13 +76,18 @@
 
 @media only screen and (max-width: 766px) {
     main {
-        grid-template-columns: 1fr;
+        display: flex;
     }
     .homepage {
+        width: 100%;
         grid-template-columns: minmax(auto, 20px) 1fr minmax(auto, 20px);
         overflow-x: hidden;
         .suggestion {
             display: none;
+        }
+        .story-interaction-container {
+            padding-inline-start: 10px;
+            padding-inline-end: 10px;
         }
     }
 
