@@ -87,7 +87,10 @@ export function StoryMoreOptions({ onCloseModal, story }) {
                     onClose={handleCloseStoryCreateModal}
                 >
                     {/* Modal content here */}
-                    <StoryCreate story={story} />
+                    <StoryCreate
+                        storyProp={story}
+                        onCloseModal={handleCloseStoryCreateModal}
+                    />
                 </Modal>
             )}
         </ul>

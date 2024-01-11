@@ -30,8 +30,8 @@ export function StoryCreate({ onCloseModal, storyProp }) {
     useEffect(() => {
         console.log(storyProp, 'StoryProp')
         if (storyProp) {
-            setText(story.txt)
-            setPreviewUrl(story.imgUrl)
+            setText(storyProp.txt)
+            setPreviewUrl(storyProp.imgUrl)
         }
     }, [])
 
