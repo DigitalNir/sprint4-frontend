@@ -71,9 +71,13 @@
     left: 12px;
     bottom: 3px;
     margin-block-end: 24px;
+    max-width: 220px;
 }
 
 @media only screen and (max-width: 766px) {
+    main {
+        grid-template-columns: 1fr;
+    }
     .homepage {
         grid-template-columns: minmax(auto, 20px) 1fr minmax(auto, 20px);
         overflow-x: hidden;
@@ -85,15 +89,19 @@
     .nav-bar {
         // position: fixed;
         // min-width: 72px;
+        padding: 5px 0px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 1px 1px 1px 1px #000; // delete later
         max-width: 100%;
         flex-direction: row;
         // flex: 0.05;
         position: fixed;
         height: fit-content;
-        width: 100vw;
+        width: 100%;
         top: unset;
         bottom: 0;
-        border: 0;
         z-index: 1000;
 
         .logo-container {
@@ -114,11 +122,16 @@
         // }
 
         .icons-row {
+            width: 100%;
+            justify-content: space-evenly;
             &.more,
             &.explore,
             &.message,
             &.notification {
                 display: none;
+            }
+            &:hover {
+                background-color: unset;
             }
         }
 

@@ -42,8 +42,8 @@ export function StoryIndex() {
 
     if (!stories) return 'Loading...'
     return (
-        <main className="story-index">
+        <section className="story-index">
             <StoryList storyData={stories} />
-        </main>
+        </section>
     )
 }

@@ -43,14 +43,16 @@ export function HomePage() {
         return <LoginSignup onLogin={onLogin} onSignup={onSignup} />
     else {
         return (
-            <section className="homepage">
-                {/* <AppHeader /> */}
+            <>
                 <NavBar />
-                <section className="main-container flex">
-                    <StoryIndex />
-                    <Suggestion />
+                <section className="homepage">
+                    {/* <AppHeader /> */}
+                    <section className="main-container flex">
+                        <StoryIndex />
+                        <Suggestion />
+                    </section>
                 </section>
-            </section>
+            </>
         )
     }
 }

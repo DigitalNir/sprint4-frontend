@@ -35,118 +35,107 @@ export function ProfilePage() {
     return (
         <>
             <NavBar />
-            <main className="contant-container">
-                <div className="profile-page flex column">
-                    <div className="profile-container">
-                        <header className="profile-header flex">
-                            <div className="profile-photo">
-                                <img
-                                    src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
-                                    alt="Profile image"
-                                    title="Profile image"
-                                />
-                            </div>
-                            <div className="profile-info flex column">
-                                <div className="profile-info-header flex">
-                                    <a>User Full Name</a>
-                                    <div className="flex">
-                                        <button className="follow">
-                                            Follow
-                                        </button>
-                                        <button>Message</button>
-                                    </div>
-                                </div>
-
-                                <div className="user-info flex">
-                                    <section>
-                                        <a className="user-number">555</a>
-                                        <a> posts</a>
-                                    </section>
-
-                                    <section>
-                                        <a className="user-number">666</a>
-                                        <a> followers</a>
-                                    </section>
-
-                                    <section>
-                                        <a className="user-number">999</a>
-                                        <a> following</a>
-                                    </section>
-                                </div>
-
-                                <div className="user-bio flex">
-                                    <a className="user-name">
-                                        Moshe-UserName-placeholder
-                                    </a>
-                                    <a className="bio"></a>
+            {/* <main className="contant-container"> */}
+            <div className="profile-page flex column">
+                <div className="profile-container">
+                    <header className="profile-header flex">
+                        <div className="profile-photo">
+                            <img
+                                src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+                                alt="Profile image"
+                                title="Profile image"
+                            />
+                        </div>
+                        <div className="profile-info flex column">
+                            <div className="profile-info-header flex">
+                                <a>User Full Name</a>
+                                <div className="flex">
+                                    <button className="follow">Follow</button>
+                                    <button>Message</button>
                                 </div>
                             </div>
-                        </header>
-                    </div>
-                    <main className="content-container">
-                        <div className="profile-links flex">
-                            <div className="profile-pics-link active">
-                                <a className="posts-icon">
-                                    <img
-                                        src={ProfilePostsSvg}
-                                        alt="Posts icon"
-                                    />
-                                </a>
-                                <span>POSTS</span>
+
+                            <div className="user-info flex">
+                                <section>
+                                    <a className="user-number">555</a>
+                                    <a> posts</a>
+                                </section>
+
+                                <section>
+                                    <a className="user-number">666</a>
+                                    <a> followers</a>
+                                </section>
+
+                                <section>
+                                    <a className="user-number">999</a>
+                                    <a> following</a>
+                                </section>
                             </div>
 
-                            <div className="profile-pics-link">
-                                <a className="posts-icon">
-                                    <img
-                                        src={ProfileSavedSvg}
-                                        alt="Saved icon"
-                                    />
+                            <div className="user-bio flex">
+                                <a className="user-name">
+                                    Moshe-UserName-placeholder
                                 </a>
-                                <span>SAVED</span>
-                            </div>
-
-                            <div className="profile-pics-link">
-                                <a className="posts-icon">
-                                    <img
-                                        src={ProfileTaggedSvg}
-                                        alt="Tagged icon"
-                                    />
-                                </a>
-                                <span>TAGGED</span>
+                                <a className="bio"></a>
                             </div>
                         </div>
-                        <div className="profile-stories">
-                            <div className="story">
-                                <div className="post-info flex">
-                                    <div className="likes-comm">
-                                        <div className="flex">
-                                            <i
-                                                className="fa-solid fa-heart"
-                                                aria-hidden="true"
-                                            ></i>
-                                            <span>0</span>
-                                        </div>
-
-                                        <div className="flex">
-                                            <i
-                                                className="fa-solid fa-comment"
-                                                aria-hidden="true"
-                                            ></i>
-                                            <span>0</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <img src="https://res.cloudinary.com/dg4wljfe6/image/upload/v1704300860/my-meme_15_vqimir.png"></img>
-                            </div>
-                        </div>
-                    </main>
+                    </header>
                 </div>
-            </main>
-            <script
+                <main className="content-container">
+                    <div className="profile-links flex">
+                        <div className="profile-pics-link active">
+                            <a className="posts-icon">
+                                <img src={ProfilePostsSvg} alt="Posts icon" />
+                            </a>
+                            <span>POSTS</span>
+                        </div>
+
+                        <div className="profile-pics-link">
+                            <a className="posts-icon">
+                                <img src={ProfileSavedSvg} alt="Saved icon" />
+                            </a>
+                            <span>SAVED</span>
+                        </div>
+
+                        <div className="profile-pics-link">
+                            <a className="posts-icon">
+                                <img src={ProfileTaggedSvg} alt="Tagged icon" />
+                            </a>
+                            <span>TAGGED</span>
+                        </div>
+                    </div>
+                    <div className="profile-stories">
+                        <div className="story">
+                            <div className="post-info flex">
+                                <div className="likes-comm">
+                                    <div className="flex">
+                                        <i
+                                            className="fa-solid fa-heart"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span>0</span>
+                                    </div>
+
+                                    <div className="flex">
+                                        <i
+                                            className="fa-solid fa-comment"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span>0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <img src="https://res.cloudinary.com/dg4wljfe6/image/upload/v1704300860/my-meme_15_vqimir.png"></img>
+                        </div>
+                    </div>
+                </main>
+            </div>
+            {/* </main> */}
+            {/* <script
                 src="https://kit.fontawesome.com/7de500428a.js"
                 crossOrigin="anonymous"
-            ></script>
+            ></script> */}
         </>
     )
 }

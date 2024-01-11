@@ -2,7 +2,7 @@
     height: 100vh;
     // width: 100%; // Asi
 
-    justify-content: center;
+    // justify-content: center;
 
     .profile-container {
         // height: 100vh; // Asi
@@ -14,6 +14,8 @@
         display: grid; // Asi
         grid-template-columns: auto 1fr; // Asi
         gap: 20px;
+        align-items: center;
+
         // justify-content: space-around; // Asi
         margin-bottom: 44px;
         // margin-left: 50px; // Asi
@@ -92,6 +94,8 @@
     }
 
     .content-container {
+        display: flex;
+        flex-direction: column;
         border-top: 1px solid #c4c4c4;
 
         .profile-links {
