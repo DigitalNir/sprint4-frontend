@@ -12,9 +12,9 @@ import { storyService } from '../services/story.service.local'
 
 export function StoryCreate({ onCloseModal, storyProp }) {
     // const { storyId } = useParams()
-    const [story, setStory] = storyProp
-        ? useState(storyProp)
-        : useState(storyService.getEmptyStory())
+    const [story, setStory] = useState(
+        storyProp || storyService.getEmptyStory()
+    )
 
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
@@ -32,6 +32,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
         if (storyProp) {
             setText(storyProp.txt)
             setPreviewUrl(storyProp.imgUrl)
+            setStory({ ...story, ...storyProp })
         }
     }, [])
 
@@ -53,7 +54,8 @@ export function StoryCreate({ onCloseModal, storyProp }) {
 
     async function handleSubmit(ev) {
         ev.preventDefault()
-        if (!previewUrl && !storyId) {
+        if (!previewUrl && !story._id) {
+            // If no Id exists, we are in Create mode and not. So File is required.
             setFileError('File is required') // Set error message if no file
             return
         }
@@ -67,18 +69,18 @@ export function StoryCreate({ onCloseModal, storyProp }) {
             imgUrl: previewUrl,
             by: user,
         }
-        if (!storyId) {
+        if (!storyToSave._id) {
             storyToSave.createdAt = Date.now()
         }
 
         try {
             const savedStory = await storyService.save(storyToSave)
-            if (storyId) {
+            if (storyToSave._id) {
                 dispatch(getActionUpdateStory(savedStory))
             } else {
                 dispatch(getActionAddStory(savedStory))
             }
-            // onCloseModal()
+            onCloseModal()
             navigate('/')
         } catch (err) {
             console.error('Cannot save story', err)
