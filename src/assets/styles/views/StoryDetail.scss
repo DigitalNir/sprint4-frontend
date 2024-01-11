@@ -20,6 +20,10 @@
         overflow: auto;
         height: 555px;
 
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
         p {
             margin: 0;
         }
