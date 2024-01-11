@@ -19,7 +19,7 @@ export function StoryHeader({ story, cmpName }) {
         setIsModalOpen(false)
     }
 
-    const isShowMoreOptions = user._id === story.by._id
+    // const isShowMoreOptions = user._id === story.by._id
 
     return (
         <>

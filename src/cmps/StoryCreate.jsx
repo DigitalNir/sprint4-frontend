@@ -120,6 +120,8 @@ export function StoryCreate({ onCloseModal, storyProp }) {
         setIsEmojiModalOpen(false)
     }
 
+    const actionStr = story._id ? 'Done' : 'Share'
+
     return (
         <div className="story-create">
             <header className="story-create-header flex ">
@@ -134,9 +136,9 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                 <h1
                     className="create-post-share"
                     onClick={handleSubmit}
-                    title="Share"
+                    title={actionStr}
                 >
-                    Share
+                    {actionStr}
                 </h1>
             </header>
             <form className="story-create-form flex  " onSubmit={handleSubmit}>
