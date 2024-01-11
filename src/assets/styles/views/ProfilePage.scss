@@ -1,0 +1,90 @@
+.profile-page {
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+
+    .profile-container {
+        height: 100vh;
+        padding: 30px 0;
+        width: 961px;
+    }
+
+    .profile-header {
+        gap: 20px;
+        justify-content: space-around;
+        margin-bottom: 44px;
+        margin-left: 50px;
+
+        .profile-photo {
+            margin-right: 30px;
+            padding: 0 40px;
+
+            img {
+                border-radius: 50%;
+                height: 150px;
+                object-fit: cover;
+                width: 150px;
+            }
+        }
+
+        .profile-info {
+            font-family: Segoe UI;
+            font-size: 16px;
+            gap: 15px;
+            padding-right: 50px;
+            width: 100%;
+
+            .profile-info-header {
+                align-items: center;
+                display: flex;
+                gap: 20px;
+                padding-bottom: 15px;
+
+                a {
+                    font-size: 20px;
+                }
+
+                div {
+                    gap: 10px;
+                }
+
+                .follow {
+                    background-color: #0095f6;
+                    color: #fff;
+                }
+
+                button {
+                    background: #efefef;
+                    border: none;
+                    border-radius: 7px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    font-weight: 600;
+                    height: 32px;
+                    width: 105px;
+                }
+            }
+
+            .user-info {
+                margin-block-end: 10px;
+
+                section {
+                    margin-right: 40px;
+                    .user-number {
+                        font-weight: 600;
+                    }
+                }
+            }
+
+            .user-bio {
+                display: flex;
+                flex-direction: column;
+                font-size: 15px;
+
+                .user-name {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

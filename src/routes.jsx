@@ -1,5 +1,6 @@
 import { StoryCreate } from './cmps/StoryCreate.jsx'
 import { HomePage } from './pages/HomePage.jsx'
+import { ProfilePage } from './pages/ProfilePage.jsx'
 import { StoryDetail } from './pages/StoryDetail.jsx'
 import { StoryIndex } from './pages/StoryIndex.jsx'
 
@@ -28,6 +29,11 @@ const routes = [
         path: '/story/:storyId',
         component: <StoryDetail />,
         label: 'Story Detail',
+    },
+    {
+        path: '/user/:userFullName',
+        component: <ProfilePage />,
+        label: 'User Profile',
     },
 ]
 

@@ -13,7 +13,7 @@ export const userService = {
     getById,
     remove,
     update,
-    // changeScore,
+    getByFullname,
 }
 
 window.userService = userService
@@ -21,6 +21,11 @@ window.userService = userService
 function getUsers() {
     return storageService.query('user')
     // return httpService.get(`user`)
+}
+
+async function getByFullname(fullname) {
+    const users = await storageService.query('user')
+    return users.find((user) => user.fullname === fullname)
 }
 
 async function getById(userId) {

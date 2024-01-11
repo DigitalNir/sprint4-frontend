@@ -14,6 +14,7 @@ export const storyService = {
     getEmptyStory,
     getEmptyComment,
     toggleLike,
+    getUserStories,
 }
 window.storyService = storyService
 
@@ -204,4 +205,13 @@ async function toggleLike(story) {
         console.error('Cannot toggle like', err)
         throw err
     }
+}
+
+async function getUserStories(userId) {
+    let stories = await storageService.query(STORAGE_KEY)
+
+    // Filter stories where 'by._id' matches the given userId
+    const userStories = stories.filter((story) => story.by._id === userId)
+
+    return userStories
 }
