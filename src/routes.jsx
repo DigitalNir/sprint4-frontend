@@ -6,6 +6,11 @@ import { StoryIndex } from './pages/StoryIndex.jsx'
 
 const routes = [
     {
+        path: '*',
+        component: <HomePage />,
+        label: 'Home 🏠',
+    },
+    {
         path: '/',
         component: <HomePage />,
         label: 'Home 🏠',
@@ -15,11 +20,11 @@ const routes = [
         component: <StoryIndex />,
         label: 'Stories',
     },
-    {
-        path: '/story/edit',
-        component: <StoryCreate />,
-        label: 'Create Story',
-    },
+    // {
+    //     path: '/story/edit',
+    //     component: <StoryCreate />,
+    //     label: 'Create Story',
+    // },
     {
         path: '/story/edit/:storyId',
         component: <StoryCreate />,
@@ -31,7 +36,7 @@ const routes = [
         label: 'Story Detail',
     },
     {
-        path: '/user/:userFullName',
+        path: '/user/:fullname',
         component: <ProfilePage />,
         label: 'User Profile',
     },

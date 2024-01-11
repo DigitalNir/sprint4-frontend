@@ -23,6 +23,10 @@ export function NavBar() {
         if (linkName === 'profile') {
             navigate(`/user/${user.fullname}`)
         }
+
+        if (linkName === 'home') {
+            navigate(`/`)
+        }
     }
 
     const handleCloseModal = () => {

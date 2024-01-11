@@ -5,10 +5,12 @@ import { getActionRemoveStory } from '../store/story.actions'
 import { useState } from 'react'
 import { Modal } from './Modal'
 import { StoryDetail } from '../pages/StoryDetail'
+import { StoryCreate } from './StoryCreate'
 
 export function StoryMoreOptions({ onCloseModal, story }) {
     const user = useSelector((storeState) => storeState.userModule.user)
     const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
+    const [isStoryCreateModalOpen, setIsStoryCreateModalOpen] = useState(false)
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -36,13 +38,18 @@ export function StoryMoreOptions({ onCloseModal, story }) {
         setIsStoryModalOpen(false) // Close the modal
     }
 
+    function handleCloseStoryCreateModal() {
+        setIsStoryCreateModalOpen(false) // Close the modal
+    }
+
     // Handler for navigating to the edit page
     const handleEditStory = () => {
-        console.log(
-            'navigating from StoryMoreOptions to: ',
-            `/story/edit/${story._id}`
-        )
-        navigate(`/story/edit/${story._id}`)
+        // console.log(
+        //     'navigating from StoryMoreOptions to: ',
+        //     `/story/edit/${story._id}`
+        // )
+        // navigate(`/story/edit/${story._id}`)
+        setIsStoryCreateModalOpen(true)
     }
 
     const isShowDeleteEdit = user._id === story.by._id
@@ -71,6 +78,16 @@ export function StoryMoreOptions({ onCloseModal, story }) {
                 >
                     {/* Modal content here */}
                     <StoryDetail story={story} />
+                </Modal>
+            )}
+
+            {isStoryCreateModalOpen && (
+                <Modal
+                    isOpen={isStoryCreateModalOpen}
+                    onClose={handleCloseStoryCreateModal}
+                >
+                    {/* Modal content here */}
+                    <StoryCreate story={story} />
                 </Modal>
             )}
         </ul>

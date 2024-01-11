@@ -87,4 +87,80 @@
             }
         }
     }
+
+    .content-container {
+        border-top: 1px solid #c4c4c4;
+
+        .profile-links {
+            gap: 50px;
+            justify-content: center;
+
+            .active {
+                border-top: 1px solid #000;
+                color: #000;
+            }
+
+            .profile-pics-link {
+                align-items: center;
+                color: #c4c4c4;
+                cursor: pointer;
+                display: flex;
+                font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+                    Helvetica, Arial, sans-serif;
+                font-size: 12px;
+                font-weight: 600;
+                gap: 5px;
+                height: 52px;
+                justify-content: center;
+                letter-spacing: 2px;
+                line-height: 18px;
+            }
+        }
+    }
+
+    .profile-stories {
+        grid-gap: 20px;
+        display: grid;
+        flex-wrap: wrap;
+        gap: 20px;
+        grid-template-columns: 1fr 1fr 1fr;
+        max-width: 961px;
+        padding-bottom: 50px;
+
+        img {
+            height: 307px;
+            object-fit: cover;
+            width: 307px;
+        }
+
+        .post-info {
+            height: 307px;
+            position: absolute;
+            width: 307px;
+
+            //special - check if this is here
+            border-left: 1px solid #dbdbdb;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .likes-comm {
+                display: none;
+            }
+
+            div {
+                align-items: center;
+                display: flex;
+                gap: 5px;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+@media (min-width: 500px) {
+    .contant-container {
+        margin-left: 245px;
+        width: 100%;
+    }
 }

@@ -10,9 +10,11 @@ import { Modal } from './Modal'
 import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
 import { storyService } from '../services/story.service.local'
 
-export function StoryCreate({ onCloseModal }) {
-    const { storyId } = useParams()
-    const [story, setStory] = useState(storyService.getEmptyStory())
+export function StoryCreate({ onCloseModal, storyProp }) {
+    // const { storyId } = useParams()
+    const [story, setStory] = storyProp
+        ? useState(storyProp)
+        : useState(storyService.getEmptyStory())
 
     const [image, setImage] = useState(null)
     const [previewUrl, setPreviewUrl] = useState('')
@@ -26,16 +28,12 @@ export function StoryCreate({ onCloseModal }) {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (storyId) {
-            storyService.getById(storyId).then((fetchedStory) => {
-                setStory(fetchedStory)
-                setText(fetchedStory.txt)
-                setPreviewUrl(fetchedStory.imgUrl)
-            })
-        } else {
-            setStory(storyService.getEmptyStory())
+        console.log(storyProp, 'StoryProp')
+        if (storyProp) {
+            setText(story.txt)
+            setPreviewUrl(story.imgUrl)
         }
-    }, [storyId])
+    }, [])
 
     function handleFileChange(ev) {
         const file = ev.target.files[0]
