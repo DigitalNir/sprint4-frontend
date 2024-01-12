@@ -19,6 +19,7 @@ export const userService = {
     getByUsername,
     createEmptyUser,
     getUsernameById,
+    toggleFollow,
 }
 
 window.userService = userService
@@ -31,7 +32,6 @@ async function getUsers() {
 async function getUsernameById(userId) {
     try {
         const users = await storageService.query('user')
-        console.log('🚀 ~ getUsernameById ~ users:', users)
         const user = users.find((user) => user._id === userId)
         console.log('User Service - getUserNameById', user.username)
         return user.username
@@ -103,13 +103,41 @@ async function logout() {
     // return await httpService.post('auth/logout')
 }
 
-// async function changeScore(by) {
-//     const user = getLoggedinUser()
-//     if (!user) throw new Error('Not loggedin')
-//     user.score = user.score + by || by
-//     await update(user)
-//     return user.score
-// }
+async function toggleFollow(userIdToToggleFollow) {
+    try {
+        const loggedinUser = userService.getLoggedinUser()
+
+        if (!loggedinUser) {
+            console.error('Cannot toggle follow - user is not logged in')
+            throw new Error('Cannot toggle follow - user is not logged in')
+        }
+
+        const users = await getUsers()
+
+        const userToFollow = users.find(
+            (user) => user._id === userIdToToggleFollow
+        )
+
+        if (!userToFollow.followers) userToFollow.followers = []
+
+        const loggedinUserIdx = userToFollow.followers.findIndex(
+            (follower) => follower._id === loggedinUser._id
+        )
+
+        if (loggedinUserIdx === -1) userToFollow.followers.push(loggedinUser)
+        else userToFollow.followers.splice(loggedinUserIdx, 1)
+
+        const userToUpdate = await storageService.put('user', userToFollow)
+        console.log(
+            'User Service - toggleFollow - User updated in storage:',
+            userToUpdate
+        )
+        return userToUpdate
+    } catch (err) {
+        console.error('User Service - Cannot toggle follow', err)
+        throw err
+    }
+}
 
 function saveLocalUser(user) {
     const userForSession = {
@@ -160,13 +188,5 @@ async function _createUsers() {
         return users
     } catch (err) {
         console.error('Error: cannot create users from demo data', err)
-        // Consider how I want to handle the error.
-        // Maybe set storyData to localStorage in case of an error?
     }
 }
-
-// ;(async ()=>{
-//     await userService.signup({fullname: 'Puki Norma', username: 'puki', password:'123',score: 10000, isAdmin: false})
-//     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
-//     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
-// })()

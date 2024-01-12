@@ -34,10 +34,7 @@ export function storyReducer(state = initialState, action = {}) {
             return newState
         case ADD_STORY:
             newState = { ...state, stories: [action.story, ...state.stories] }
-            console.log(
-                '🚀 ~ file: story.reducer.js:37 ~ storyReducer ~ action.story:',
-                action.story
-            )
+
             console.log('newState.stories', newState.stories)
             return newState
         case UPDATE_STORY:

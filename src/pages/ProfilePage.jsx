@@ -26,9 +26,7 @@ export function ProfilePage() {
     useEffect(() => {
         async function fetchUser() {
             try {
-                console.log('username', username)
                 const fetchedUser = await userService.getByUsername(username)
-                console.log('🚀 ~ fetchUser ~ fetchedUser:', fetchedUser)
                 if (fetchedUser) setUser(fetchedUser)
                 else console.log('ProfilePage cmp - User not found')
             } catch {
@@ -59,7 +57,6 @@ export function ProfilePage() {
     }, [user])
 
     function onSelectStory(selectedStory) {
-        console.log('🚀 ~ onSelectStory ~ selectedStory:', selectedStory)
         if (selectedStory) {
             setSelectedStory(selectedStory)
             setIsModalOpen(true) // Opens the modal
@@ -69,6 +66,15 @@ export function ProfilePage() {
     function handleCloseModal() {
         setSelectedStory({})
         setIsModalOpen(false) // Close the modal
+    }
+
+    async function handleToggleFollow() {
+        try {
+            const updatedUser = await userService.toggleFollow(user._id)
+            setUser({ ...user, ...updatedUser })
+        } catch (err) {
+            console.error('Profile Page Cmp - cannot toggle follow')
+        }
     }
 
     const isAnotherUserMode = username !== loggedinUser.username
@@ -91,7 +97,10 @@ export function ProfilePage() {
                                 <a>{username}</a>
                                 {isAnotherUserMode && (
                                     <div className="flex">
-                                        <button className="follow">
+                                        <button
+                                            className="follow"
+                                            onClick={handleToggleFollow}
+                                        >
                                             Follow
                                         </button>
                                         <button>Message</button>
