@@ -208,10 +208,18 @@ async function toggleLike(story) {
 }
 
 async function getUserStories(userId) {
-    let stories = await storageService.query(STORAGE_KEY)
+    try {
+        let stories = await storageService.query(STORAGE_KEY)
 
-    // Filter stories where 'by._id' matches the given userId
-    const userStories = stories.filter((story) => story.by._id === userId)
-
-    return userStories
+        // Filter stories where 'by._id' matches the given userId
+        const userStories = stories.filter((story) => story.by._id === userId)
+        console.log('Story Service - Succesfuly retrieved user stories')
+        return userStories
+    } catch (err) {
+        console.error(
+            'Story Service - getUserStories - Cannot get user stories:',
+            err
+        )
+        throw err
+    }
 }

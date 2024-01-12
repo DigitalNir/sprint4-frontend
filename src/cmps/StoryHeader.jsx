@@ -7,8 +7,11 @@ import { StoryMoreOptions } from './storyMoreOptions'
 import { useSelector } from 'react-redux'
 import { userService } from '../services/user.service'
 import { useEffect } from 'react'
+import { StoryDetail } from '../pages/StoryDetail'
 export function StoryHeader({ story, cmpName }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isStoryMoreOptionsModalOpen, setIsStoryMoreOptionsModalOpen] =
+        useState(false)
+    const [isStoryDetailModalOpen, setIsStoryDetailModalOpen] = useState(false)
     const [username, setUsername] = useState('') // State for username
 
     const shouldRender = cmpName === 'StoryPreview' ? true : false
@@ -34,12 +37,12 @@ export function StoryHeader({ story, cmpName }) {
         fetchStoryUsername()
     }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
 
-    function onOpenModal() {
-        setIsModalOpen(true)
+    function onOpenStoryMoreOptionsModal() {
+        setIsStoryMoreOptionsModalOpen(true)
     }
 
-    function onCloseModal() {
-        setIsModalOpen(false)
+    function onCloseStoryMoreOptionsModal() {
+        setIsStoryMoreOptionsModalOpen(false)
     }
 
     return (
@@ -74,14 +77,30 @@ export function StoryHeader({ story, cmpName }) {
                     src={ThreeDots}
                     alt="More options"
                     title="More options"
-                    onClick={onOpenModal}
+                    onClick={onOpenStoryMoreOptionsModal}
                 />
             </div>
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={onCloseModal}>
+            {isStoryMoreOptionsModalOpen && (
+                <Modal
+                    isOpen={isStoryMoreOptionsModalOpen}
+                    onClose={onCloseStoryMoreOptionsModal}
+                >
                     {/* Modal content here */}.
                     <StoryMoreOptions
-                        onCloseModal={onCloseModal}
+                        onCloseModal={onCloseStoryMoreOptionsModal}
+                        story={story}
+                    />
+                </Modal>
+            )}
+
+            {isStoryDetailModalOpen && (
+                <Modal
+                    isOpen={isStoryDetailModalOpen}
+                    onClose={onCloseStoryDetailModal}
+                >
+                    {/* Modal content here */}.
+                    <StoryDetail
+                        onCloseModal={onCloseStoryDetailModal}
                         story={story}
                     />
                 </Modal>

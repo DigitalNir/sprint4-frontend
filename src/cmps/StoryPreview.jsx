@@ -9,12 +9,14 @@ import { storyService } from '../services/story.service.local'
 import { utilService } from '../services/util.service'
 import { getActionUpdateStory } from '../store/story.actions'
 import { AddComment } from './AddComment'
+import { useEffect } from 'react'
 
 const MAX_LENGTH = 43
 
 export function StoryPreview({ story }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isShowMore, setIsShowMore] = useState(story.txt.length > MAX_LENGTH)
+    const [username, setUsername] = useState('') // State for username
 
     const dispatch = useDispatch()
 
@@ -24,6 +26,27 @@ export function StoryPreview({ story }) {
         story.txt.length > MAX_LENGTH
             ? story.txt.slice(0, lastSpaceIndex) + '... '
             : story.txt
+
+    useEffect(() => {
+        async function fetchStoryUsername() {
+            try {
+                const fetchedUsername = await userService.getUsernameById(
+                    story.by._id
+                )
+                console.log(
+                    'StoryDetail Cmp - Successfully fetched username: ',
+                    fetchedUsername
+                )
+                setUsername(fetchedUsername) // Set the username in state
+            } catch {
+                console.error(
+                    'StoryDetail Cmp - cannot fetch username of the story creator'
+                )
+            }
+        }
+
+        fetchStoryUsername()
+    }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
 
     function handleViewComment() {
         setIsModalOpen(true) // Open the modal
@@ -51,7 +74,7 @@ export function StoryPreview({ story }) {
 
                 <div className="username-story-snippet flex align-center">
                     <span>
-                        <span className="username">{story.by.username}</span>
+                        <span className="username">{username}</span>
                         {isShowMore && (
                             <span className="snippet">{snippet}</span>
                         )}
@@ -65,7 +88,7 @@ export function StoryPreview({ story }) {
                         )}
                         {!isShowMore && (
                             <span className="snippet">{story.txt}</span>
-                        )}{' '}
+                        )}
                     </span>
                 </div>
                 {story.comments.length > 0 && (
