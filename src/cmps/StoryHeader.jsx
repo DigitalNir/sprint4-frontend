@@ -1,18 +1,23 @@
+import { useState, useEffect } from 'react'
 import { Avatar } from '@mui/material'
 import ThreeDots from '../img/svg/3dots.svg'
-import { utilService } from '../services/util.service'
-import { useState } from 'react'
-import { Modal } from './Modal'
 import { StoryMoreOptions } from './storyMoreOptions'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router'
+
+import { utilService } from '../services/util.service'
 import { userService } from '../services/user.service'
-import { useEffect } from 'react'
+
+import { Modal } from './Modal'
 import { StoryDetail } from '../pages/StoryDetail'
+
 export function StoryHeader({ story, cmpName }) {
     const [isStoryMoreOptionsModalOpen, setIsStoryMoreOptionsModalOpen] =
         useState(false)
     const [isStoryDetailModalOpen, setIsStoryDetailModalOpen] = useState(false)
     const [username, setUsername] = useState('') // State for username
+
+    const navigate = useNavigate()
 
     const shouldRender = cmpName === 'StoryPreview' ? true : false
 
@@ -48,10 +53,23 @@ export function StoryHeader({ story, cmpName }) {
     return (
         <>
             <div className="story-header flex align-center">
-                <Avatar className="avatar">{username.charAt(0)}</Avatar>
+                {story.by.imgUrl ? (
+                    <Avatar
+                        className="avatar"
+                        src={story.by.imgUrl}
+                        alt={username}
+                    />
+                ) : (
+                    <Avatar className="avatar">{username.charAt(0)}</Avatar>
+                )}
                 <div className="username-time-location flex column">
                     <div className="username-time flex align-center">
-                        <span className="username">{username}</span>
+                        <span
+                            className="username"
+                            onClick={() => navigate(`/user/${username}`)}
+                        >
+                            {username}
+                        </span>
                         {shouldRender && (
                             <>
                                 <span className="dot"> • </span>

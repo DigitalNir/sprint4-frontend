@@ -7,7 +7,7 @@ export const storyData = [
         by: {
             _id: 'u102',
             fullname: 'Anna Smith',
-            imgUrl: 'http://example.com/profile/anna.jpg',
+            imgUrl: '../../public/img/faces/anna.png',
         },
         loc: {
             lat: 33.91,
@@ -21,7 +21,7 @@ export const storyData = [
                 by: {
                     _id: 'u107',
                     fullname: 'Emily',
-                    imgUrl: 'http://example.com/profile/emily.jpg',
+                    imgUrl: '../../public/img/faces/emily.png',
                 },
                 txt: 'Wow, looks amazing!',
             },
@@ -31,7 +31,7 @@ export const storyData = [
                 by: {
                     _id: 'u108',
                     fullname: 'John',
-                    imgUrl: 'http://example.com/profile/john.jpg',
+                    imgUrl: '../../public/img/faces/john.png',
                 },
                 txt: 'I miss this place!',
             },
@@ -40,12 +40,12 @@ export const storyData = [
             {
                 _id: 'u107',
                 fullname: 'Emily',
-                imgUrl: 'http://example.com/profile/emily.jpg',
+                imgUrl: '../../public/img/faces/emily.png',
             },
             {
                 _id: 'u108',
                 fullname: 'John',
-                imgUrl: 'http://example.com/profile/john.jpg',
+                imgUrl: '../../public/img/faces/john.png',
             },
         ],
         tags: ['beach', 'sunset'],
@@ -58,7 +58,7 @@ export const storyData = [
         by: {
             _id: 'u103',
             fullname: 'Michael Brown',
-            imgUrl: 'http://example.com/profile/michael.jpg',
+            imgUrl: '../../public/img/faces/michael.png',
         },
         loc: {
             lat: 45.66,
@@ -72,7 +72,7 @@ export const storyData = [
                 by: {
                     _id: 'u109',
                     fullname: 'Alice',
-                    imgUrl: 'http://example.com/profile/alice.jpg',
+                    imgUrl: '../../public/img/faces/alice.png',
                 },
                 txt: 'Breathtaking view!',
             },
@@ -81,7 +81,7 @@ export const storyData = [
             {
                 _id: 'u109',
                 fullname: 'Alice',
-                imgUrl: 'http://example.com/profile/alice.jpg',
+                imgUrl: '../../public/img/faces/alice.png',
             },
         ],
         tags: ['hiking', 'adventure'],
@@ -94,7 +94,7 @@ export const storyData = [
         by: {
             _id: 'u104',
             fullname: 'Chris Johnson',
-            imgUrl: 'http://example.com/profile/chris.jpg',
+            imgUrl: '../../public/img/faces/chris.png',
         },
         loc: {
             lat: 40.71,
@@ -108,7 +108,7 @@ export const storyData = [
                 by: {
                     _id: 'u110',
                     fullname: 'Sarah',
-                    imgUrl: 'http://example.com/profile/sarah.jpg',
+                    imgUrl: '../../public/img/faces/sarah.png',
                 },
                 txt: 'NYC is always full of surprises!',
             },
@@ -118,7 +118,7 @@ export const storyData = [
                 by: {
                     _id: 'u111',
                     fullname: 'Mike',
-                    imgUrl: 'http://example.com/profile/mike.jpg',
+                    imgUrl: '../../public/img/faces/mike.png',
                 },
                 txt: 'These shots are incredible! I wish I could visit there as soon as possible!',
             },
@@ -127,7 +127,7 @@ export const storyData = [
             {
                 _id: 'u110',
                 fullname: 'Sarah',
-                imgUrl: 'http://example.com/profile/sarah.jpg',
+                imgUrl: '../../public/img/faces/sarah.png',
             },
         ],
         tags: ['photography', 'urban'],
@@ -140,7 +140,7 @@ export const storyData = [
         by: {
             _id: 'u105',
             fullname: 'Linda Gates',
-            imgUrl: 'http://example.com/profile/linda.jpg',
+            imgUrl: '../../public/img/faces/linda.png',
         },
         loc: {
             lat: 34.05,
@@ -154,7 +154,7 @@ export const storyData = [
                 by: {
                     _id: 'u112',
                     fullname: 'Kevin',
-                    imgUrl: 'http://example.com/profile/kevin.jpg',
+                    imgUrl: '../../public/img/faces/kevin.png',
                 },
                 txt: 'This is stunning, Linda!',
             },
@@ -163,12 +163,12 @@ export const storyData = [
             {
                 _id: 'u112',
                 fullname: 'Kevin',
-                imgUrl: 'http://example.com/profile/kevin.jpg',
+                imgUrl: '../../public/img/faces/kevin.png',
             },
             {
                 _id: 'u113',
                 fullname: 'Grace',
-                imgUrl: 'http://example.com/profile/grace.jpg',
+                imgUrl: '../../public/img/faces/grace.png',
             },
         ],
         tags: ['sunrise', 'nature'],
@@ -181,7 +181,7 @@ export const storyData = [
         by: {
             _id: 'u106',
             fullname: 'David Lee',
-            imgUrl: 'http://example.com/profile/david.jpg',
+            imgUrl: '../../public/img/faces/david.png',
         },
         comments: [
             {
@@ -190,7 +190,7 @@ export const storyData = [
                 by: {
                     _id: 'u114',
                     fullname: 'Emma',
-                    imgUrl: 'http://example.com/profile/emma.jpg',
+                    imgUrl: '../../public/img/faces/emma.png',
                 },
                 txt: 'Love that book! Enjoy your day!',
             },
@@ -199,7 +199,7 @@ export const storyData = [
             {
                 _id: 'u114',
                 fullname: 'Emma',
-                imgUrl: 'http://example.com/profile/emma.jpg',
+                imgUrl: '../../public/img/faces/emma.png',
             },
         ],
         tags: ['relax', 'reading', 'coffee'],

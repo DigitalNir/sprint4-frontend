@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router'
 
 import { Modal } from './Modal'
 import { StoryDetail } from '../pages/StoryDetail'
 import { StoryHeader } from './StoryHeader'
 import { StoryIcons } from './StoryIcons'
+
+import { AddComment } from './AddComment'
+
+import { getActionUpdateStory } from '../store/story.actions'
 import { storyService } from '../services/story.service.local'
 import { utilService } from '../services/util.service'
-import { getActionUpdateStory } from '../store/story.actions'
-import { AddComment } from './AddComment'
-import { useEffect } from 'react'
 
 const MAX_LENGTH = 43
 
@@ -19,6 +21,7 @@ export function StoryPreview({ story }) {
     const [username, setUsername] = useState('') // State for username
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     let lastSpaceIndex = story.txt.slice(0, MAX_LENGTH).lastIndexOf(' ')
 
@@ -74,7 +77,12 @@ export function StoryPreview({ story }) {
 
                 <div className="username-story-snippet flex align-center">
                     <span>
-                        <span className="username">{username}</span>
+                        <span
+                            className="username"
+                            onClick={() => navigate(`/user/${username}`)}
+                        >
+                            {username}
+                        </span>
                         {isShowMore && (
                             <span className="snippet">{snippet}</span>
                         )}
