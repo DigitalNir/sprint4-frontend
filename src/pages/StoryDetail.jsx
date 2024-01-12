@@ -12,22 +12,48 @@ import { utilService } from '../services/util.service'
 import { storyService } from '../services/story.service.local'
 
 export function StoryDetail({ story }) {
-    // const [story, setStory] = useState(null)
-    // const { storyId } = useParams()
+    const [username, setUsername] = useState('') // State for story creator username
+    const [commentUsernames, setCommentUsernames] = useState({}) // State for comment usernames
 
-    // useEffect(() => {
-    //     storyService
-    //         .getById(storyId)
-    //         .then((fetchedStory) => {
-    //             console.log('Current Story is:', fetchedStory)
-    //             setStory(fetchedStory)
-    //         })
-    //         .catch((err) => {
-    //             console.log('Error in StoryDetail useEffect:', err)
-    //         })
-    // }, [storyId])
+    useEffect(() => {
+        async function fetchStoryUsername() {
+            try {
+                const fetchedUsername = await userService.getUsernameById(
+                    story.by._id
+                )
+                console.log(
+                    'StoryHeader Cmp - Successfully fetched username: ',
+                    fetchedUsername
+                )
+                setUsername(fetchedUsername) // Set the username in state
+            } catch {
+                console.error(
+                    'StoryHeader Cmp - cannot fetch username of the story creator'
+                )
+            }
+        }
 
-    // if (!story) return <div>Loading...</div>
+        async function fetchCommentUsernames() {
+            const usernames = {}
+            for (const comment of story.comments) {
+                try {
+                    const fetchedUsername = await userService.getUsernameById(
+                        comment.by._id
+                    )
+                    usernames[comment.id] = fetchedUsername
+                } catch {
+                    console.error(
+                        `Cannot fetch username for comment id: ${comment.id}`
+                    )
+                }
+            }
+            setCommentUsernames(usernames)
+        }
+
+        fetchStoryUsername()
+        fetchCommentUsernames()
+    }, [story.by._id, story.comments]) // Dependency array: useEffect will run when story.by._id or story.comments change
+
     return (
         story && (
             <>
@@ -42,14 +68,14 @@ export function StoryDetail({ story }) {
                     <div className="story-text-comments">
                         <div className="story-avatar-user-text flex align-center">
                             <Avatar className="avatar">
-                                {story?.by?.fullname.charAt(0)}
+                                {username.charAt(0)}
                             </Avatar>
                             <div className="story-user-text flex column">
                                 <span
                                     className="story-username"
                                     style={{ whiteSpace: 'pre-wrap' }}
                                 >
-                                    {story?.by?.fullname + ` `}
+                                    {username + ` `}
                                     <span className="story-txt">
                                         {story.txt}
                                     </span>
@@ -66,14 +92,16 @@ export function StoryDetail({ story }) {
                             {story.comments.map((comment) => (
                                 <div key={comment.id} className="comment flex">
                                     <Avatar className="avatar">
-                                        {comment?.by?.fullname.charAt(0)}
+                                        {commentUsernames[comment.id]?.charAt(
+                                            0
+                                        )}
                                     </Avatar>
                                     <div className="comment-text-username flex column">
                                         <span
                                             className="comment-username"
                                             style={{ whiteSpace: 'pre-wrap' }}
                                         >
-                                            {comment?.by?.fullname + ` `}{' '}
+                                            {commentUsernames[comment.id] + ` `}{' '}
                                             <span className="comment-text">
                                                 {comment.txt}
                                             </span>
