@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Avatar } from '@mui/material'
 
@@ -11,10 +11,10 @@ import { AddComment } from '../cmps/AddComment'
 import { utilService } from '../services/util.service'
 import { storyService } from '../services/story.service.local'
 
-export function StoryDetail({ story }) {
+export function StoryDetail({ story, onClose }) {
     const [username, setUsername] = useState('') // State for story creator username
     const [commentUsernames, setCommentUsernames] = useState({}) // State for comment usernames
-
+    const navigate = useNavigate()
     useEffect(() => {
         async function fetchStoryUsername() {
             try {
@@ -91,15 +91,45 @@ export function StoryDetail({ story }) {
                         <div className="story-comments flex column">
                             {story.comments.map((comment) => (
                                 <div key={comment.id} className="comment flex">
-                                    <Avatar className="avatar">
-                                        {commentUsernames[comment.id]?.charAt(
-                                            0
+                                    <div
+                                        className="avatar-wrapper"
+                                        onClick={() => {
+                                            onClose()
+                                            navigate(
+                                                `/user/${
+                                                    commentUsernames[comment.id]
+                                                }`
+                                            )
+                                        }}
+                                    >
+                                        {comment?.by?.imgUrl ? (
+                                            <Avatar
+                                                className="avatar"
+                                                src={comment?.by?.imgUrl}
+                                                alt={username}
+                                            />
+                                        ) : (
+                                            <Avatar className="avatar">
+                                                {commentUsernames[
+                                                    comment.id
+                                                ]?.charAt(0)}
+                                            </Avatar>
                                         )}
-                                    </Avatar>
+                                    </div>
                                     <div className="comment-text-username flex column">
                                         <span
                                             className="comment-username"
                                             style={{ whiteSpace: 'pre-wrap' }}
+                                            onClick={() => {
+                                                onClose()
+                                                navigate(
+                                                    `/user/${
+                                                        commentUsernames[
+                                                            comment.id
+                                                        ]
+                                                    }`
+                                                )
+                                            }}
                                         >
                                             {commentUsernames[comment.id] + ` `}{' '}
                                             <span className="comment-text">

@@ -124,7 +124,7 @@ export function ProfilePage() {
 
                             <div className="user-bio flex">
                                 {/* <a className="user-name">{username}</a> */}
-                                <a className="bio">{user.bio}</a>
+                                <a className="bio">{user?.bio}</a>
                             </div>
                         </div>
                     </header>
@@ -160,7 +160,6 @@ export function ProfilePage() {
                                         className="story"
                                         key={story._id}
                                         onClick={() => {
-                                            console.log('story from map', story)
                                             onSelectStory(story)
                                         }}
                                     >
@@ -210,7 +209,10 @@ export function ProfilePage() {
             {isModalOpen && (
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     {/* Modal content here */}
-                    <StoryDetail story={selectedStory} />
+                    <StoryDetail
+                        story={selectedStory}
+                        onClose={handleCloseModal}
+                    />
                 </Modal>
             )}
         </>

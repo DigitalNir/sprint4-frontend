@@ -56,7 +56,7 @@ export function StoryHeader({ story, cmpName }) {
                 {story?.by?.imgUrl ? (
                     <Avatar
                         className="avatar"
-                        src={story.by.imgUrl}
+                        src={story?.by?.imgUrl}
                         alt={username}
                     />
                 ) : (
