@@ -36,7 +36,7 @@ const routes = [
         label: 'Story Detail',
     },
     {
-        path: '/user/:fullname',
+        path: '/user/:username',
         component: <ProfilePage />,
         label: 'User Profile',
     },

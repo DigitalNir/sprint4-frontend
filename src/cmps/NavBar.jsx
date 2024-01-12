@@ -21,7 +21,7 @@ export function NavBar() {
         }
 
         if (linkName === 'profile') {
-            navigate(`/user/${user.fullname}`)
+            navigate(`/user/${user.username}`)
         }
 
         if (linkName === 'home') {

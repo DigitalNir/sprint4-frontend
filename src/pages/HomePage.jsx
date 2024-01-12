@@ -16,7 +16,7 @@ export function HomePage() {
     async function onLogin(credentials) {
         try {
             const user = await login(credentials)
-            showSuccessMsg(`Welcome: ${user.fullname}`)
+            showSuccessMsg(`Welcome: ${user.fullname || user.username}`)
         } catch (err) {
             showErrorMsg('Cannot login')
         }
@@ -24,7 +24,9 @@ export function HomePage() {
     async function onSignup(credentials) {
         try {
             const user = await signup(credentials)
-            showSuccessMsg(`Welcome new user: ${user.fullname}`)
+            showSuccessMsg(
+                `Welcome new user: ${user.fullname || user.username}`
+            )
         } catch (err) {
             showErrorMsg('Cannot signup')
         }
@@ -55,6 +57,4 @@ export function HomePage() {
             </>
         )
     }
-}
-{
 }

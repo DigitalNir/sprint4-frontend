@@ -1,7 +1,10 @@
 import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
+import { userData } from './userdata'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+
+_createUsers()
 
 export const userService = {
     login,
@@ -13,20 +16,35 @@ export const userService = {
     getById,
     remove,
     // update,
-    getByFullName,
+    getByUsername,
+    createEmptyUser,
+    getUsernameById,
 }
 
 window.userService = userService
 
-function getUsers() {
-    return storageService.query('user')
+async function getUsers() {
+    return await storageService.query('user')
     // return httpService.get(`user`)
 }
 
-async function getByFullName(fullname) {
+async function getUsernameById(userId) {
+    try {
+        const users = await storageService.query('user')
+        console.log('🚀 ~ getUsernameById ~ users:', users)
+        const user = users.find((user) => user._id === userId)
+        console.log('User Service - getUserNameById', user.username)
+        return user.username
+    } catch (err) {
+        console.error('User Service - Cannot get username by Id', err)
+        throw err
+    }
+}
+
+async function getByUsername(username) {
     const users = await storageService.query('user')
 
-    const res = users.find((user) => user.fullname === fullname)
+    const res = users.find((user) => user.username === username)
     console.log('res fronm service', res)
     return res
 }
@@ -98,6 +116,7 @@ function saveLocalUser(user) {
         _id: user._id,
         username: user.username,
         fullname: user.fullname,
+        bio: user.bio,
         imgUrl: user.imgUrl,
         following: user.following,
         followers: user.followers,
@@ -113,6 +132,37 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+function createEmptyUser() {
+    return {
+        _id: '',
+        username: '',
+        password: '',
+        fullname: '',
+        bio: '',
+        imgUrl: '',
+        following: [],
+        followers: [],
+        savedStoryIds: [],
+    }
+}
+
+async function _createUsers() {
+    try {
+        let users = await getUsers()
+        // Check if users is empty (length is 0)
+        if (!users.length) {
+            users = userData
+            localStorage.setItem('user', JSON.stringify(users))
+        }
+
+        return users
+    } catch (err) {
+        console.error('Error: cannot create users from demo data', err)
+        // Consider how I want to handle the error.
+        // Maybe set storyData to localStorage in case of an error?
+    }
 }
 
 // ;(async ()=>{

@@ -7,6 +7,7 @@ export function LoginSignup(props) {
         username: '',
         password: '',
         fullname: '',
+        bio: '',
     })
     const [isSignup, setIsSignup] = useState(false)
     const [users, setUsers] = useState([])
@@ -22,7 +23,13 @@ export function LoginSignup(props) {
     }
 
     function clearState() {
-        setCredentials({ username: '', password: '', fullname: '', imgUrl: '' })
+        setCredentials({
+            username: '',
+            password: '',
+            fullname: '',
+            imgUrl: '',
+            bio: '',
+        })
         setIsSignup(false)
     }
 
@@ -80,10 +87,10 @@ export function LoginSignup(props) {
                             </option>
                         ))}
                     </select>
-                    {/* <input
+                    <input
                         type="text"
                         name="username"
-                        value={username}
+                        value={credentials.username}
                         placeholder="Username"
                         onChange={handleChange}
                         required
@@ -92,11 +99,11 @@ export function LoginSignup(props) {
                     <input
                         type="password"
                         name="password"
-                        value={password}
+                        value={credentials.password}
                         placeholder="Password"
                         onChange={handleChange}
                         required
-                    /> */}
+                    />
                     <button>Login!</button>
                 </form>
             )}
@@ -126,6 +133,13 @@ export function LoginSignup(props) {
                             placeholder="Password"
                             onChange={handleChange}
                             required
+                        />
+                        <input
+                            type="text"
+                            name="bio"
+                            value={credentials.bio}
+                            placeholder="Bio"
+                            onChange={handleChange}
                         />
                         <ImgUploader onUploaded={onUploaded} />
                         <button>Signup!</button>

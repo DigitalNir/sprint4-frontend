@@ -41,7 +41,7 @@ export function NavBarIcons({ handleIconClick, activeLink }) {
                 >
                     {icon.name === 'profile' ? (
                         <Avatar className="avatar">
-                            {user.fullname.charAt(0)}
+                            {user.username.charAt(0)}
                         </Avatar>
                     ) : (
                         <img

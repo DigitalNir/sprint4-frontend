@@ -8,15 +8,15 @@ import ProfilePostsSvg from '../img/svg/profile-page/profile-posts.svg'
 import ProfileSavedSvg from '../img/svg/profile-page/profile-saved.svg'
 import ProfileTaggedSvg from '../img/svg/profile-page/profile-tagged.svg'
 export function ProfilePage() {
-    const { fullname } = useParams()
-    const [user, setUser] = useState(userService.getByFullName(fullname) || {})
+    const { username } = useParams()
+    const [user, setUser] = useState(userService.getByUsername(username) || {})
     // const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchUser() {
             try {
-                console.log('fullname', fullname)
-                const fetchedUser = await userService.getByFullName(fullname)
+                console.log('username', username)
+                const fetchedUser = await userService.getByUsername(username)
                 console.log('🚀 ~ fetchUser ~ fetchedUser:', fetchedUser)
                 if (fetchedUser) setUser(fetchedUser)
                 else console.log('User not found')
@@ -26,7 +26,7 @@ export function ProfilePage() {
         }
 
         fetchUser()
-    }, [fullname])
+    }, [username])
 
     useEffect(() => {
         storyService.getUserStories(user._id)
@@ -35,7 +35,6 @@ export function ProfilePage() {
     return (
         <>
             <NavBar />
-            {/* <main className="contant-container"> */}
             <div className="profile-page flex column">
                 <div className="profile-container">
                     <header className="profile-header flex">
@@ -131,7 +130,6 @@ export function ProfilePage() {
                     </div>
                 </main>
             </div>
-            {/* </main> */}
             {/* <script
                 src="https://kit.fontawesome.com/7de500428a.js"
                 crossOrigin="anonymous"

@@ -51,7 +51,7 @@ export function StoryPreview({ story }) {
 
                 <div className="username-story-snippet flex align-center">
                     <span>
-                        <span className="username">{story.by.fullname}</span>
+                        <span className="username">{story.by.username}</span>
                         {isShowMore && (
                             <span className="snippet">{snippet}</span>
                         )}
