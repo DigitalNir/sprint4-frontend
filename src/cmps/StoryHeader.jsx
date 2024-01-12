@@ -53,7 +53,7 @@ export function StoryHeader({ story, cmpName }) {
     return (
         <>
             <div className="story-header flex align-center">
-                {story.by.imgUrl ? (
+                {story?.by?.imgUrl ? (
                     <Avatar
                         className="avatar"
                         src={story.by.imgUrl}

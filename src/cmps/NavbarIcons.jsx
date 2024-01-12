@@ -8,6 +8,8 @@ import Create from '../img/svg/create.svg'
 import More from '../img/svg/more.svg'
 import { Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useState } from 'react'
 
 const iconsData = [
     { name: 'home', src: Home, alt: 'Home', title: 'Home' },
@@ -28,6 +30,28 @@ const iconsData = [
 
 export function NavBarIcons({ handleIconClick, activeLink }) {
     const user = useSelector((storeState) => storeState.userModule.user)
+    const [username, setUsername] = useState('') // State for username
+
+    useEffect(() => {
+        async function fetchStoryUsername() {
+            try {
+                const fetchedUsername = await userService.getUsernameById(
+                    user._id
+                )
+                console.log(
+                    'StoryHeader Cmp - Successfully fetched username: ',
+                    fetchedUsername
+                )
+                setUsername(fetchedUsername) // Set the username in state
+            } catch {
+                console.error(
+                    'StoryHeader Cmp - cannot fetch username of the story creator'
+                )
+            }
+        }
+
+        fetchStoryUsername()
+    }, [user._id]) // Dependency array: useEffect will run when user._id changes
 
     return (
         <>
@@ -40,9 +64,17 @@ export function NavBarIcons({ handleIconClick, activeLink }) {
                     onClick={() => handleIconClick(icon.name)}
                 >
                     {icon.name === 'profile' ? (
-                        <Avatar className="avatar">
-                            {user.username.charAt(0)}
-                        </Avatar>
+                        user?.imgUrl ? (
+                            <Avatar
+                                className="avatar"
+                                src={user?.imgUrl}
+                                alt={username}
+                            />
+                        ) : (
+                            <Avatar className="avatar">
+                                {username.charAt(0)}
+                            </Avatar>
+                        )
                     ) : (
                         <img
                             className={`icon-img`}
