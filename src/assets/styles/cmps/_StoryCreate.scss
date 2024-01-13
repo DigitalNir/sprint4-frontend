@@ -100,6 +100,24 @@
                 font-size: 16px;
             }
         }
+
+        .image-preview-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .btn-change-image {
+                background: #efefef;
+                border: none;
+                border-radius: 7px;
+                cursor: pointer;
+                font-size: 14px;
+                font-weight: 600;
+                height: 32px;
+                width: 25%;
+                margin-block-start: 10px;
+                margin-block-end: 10px;
+            }
+        }
     }
 }
 
