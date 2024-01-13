@@ -53,15 +53,17 @@ export function StoryHeader({ story, cmpName }) {
     return (
         <>
             <div className="story-header flex align-center">
-                {story?.by?.imgUrl ? (
-                    <Avatar
-                        className="avatar"
-                        src={story?.by?.imgUrl}
-                        alt={username}
-                    />
-                ) : (
-                    <Avatar className="avatar">{username.charAt(0)}</Avatar>
-                )}
+                <div onClick={() => navigate(`/user/${username}`)}>
+                    {story?.by?.imgUrl ? (
+                        <Avatar
+                            className="avatar"
+                            src={story?.by?.imgUrl}
+                            alt={username}
+                        />
+                    ) : (
+                        <Avatar className="avatar">{username.charAt(0)}</Avatar>
+                    )}
+                </div>
                 <div className="username-time-location flex column">
                     <div className="username-time flex align-center">
                         <span
