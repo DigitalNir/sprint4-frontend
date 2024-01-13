@@ -163,8 +163,8 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                 )}
                 {previewUrl && (
                     <div className="image-preview-container">
-                        <img src={previewUrl} alt="Preview" />
                         <button
+                            className="btn-change-image"
                             type="button"
                             onClick={() => {
                                 setImage(null)
@@ -173,6 +173,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                         >
                             Change Image
                         </button>
+                        <img src={previewUrl} alt="Preview" />
                     </div>
                 )}
 

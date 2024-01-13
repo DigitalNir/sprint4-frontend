@@ -67,9 +67,19 @@ export function StoryDetail({ story, onClose }) {
                     <StoryHeader story={story} />
                     <div className="story-text-comments">
                         <div className="story-avatar-user-text flex align-center">
-                            <Avatar className="avatar">
-                                {username.charAt(0)}
-                            </Avatar>
+                            <div onClick={() => navigate(`/user/${username}`)}>
+                                {story?.by?.imgUrl ? (
+                                    <Avatar
+                                        className="avatar"
+                                        src={story?.by?.imgUrl}
+                                        alt={username}
+                                    />
+                                ) : (
+                                    <Avatar className="avatar">
+                                        {username.charAt(0)}
+                                    </Avatar>
+                                )}
+                            </div>
                             <div className="story-user-text flex column">
                                 <span
                                     className="story-username"
