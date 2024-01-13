@@ -14,7 +14,7 @@ export function StoryIcons({ story }) {
 
     // useEffect(() => {}, [isLiked])
 
-    async function handleLike() {
+    async function handleToggleLike() {
         try {
             const updatedStory = await storyService.toggleLike(story)
             setIsLiked(
@@ -49,7 +49,7 @@ export function StoryIcons({ story }) {
                 <button
                     className={iconLikeCls}
                     title={toggleLikeTitleCls}
-                    onClick={handleLike}
+                    onClick={handleToggleLike}
                 ></button>
 
                 <button className="icon-img comment" title="Comment"></button>

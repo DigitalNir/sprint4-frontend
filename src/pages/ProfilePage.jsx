@@ -18,6 +18,11 @@ export function ProfilePage() {
     const [user, setUser] = useState(userService.getByUsername(username) || {})
     const [stories, setStories] = useState([])
     const [selectedStory, setSelectedStory] = useState({})
+    const [isFollowed, setIsFollowed] = useState(
+        user?.followers?.some(
+            (u) => u._id === userService.getLoggedinUser()?._id || false
+        )
+    )
     const [isModalOpen, setIsModalOpen] = useState(false)
     const loggedinUser = useSelector((storeState) => storeState.userModule.user)
 
@@ -56,6 +61,15 @@ export function ProfilePage() {
         }
     }, [user])
 
+    useEffect(() => {
+        // Update the isFollowed state whenever the user's followers array changes
+        const isUserFollowed = user.followers?.some(
+            (follower) => follower._id === userService.getLoggedinUser()?._id
+        )
+
+        setIsFollowed(isUserFollowed || false)
+    }, [user.followers])
+
     function onSelectStory(selectedStory) {
         if (selectedStory) {
             setSelectedStory(selectedStory)
@@ -70,14 +84,23 @@ export function ProfilePage() {
 
     async function handleToggleFollow() {
         try {
-            const updatedUser = await userService.toggleFollow(user._id)
-            setUser({ ...user, ...updatedUser })
+            const { updatedUserToFollow, updatedCurrentUser } =
+                await userService.toggleFollow(user._id)
+
+            // Update the state for the user profile being viewed
+            setIsFollowed(
+                updatedUserToFollow.followers.some(
+                    (u) => u._id === userService.getLoggedinUser()._id
+                )
+            )
+            setUser({ ...user, ...updatedUserToFollow })
         } catch (err) {
-            console.error('Profile Page Cmp - cannot toggle follow')
+            console.error('Profile Page Cmp - cannot toggle follow', err)
         }
     }
 
     const isAnotherUserMode = username !== loggedinUser.username
+    const toggleFollowBtnTxt = isFollowed ? 'Unfollow' : 'Follow'
 
     return (
         <>
@@ -101,7 +124,7 @@ export function ProfilePage() {
                                             className="follow"
                                             onClick={handleToggleFollow}
                                         >
-                                            Follow
+                                            {toggleFollowBtnTxt}
                                         </button>
                                         <button>Message</button>
                                     </div>

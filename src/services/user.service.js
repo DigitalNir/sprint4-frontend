@@ -102,7 +102,6 @@ async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // return await httpService.post('auth/logout')
 }
-
 async function toggleFollow(userIdToToggleFollow) {
     try {
         const loggedinUser = userService.getLoggedinUser()
@@ -113,26 +112,40 @@ async function toggleFollow(userIdToToggleFollow) {
         }
 
         const users = await getUsers()
-
         const userToFollow = users.find(
             (user) => user._id === userIdToToggleFollow
         )
+        const currentUser = users.find((user) => user._id === loggedinUser._id)
 
+        // Updating userToFollow followers
         if (!userToFollow.followers) userToFollow.followers = []
-
-        const loggedinUserIdx = userToFollow.followers.findIndex(
+        const followIndex = userToFollow.followers.findIndex(
             (follower) => follower._id === loggedinUser._id
         )
+        if (followIndex === -1) userToFollow.followers.push(loggedinUser)
+        else userToFollow.followers.splice(followIndex, 1)
 
-        if (loggedinUserIdx === -1) userToFollow.followers.push(loggedinUser)
-        else userToFollow.followers.splice(loggedinUserIdx, 1)
-
-        const userToUpdate = await storageService.put('user', userToFollow)
-        console.log(
-            'User Service - toggleFollow - User updated in storage:',
-            userToUpdate
+        // Updating loggedinUser following
+        if (!currentUser.following) currentUser.following = []
+        const followingIndex = currentUser.following.findIndex(
+            (following) => following._id === userToFollow._id
         )
-        return userToUpdate
+        if (followingIndex === -1) currentUser.following.push(userToFollow)
+        else currentUser.following.splice(followingIndex, 1)
+
+        // Update users in storage
+        await storageService.put('user', userToFollow)
+        await storageService.put('user', currentUser)
+
+        // Update loggedinUser in session if it's the same user
+        if (loggedinUser._id === currentUser._id) {
+            saveLocalUser(currentUser)
+        }
+
+        return {
+            updatedUserToFollow: userToFollow,
+            updatedCurrentUser: currentUser,
+        }
     } catch (err) {
         console.error('User Service - Cannot toggle follow', err)
         throw err
