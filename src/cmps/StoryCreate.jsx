@@ -20,7 +20,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
     const [previewUrl, setPreviewUrl] = useState('')
     const [text, setText] = useState('')
     const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false)
-    const [fileError, setFileError] = useState('') // New state for file upload error
+    const [fileError, setFileError] = useState('') // State for file upload error
 
     const user = useSelector((storeState) => storeState.userModule.user)
 
@@ -54,6 +54,8 @@ export function StoryCreate({ onCloseModal, storyProp }) {
 
     async function handleSubmit(ev) {
         ev.preventDefault()
+
+        // The following if statement might not be required. Check later if need to remove
         if (!previewUrl && !story._id) {
             // If no Id exists, we are in Create mode and not. So File is required.
             setFileError('File is required') // Set error message if no file
@@ -159,7 +161,21 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                         {/* Display error message */}
                     </>
                 )}
-                {previewUrl && <img src={previewUrl} alt="Preview" />}
+                {previewUrl && (
+                    <div className="image-preview-container">
+                        <img src={previewUrl} alt="Preview" />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setImage(null)
+                                setPreviewUrl('')
+                            }}
+                        >
+                            Change Image
+                        </button>
+                    </div>
+                )}
+
                 <div className="story-user-text-emoji ">
                     <textarea
                         className="story-create-textarea"
