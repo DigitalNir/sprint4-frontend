@@ -149,10 +149,17 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                         <input
                             className="story-create-upload"
                             type="file"
+                            id="fileInput"
                             onChange={handleFileChange}
                             accept="image/*"
-                            required
+                            style={{ display: 'none' }} // Hide the actual input
                         />
+                        <label
+                            htmlFor="fileInput"
+                            className="btn-custom-upload"
+                        >
+                            Choose Image
+                        </label>
                         {fileError && (
                             <div className="file-error-message">
                                 {fileError}
