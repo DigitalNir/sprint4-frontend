@@ -42,8 +42,10 @@ footer {
 main {
     display: grid; // Asi
     grid-template-columns: 244px 1fr; // Asi
+    justify-content: center;
+
     gap: 20px; // Asi
-    justify-items: center; // Nir
+    // justify-items: end; // Nir
 }
 
 img {

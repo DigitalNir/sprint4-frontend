@@ -1,6 +1,9 @@
 .profile-page {
     height: 100vh;
+    width: fit-content;
     // width: 100%; // Asi
+    grid-column: 2;
+    margin: auto;
 
     // justify-content: center;
 

@@ -4,11 +4,12 @@
         border: inherit;
         .icon-img {
             // position: absolute;
-            width: 30%;
+            // width: 30%;
+            width: max-content;
             height: 40px;
             padding: 8px;
-
             padding-right: 0;
+            padding-inline-end: 12px;
             right: 0;
             cursor: pointer;
         }

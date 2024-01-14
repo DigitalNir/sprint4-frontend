@@ -1,7 +1,8 @@
 .homepage {
     display: grid;
-    grid-template-columns: minmax(auto, 240px) 1fr;
+    grid-template-columns: 1fr;
     // grid-template-rows: minmax(auto, 240px) 1fr;
+    grid-column: 2;
     justify-items: center;
 }
 
@@ -12,9 +13,10 @@
     align-items: flex-start;
 
     height: 100vh;
-    position: sticky;
+    position: fixed;
     top: 0;
-
+    left: 0;
+    grid-column: 1;
     background-color: #ffffff;
     box-sizing: border-box;
     font-size: rem(14px);

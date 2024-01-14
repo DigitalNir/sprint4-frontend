@@ -30,7 +30,8 @@
         padding: 8px;
 
         &.save {
-            right: 40px;
+            // right: 40px;
+            right: 0;
         }
     }
 
@@ -39,13 +40,15 @@
         border-top-color: rgb(239, 239, 239);
         border-top-style: solid;
         border-top-width: 1px;
-        padding: 6px 16px 8px 16px;
+        // padding: 6px 16px 8px 16px;
+        padding: 6px 16px 8px 0;
     }
 
     .like-count {
         color: black;
+        font-weight: 600;
         // background-color: red;
-        margin-inline-start: 16px;
+        // margin-inline-start: 16px;
     }
 
     .story-img {
