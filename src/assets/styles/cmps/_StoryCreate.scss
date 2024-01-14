@@ -13,7 +13,8 @@
     padding: 16px;
     border-block-end: 1px solid #dbdbdb;
     .create-post-share {
-        width: 40px;
+        box-sizing: border-box;
+        width: 50px;
         height: 40px;
         padding: 8px;
         margin: 0;
@@ -80,8 +81,25 @@
         .story-user-text-emoji {
             padding: 16px;
             border-inline-start: 1px solid #dbdbdb;
-            .toggle-emoji-picker {
-                cursor: pointer;
+            .emoji-text-length {
+                display: flex;
+                position: relative;
+                align-items: center;
+                .toggle-emoji-picker {
+                    cursor: pointer;
+                    width: 24px;
+                    height: 24px;
+                    // padding: 8px;
+                    // padding-left: 0;
+                }
+
+                .text-length {
+                    position: absolute;
+                    right: 0;
+                    color: #c7c7c7;
+                    font-size: 12px;
+                    line-height: 16px;
+                }
             }
         }
 

@@ -6,6 +6,7 @@ import EmojiPicker from 'emoji-picker-react'
 
 import BackSvg from '../img/svg/back.svg'
 import UploadPhotoSvg from '../img/svg/upload-photo.svg'
+import EmojiSvg from '../img/svg/emoji.svg'
 import { Modal } from './Modal'
 
 import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
@@ -208,12 +209,15 @@ export function StoryCreate({ onCloseModal, storyProp }) {
                             <EmojiPicker onEmojiClick={handleEmojiClick} />
                         </Modal>
                     )}
-                    <span
-                        className="toggle-emoji-picker"
-                        onClick={toggleEmojiPicker}
-                    >
-                        😊
-                    </span>
+
+                    <div className="emoji-text-length">
+                        <img
+                            src={EmojiSvg}
+                            className="toggle-emoji-picker"
+                            onClick={toggleEmojiPicker}
+                        />
+                        <span className="text-length">{text.length}/2,200</span>
+                    </div>
                 </div>
             </form>
         </div>
