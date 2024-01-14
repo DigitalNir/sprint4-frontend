@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router'
 
 import EmojiPicker from 'emoji-picker-react'
 
-import Back from '../img/svg/back.svg'
+import BackSvg from '../img/svg/back.svg'
+import UploadPhotoSvg from '../img/svg/upload-photo.svg'
 import { Modal } from './Modal'
 
 import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
@@ -129,7 +130,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
             <header className="story-create-header flex ">
                 <img
                     className="icon-img back"
-                    src={Back}
+                    src={BackSvg}
                     alt="Back"
                     title="Back"
                     onClick={onBack}
@@ -146,26 +147,33 @@ export function StoryCreate({ onCloseModal, storyProp }) {
             <form className="story-create-form flex  " onSubmit={handleSubmit}>
                 {!previewUrl && (
                     <>
-                        <input
-                            className="story-create-upload"
-                            type="file"
-                            id="fileInput"
-                            onChange={handleFileChange}
-                            accept="image/*"
-                            style={{ display: 'none' }} // Hide the actual input
-                        />
-                        <label
-                            htmlFor="fileInput"
-                            className="btn-custom-upload"
-                        >
-                            Choose Image
-                        </label>
-                        {fileError && (
-                            <div className="file-error-message">
-                                {fileError}
-                            </div>
-                        )}
-                        {/* Display error message */}
+                        <div className="upload-svg-btn-container flex column">
+                            <img
+                                className="upload-photo-svg"
+                                src={UploadPhotoSvg}
+                                alt="Select from computer"
+                            />
+                            <input
+                                className="story-create-upload"
+                                type="file"
+                                id="fileInput"
+                                onChange={handleFileChange}
+                                accept="image/*"
+                                style={{ display: 'none' }} // Hide the actual input
+                            />
+                            <label
+                                htmlFor="fileInput"
+                                className="btn-custom-upload"
+                            >
+                                Select from computer
+                            </label>
+                            {fileError && (
+                                <div className="file-error-message">
+                                    {fileError}
+                                </div>
+                            )}
+                            {/* Display error message */}
+                        </div>
                     </>
                 )}
                 {previewUrl && (

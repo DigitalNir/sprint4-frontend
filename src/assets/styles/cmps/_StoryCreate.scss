@@ -13,6 +13,9 @@
     padding: 16px;
     border-block-end: 1px solid #dbdbdb;
     .create-post-share {
+        width: 40px;
+        height: 40px;
+        padding: 8px;
         margin: 0;
         font-size: 14px;
         line-height: 18px;
@@ -62,6 +65,18 @@
 
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
             Helvetica, Arial, sans-serif;
+
+        .upload-svg-btn-container {
+            margin: auto auto;
+            align-items: center;
+
+            .upload-photo-svg {
+                width: 96px;
+                height: 77px;
+                margin-block-end: 24px;
+            }
+        }
+
         .story-user-text-emoji {
             padding: 16px;
             border-inline-start: 1px solid #dbdbdb;
@@ -88,6 +103,9 @@
         }
 
         .btn-custom-upload {
+            margin: 0px;
+            padding: 7px 16px;
+            // margin: auto auto;
             background-color: #0095f6;
             border-radius: 8px;
             bottom: 0px;
@@ -100,13 +118,11 @@
             font-size: 14px;
             font-weight: 600;
             line-height: 18px;
-            margin: 0px;
-            padding: 7px 16px;
+
             user-select: none;
             width: 170px;
             height: 32px;
             text-align: center;
-            margin: auto auto;
 
             &:active {
                 opacity: 0.7;
