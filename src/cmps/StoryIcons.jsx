@@ -5,12 +5,15 @@ import { eventBus } from '../services/event-bus.service'
 import { storyService } from '../services/story.service.local'
 import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
+import { Modal } from './Modal'
+import ActionList from './ActionList'
 
 export function StoryIcons({ story }) {
     const [isLiked, setIsLiked] = useState(
         story.likedBy.some((u) => u._id === userService.getLoggedinUser()._id)
     )
     const [isAnimating, setIsAnimating] = useState(false)
+    const [isLikersModalOpen, setIsLikersModalOpen] = useState(false)
 
     // useEffect(() => {}, [isLiked])
 
@@ -31,6 +34,14 @@ export function StoryIcons({ story }) {
         } catch (err) {
             console.error('Cannot toggle like', err)
         }
+    }
+
+    function handleOpenLikersModal() {
+        setIsLikersModalOpen(true)
+    }
+
+    function handleCloseLikersModal() {
+        setIsLikersModalOpen(false) // Close the modal
     }
 
     let likeStr = utilService.createLikeStr(story.likedBy.length)
@@ -56,7 +67,21 @@ export function StoryIcons({ story }) {
                 <button className="icon-img share" title="Share"></button>
                 <button className="icon-img save" title="Save"></button>
             </div>
-            <span className="like-count">{likeStr}</span>
+            <span className="like-count" onClick={handleOpenLikersModal}>
+                {likeStr}
+            </span>
+
+            {/* ActionList - Likers -  Modal Component */}
+            {isLikersModalOpen && (
+                <Modal
+                    className="likers-modal"
+                    isOpen={isLikersModalOpen}
+                    onClose={handleCloseLikersModal}
+                >
+                    {/* Modal content here */}
+                    <ActionList listType="likers" data={story.likedBy} />
+                </Modal>
+            )}
         </>
     )
 }

@@ -12,11 +12,12 @@ import { AddComment } from './AddComment'
 import { getActionUpdateStory } from '../store/story.actions'
 import { storyService } from '../services/story.service.local'
 import { utilService } from '../services/util.service'
+import ActionList from './ActionList'
 
 const MAX_LENGTH = 43
 
 export function StoryPreview({ story }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isStoryDetailModalOpen, setIsStoryModalOpen] = useState(false)
     const [isShowMore, setIsShowMore] = useState(story.txt.length > MAX_LENGTH)
     const [username, setUsername] = useState('') // State for username
 
@@ -56,11 +57,11 @@ export function StoryPreview({ story }) {
     }, [story.comments.length])
 
     function handleViewComment() {
-        setIsModalOpen(true) // Open the modal
+        setIsStoryModalOpen(true) // Open the modal
     }
 
-    function handleCloseModal() {
-        setIsModalOpen(false) // Close the modal
+    function handleCloseStoryDetailModal() {
+        setIsStoryModalOpen(false) // Close the modal
     }
 
     const commentStr = story.comments.length > 1 ? 'comments' : 'comment'
@@ -110,9 +111,12 @@ export function StoryPreview({ story }) {
                 )}
                 <AddComment story={story} />
             </section>
-            {/* Modal Component */}
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            {/* StoryDetail - Modal Component */}
+            {isStoryDetailModalOpen && (
+                <Modal
+                    isOpen={isStoryDetailModalOpen}
+                    onClose={handleCloseStoryDetailModal}
+                >
                     {/* Modal content here */}
                     <StoryDetail story={story} />
                 </Modal>
