@@ -72,3 +72,26 @@
         }
     }
 }
+
+@media (max-width: 900px) {
+    .modal-content {
+        //     .story-img {
+        //         aspect-ratio: unset;
+        //         height: 50%;
+        //     }
+        //     margin: 0px;
+        .story-detail {
+            position: absolute;
+            background: #fff;
+            height: unset;
+            width: 100%;
+            bottom: 0;
+            .story-avatar-user-text {
+                align-items: start;
+            }
+            .story-text-comments {
+                height: 200px;
+            }
+        }
+    }
+}

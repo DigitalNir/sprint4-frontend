@@ -11,6 +11,7 @@ import { Modal } from './Modal'
 
 import { getActionAddStory, getActionUpdateStory } from '../store/story.actions'
 import { storyService } from '../services/story.service.local'
+import { uploadService } from '../services/upload.service'
 
 export function StoryCreate({ onCloseModal, storyProp }) {
     // const { storyId } = useParams()
@@ -56,6 +57,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
 
     async function handleSubmit(ev) {
         ev.preventDefault()
+        const cloudinaryObject = await uploadService.uploadImg(image)
 
         // The following if statement might not be required. Check later if need to remove
         if (!previewUrl && !story._id) {
@@ -70,7 +72,7 @@ export function StoryCreate({ onCloseModal, storyProp }) {
         let storyToSave = {
             ...story,
             txt: text,
-            imgUrl: previewUrl,
+            imgUrl: cloudinaryObject.url,
             by: user,
         }
         if (!storyToSave._id) {
