@@ -75,17 +75,35 @@ async function getUsernameById(userId) {
 }
 
 async function getByUsername(username) {
-    const users = await storageService.query('user')
+    try {
+        const users = await storageService.query('user')
 
-    const res = users.find((user) => user.username === username)
-    console.log('res fronm service', res)
-    return res
+        const user = users.find((user) => user.username === username)
+        console.log(
+            'User Service - getByUserName -  Succesfuly got user obj by username',
+            user
+        )
+        return user
+    } catch (err) {
+        console.error(
+            'User Service - getByUserName - failed to get user obj by username'
+        )
+        throw err
+    }
 }
 
 async function getById(userId) {
-    const user = await storageService.get('user', userId)
-    // const user = await httpService.get(`user/${userId}`)
-    return user
+    try {
+        const user = await storageService.get('user', userId)
+        // const user = await httpService.get(`user/${userId}`)
+        console.log(
+            'User Service - getById - succesfuly got user obj by userId'
+        )
+        return user
+    } catch (err) {
+        console.error('User Service - getById - cannot get user obj by userId')
+        throw err
+    }
 }
 
 function remove(userId) {
@@ -155,7 +173,12 @@ async function toggleFollow(userIdToToggleFollow) {
             (follower) => follower._id === loggedinUser._id
         )
         if (followIndex === -1)
-            userToFollow.followers.push({ _id: loggedinUser._id })
+            userToFollow.followers.push({
+                _id: loggedinUser._id,
+                username: loggedinUser.username,
+                fullname: loggedinUser.fullname,
+                imgUrl: loggedinUser.imgUrl,
+            })
         else userToFollow.followers.splice(followIndex, 1)
 
         if (!currentUser.following) currentUser.following = []
@@ -163,7 +186,12 @@ async function toggleFollow(userIdToToggleFollow) {
             (following) => following._id === userToFollow._id
         )
         if (followingIndex === -1)
-            currentUser.following.push({ _id: userToFollow._id })
+            currentUser.following.push({
+                _id: userToFollow._id,
+                username: userToFollow.username,
+                fullname: userToFollow.fullname,
+                imgUrl: userToFollow.imgUrl,
+            })
         else currentUser.following.splice(followingIndex, 1)
 
         await storageService.put('user', userToFollow)

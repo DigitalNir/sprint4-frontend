@@ -71,6 +71,7 @@ const ActionList = ({ listType, users }) => {
                                 <span className="username">
                                     {user.username}
                                 </span>
+                                {console.log('user fullname', user.fullname)}
                                 <span>{user.fullname}</span>
                             </div>
                             <button

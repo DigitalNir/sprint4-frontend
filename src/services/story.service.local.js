@@ -147,7 +147,7 @@ async function addComment(story, txt) {
 
         const comment = {
             id: utilService.makeId(),
-            by: user,
+            by: user, //TODO - consider saving mini-user instead of the whole user
             txt,
         }
 

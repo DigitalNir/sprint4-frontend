@@ -12,6 +12,7 @@ import ProfileSavedSvg from '../img/svg/profile-page/profile-saved.svg'
 import ProfileTaggedSvg from '../img/svg/profile-page/profile-tagged.svg'
 import { Modal } from '../cmps/Modal'
 import { StoryDetail } from './StoryDetail'
+import ActionList from '../cmps/ActionList'
 
 export function ProfilePage() {
     const { username } = useParams()
@@ -23,9 +24,9 @@ export function ProfilePage() {
             (u) => u._id === userService.getLoggedinUser()?._id || false
         )
     )
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isStoryDetailModalOpen, setIsModalOpen] = useState(false)
     const loggedinUser = useSelector((storeState) => storeState.userModule.user)
-
+    const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     // const navigate = useNavigate()
 
     useEffect(() => {
@@ -77,9 +78,17 @@ export function ProfilePage() {
         }
     }
 
-    function handleCloseModal() {
+    function handleCloseStoryDetailModal() {
         setSelectedStory({})
         setIsModalOpen(false) // Close the modal
+    }
+
+    function handleOpenFollowersModal() {
+        setIsFollowersModalOpen(true)
+    }
+
+    function handleCloseFollowersModal() {
+        setIsFollowersModalOpen(false) // Close the modal
     }
 
     async function handleToggleFollow() {
@@ -141,7 +150,7 @@ export function ProfilePage() {
                                     <a> posts</a>
                                 </section>
 
-                                <section>
+                                <section onClick={handleOpenFollowersModal}>
                                     <a className="user-number">
                                         {user?.followers?.length}
                                     </a>
@@ -240,13 +249,28 @@ export function ProfilePage() {
                 crossOrigin="anonymous"
             ></script> */}
             {/* Modal Component */}
-            {isModalOpen && (
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            {isStoryDetailModalOpen && (
+                <Modal
+                    isOpen={isStoryDetailModalOpen}
+                    onClose={handleCloseStoryDetailModal}
+                >
                     {/* Modal content here */}
                     <StoryDetail
                         story={selectedStory}
-                        onClose={handleCloseModal}
+                        onClose={handleCloseStoryDetailModal}
                     />
+                </Modal>
+            )}
+
+            {/* ActionList - Followers -  Modal Component */}
+            {isFollowersModalOpen && user.followers.length > 0 && (
+                <Modal
+                    className="followers-modal"
+                    isOpen={isFollowersModalOpen}
+                    onClose={handleCloseFollowersModal}
+                >
+                    {/* Modal content here */}
+                    <ActionList listType="Followers" users={user.followers} />
                 </Modal>
             )}
         </>

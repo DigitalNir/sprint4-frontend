@@ -48,10 +48,8 @@ export function StoryIndex() {
         // dispatch(systemReducer(true, { type: LOADING_DONE }))
         // }
     }, [filterBy, loggedinUser])
-    console.log('🚀 ~ StoryIndex ~ stories:', stories)
 
     if (!stories) return 'Loading...'
-    console.log('🚀 ~ StoryIndex ~ stories:', stories)
     return (
         <>
             {isLoading ? (
