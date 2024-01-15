@@ -9,6 +9,7 @@ import {
     UNDO_REMOVE_STORY,
     UPDATE_STORY,
 } from './story.reducer.js'
+import { LOADING_DONE, LOADING_START } from './system.reducer.js'
 
 // Action Creators:
 export function getActionRemoveStory(storyId) {
@@ -32,6 +33,7 @@ export function getActionUpdateStory(story) {
 
 export async function loadStories() {
     try {
+        // store.dispatch({ type: LOADING_START }) // TODO: uncomment with Ori
         const { filterBy } = store.getState().storyModule
 
         const stories = await storyService.query(filterBy)
@@ -41,9 +43,12 @@ export async function loadStories() {
             type: SET_STORIES,
             stories,
         })
+        // dispatch(systemReducer({}, { type: LOADING_DONE }))
     } catch (err) {
         console.log('Story action -> Cannot load stories', err)
         throw err
+    } finally {
+        // store.dispatch({ type: LOADING_DONE }) // TODO: uncomment with Ori
     }
 }
 
