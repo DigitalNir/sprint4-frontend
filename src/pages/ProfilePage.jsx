@@ -109,11 +109,13 @@ export function ProfilePage() {
                 <div className="profile-container">
                     <header className="profile-header flex">
                         <div className="profile-photo">
-                            <img
-                                src={user?.imgUrl}
-                                alt="Profile image"
-                                title="Profile image"
-                            />
+                            {user?.imgUrl && (
+                                <img
+                                    src={user?.imgUrl}
+                                    alt="Profile image"
+                                    title="Profile image"
+                                />
+                            )}
                         </div>
                         <div className="profile-info flex column">
                             <div className="profile-info-header flex">
