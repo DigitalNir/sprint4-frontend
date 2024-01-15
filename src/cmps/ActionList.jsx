@@ -87,6 +87,7 @@ const ActionList = ({ listType, users, onClose }) => {
                                 <span>{user.fullname}</span>
                             </div>
                             <button
+                                className="btn-follow"
                                 onClick={() => handleToggleFollow(user._id)}
                             >
                                 {toggleFollowBtnTxt}

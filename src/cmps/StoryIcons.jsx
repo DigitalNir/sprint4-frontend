@@ -72,7 +72,7 @@ export function StoryIcons({ story }) {
             </span>
 
             {/* ActionList - Likers -  Modal Component */}
-            {isLikersModalOpen && (
+            {isLikersModalOpen && story?.likedBy?.length > 0 && (
                 <Modal
                     className="likers-modal"
                     isOpen={isLikersModalOpen}
