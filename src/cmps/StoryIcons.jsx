@@ -79,7 +79,7 @@ export function StoryIcons({ story }) {
                     onClose={handleCloseLikersModal}
                 >
                     {/* Modal content here */}
-                    <ActionList listType="Likes" usersProp={story.likedBy} />
+                    <ActionList listType="Likes" users={story.likedBy} />
                 </Modal>
             )}
         </>

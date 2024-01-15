@@ -19,7 +19,7 @@ const MAX_LENGTH = 43
 export function StoryPreview({ story }) {
     const [isStoryDetailModalOpen, setIsStoryModalOpen] = useState(false)
     const [isShowMore, setIsShowMore] = useState(story.txt.length > MAX_LENGTH)
-    const [username, setUsername] = useState('') // State for username
+    // const [username, setUsername] = useState('') // State for username
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,26 +31,26 @@ export function StoryPreview({ story }) {
             ? story.txt.slice(0, lastSpaceIndex) + '... '
             : story.txt
 
-    useEffect(() => {
-        async function fetchStoryUsername() {
-            try {
-                const fetchedUsername = await userService.getUsernameById(
-                    story.by._id
-                )
-                console.log(
-                    'StoryDetail Cmp - Successfully fetched username: ',
-                    fetchedUsername
-                )
-                setUsername(fetchedUsername) // Set the username in state
-            } catch {
-                console.error(
-                    'StoryDetail Cmp - cannot fetch username of the story creator'
-                )
-            }
-        }
+    // useEffect(() => {
+    //     async function fetchStoryUsername() {
+    //         try {
+    //             const fetchedUsername = await userService.getUsernameById(
+    //                 story.by._id
+    //             )
+    //             console.log(
+    //                 'StoryDetail Cmp - Successfully fetched username: ',
+    //                 fetchedUsername
+    //             )
+    //             setUsername(fetchedUsername) // Set the username in state
+    //         } catch {
+    //             console.error(
+    //                 'StoryDetail Cmp - cannot fetch username of the story creator'
+    //             )
+    //         }
+    //     }
 
-        fetchStoryUsername()
-    }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
+    //     fetchStoryUsername()
+    // }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
 
     useEffect(() => {
         console.log('Updated story comments:', story.comments.length)
@@ -84,9 +84,11 @@ export function StoryPreview({ story }) {
                     <span>
                         <span
                             className="username"
-                            onClick={() => navigate(`/user/${username}`)}
+                            onClick={() =>
+                                navigate(`/user/${story?.by?.username}`)
+                            }
                         >
-                            {username}
+                            {story?.by?.username}
                         </span>
                         {isShowMore && (
                             <span className="snippet">{snippet}</span>

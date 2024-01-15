@@ -32,13 +32,13 @@ export function Suggestion() {
     async function loadSuggestedUsersToFollow() {
         try {
             const fetchedUsers = await userService.getSuggestedUsersToFollow()
-            const usersWithNames = await Promise.all(
-                fetchedUsers.map(async (user) => {
-                    const username = await userService.getUsernameById(user._id)
-                    return { ...user, username }
-                })
-            )
-            setSuggestedUsers(usersWithNames)
+            // const usersWithNames = await Promise.all(
+            // fetchedUsers.map(async (user) => {
+            // const username = await userService.getUsernameById(user._id)
+            // return { ...user, username }
+            // })
+            // )
+            setSuggestedUsers(fetchedUsers)
         } catch (err) {
             console.error(
                 'Cmp - Suggestion - Cannot get suggested users to follow',

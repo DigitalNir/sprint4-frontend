@@ -15,32 +15,32 @@ export function StoryHeader({ story, cmpName }) {
     const [isStoryMoreOptionsModalOpen, setIsStoryMoreOptionsModalOpen] =
         useState(false)
     const [isStoryDetailModalOpen, setIsStoryDetailModalOpen] = useState(false)
-    const [username, setUsername] = useState('') // State for username
+    // const [username, setUsername] = useState('') // State for username
 
     const navigate = useNavigate()
 
     const shouldRender = cmpName === 'StoryPreview' ? true : false
 
-    useEffect(() => {
-        async function fetchStoryUsername() {
-            try {
-                const fetchedUsername = await userService.getUsernameById(
-                    story.by._id
-                )
-                console.log(
-                    'StoryHeader Cmp - Successfully fetched username: ',
-                    fetchedUsername
-                )
-                setUsername(fetchedUsername) // Set the username in state
-            } catch {
-                console.error(
-                    'StoryHeader Cmp - cannot fetch username of the story creator'
-                )
-            }
-        }
+    // useEffect(() => {
+    //     async function fetchStoryUsername() {
+    //         try {
+    //             const fetchedUsername = await userService.getUsernameById(
+    //                 story.by._id
+    //             )
+    //             console.log(
+    //                 'StoryHeader Cmp - Successfully fetched username: ',
+    //                 fetchedUsername
+    //             )
+    //             setUsername(fetchedUsername) // Set the username in state
+    //         } catch {
+    //             console.error(
+    //                 'StoryHeader Cmp - cannot fetch username of the story creator'
+    //             )
+    //         }
+    //     }
 
-        fetchStoryUsername()
-    }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
+    //     fetchStoryUsername()
+    // }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
 
     function onOpenStoryMoreOptionsModal() {
         setIsStoryMoreOptionsModalOpen(true)
@@ -53,24 +53,28 @@ export function StoryHeader({ story, cmpName }) {
     return (
         <>
             <div className="story-header flex align-center">
-                <div onClick={() => navigate(`/user/${username}`)}>
+                <div onClick={() => navigate(`/user/${story?.by?.username}`)}>
                     {story?.by?.imgUrl ? (
                         <Avatar
                             className="avatar"
                             src={story?.by?.imgUrl}
-                            alt={username}
+                            alt={story?.by?.username}
                         />
                     ) : (
-                        <Avatar className="avatar">{username.charAt(0)}</Avatar>
+                        <Avatar className="avatar">
+                            {story?.by?.username.charAt(0)}
+                        </Avatar>
                     )}
                 </div>
                 <div className="username-time-location flex column">
                     <div className="username-time flex align-center">
                         <span
                             className="username"
-                            onClick={() => navigate(`/user/${username}`)}
+                            onClick={() =>
+                                navigate(`/user/${story?.by?.username}`)
+                            }
                         >
-                            {username}
+                            {story?.by?.username}
                         </span>
                         {shouldRender && (
                             <>
@@ -86,7 +90,7 @@ export function StoryHeader({ story, cmpName }) {
                     {shouldRender && (
                         <span className="location">
                             {story.loc
-                                ? story.loc.name
+                                ? story?.loc?.name
                                 : 'Somewhere over the rainbow'}
                         </span>
                     )}

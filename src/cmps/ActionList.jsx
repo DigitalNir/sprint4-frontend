@@ -5,32 +5,32 @@ import { updateFollowStatus } from '../store/user.actions'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
-const ActionList = ({ listType, usersProp }) => {
-    const [usersWithUsernames, setUsersWithUsernames] = useState([])
+const ActionList = ({ listType, users }) => {
+    // const [usersWithUsernames, setUsersWithUsernames] = useState([])
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        if (usersProp && usersProp.length) {
-            getUsernamesForList()
-        }
-    }, [usersProp])
+    // useEffect(() => {
+    //     if (usersProp && usersProp.length) {
+    //         getUsernamesForList()
+    //     }
+    // }, [usersProp])
 
-    async function getUsernamesForList() {
-        try {
-            const fetchedUsersWithUsernames = await Promise.all(
-                usersProp.map(async (user) => {
-                    const username = await userService.getUsernameById(user._id)
-                    return { ...user, username }
-                })
-            )
-            setUsersWithUsernames(fetchedUsersWithUsernames)
-        } catch (err) {
-            console.error(
-                'Cmp - Suggestion - Cannot get suggested users to follow',
-                err
-            )
-        }
-    }
+    // async function getUsernamesForList() {
+    //     try {
+    //         const fetchedUsersWithUsernames = await Promise.all(
+    //             usersProp.map(async (user) => {
+    //                 const username = await userService.getUsernameById(user._id)
+    //                 return { ...user, username }
+    //             })
+    //         )
+    //         setUsersWithUsernames(fetchedUsersWithUsernames)
+    //     } catch (err) {
+    //         console.error(
+    //             'Cmp - Suggestion - Cannot get suggested users to follow',
+    //             err
+    //         )
+    //     }
+    // }
 
     function isFollowing(user) {
         return userService
@@ -54,7 +54,7 @@ const ActionList = ({ listType, usersProp }) => {
         <div className="action-list">
             <h2 className="list-header">{listType}</h2>
             <ul>
-                {usersWithUsernames.map((user) => {
+                {users.map((user) => {
                     const followingStatus = isFollowing(user._id)
                     const toggleFollowBtnTxt = followingStatus
                         ? 'Unfollow'

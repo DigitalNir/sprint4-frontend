@@ -12,47 +12,47 @@ import { utilService } from '../services/util.service'
 import { storyService } from '../services/story.service.local'
 
 export function StoryDetail({ story, onClose }) {
-    const [username, setUsername] = useState('') // State for story creator username
-    const [commentUsernames, setCommentUsernames] = useState({}) // State for comment usernames
+    // const [username, setUsername] = useState('') // State for story creator username
+    // const [commentUsernames, setCommentUsernames] = useState({}) // State for comment usernames
     const navigate = useNavigate()
-    useEffect(() => {
-        async function fetchStoryUsername() {
-            try {
-                const fetchedUsername = await userService.getUsernameById(
-                    story.by._id
-                )
-                console.log(
-                    'StoryHeader Cmp - Successfully fetched username: ',
-                    fetchedUsername
-                )
-                setUsername(fetchedUsername) // Set the username in state
-            } catch {
-                console.error(
-                    'StoryHeader Cmp - cannot fetch username of the story creator'
-                )
-            }
-        }
+    // useEffect(() => {
+    //     async function fetchStoryUsername() {
+    //         try {
+    //             const fetchedUsername = await userService.getUsernameById(
+    //                 story.by._id
+    //             )
+    //             console.log(
+    //                 'StoryHeader Cmp - Successfully fetched username: ',
+    //                 fetchedUsername
+    //             )
+    //             setUsername(fetchedUsername) // Set the username in state
+    //         } catch {
+    //             console.error(
+    //                 'StoryHeader Cmp - cannot fetch username of the story creator'
+    //             )
+    //         }
+    //     }
 
-        async function fetchCommentUsernames() {
-            const usernames = {}
-            for (const comment of story.comments) {
-                try {
-                    const fetchedUsername = await userService.getUsernameById(
-                        comment.by._id
-                    )
-                    usernames[comment.id] = fetchedUsername
-                } catch {
-                    console.error(
-                        `Cannot fetch username for comment id: ${comment.id}`
-                    )
-                }
-            }
-            setCommentUsernames(usernames)
-        }
+    //     async function fetchCommentUsernames() {
+    //         const usernames = {}
+    //         for (const comment of story.comments) {
+    //             try {
+    //                 const fetchedUsername = await userService.getUsernameById(
+    //                     comment.by._id
+    //                 )
+    //                 usernames[comment.id] = fetchedUsername
+    //             } catch {
+    //                 console.error(
+    //                     `Cannot fetch username for comment id: ${comment.id}`
+    //                 )
+    //             }
+    //         }
+    //         setCommentUsernames(usernames)
+    //     }
 
-        fetchStoryUsername()
-        fetchCommentUsernames()
-    }, [story.by._id, story.comments]) // Dependency array: useEffect will run when story.by._id or story.comments change
+    //     fetchStoryUsername()
+    //     fetchCommentUsernames()
+    // }, [story.by._id, story.comments]) // Dependency array: useEffect will run when story.by._id or story.comments change
 
     return (
         story && (
@@ -67,16 +67,20 @@ export function StoryDetail({ story, onClose }) {
                     <StoryHeader story={story} />
                     <div className="story-text-comments">
                         <div className="story-avatar-user-text flex align-center">
-                            <div onClick={() => navigate(`/user/${username}`)}>
+                            <div
+                                onClick={() =>
+                                    navigate(`/user/${story?.by?.username}`)
+                                }
+                            >
                                 {story?.by?.imgUrl ? (
                                     <Avatar
                                         className="avatar"
                                         src={story?.by?.imgUrl}
-                                        alt={username}
+                                        alt={story?.by?.username}
                                     />
                                 ) : (
                                     <Avatar className="avatar">
-                                        {username.charAt(0)}
+                                        {story?.by?.username.charAt(0)}
                                     </Avatar>
                                 )}
                             </div>
@@ -85,7 +89,7 @@ export function StoryDetail({ story, onClose }) {
                                     className="story-username"
                                     style={{ whiteSpace: 'pre-wrap' }}
                                 >
-                                    {username + ` `}
+                                    {story?.by?.username + ` `}
                                     <span className="story-txt">
                                         {story.txt}
                                     </span>
@@ -94,7 +98,9 @@ export function StoryDetail({ story, onClose }) {
                                     className="story-time"
                                     style={{ whiteSpace: 'pre' }}
                                 >
-                                    15h {`  `}
+                                    {utilService.formatTimestamp(
+                                        story.createdAt
+                                    )}
                                 </span>
                             </div>
                         </div>
@@ -106,9 +112,7 @@ export function StoryDetail({ story, onClose }) {
                                         onClick={() => {
                                             onClose()
                                             navigate(
-                                                `/user/${
-                                                    commentUsernames[comment.id]
-                                                }`
+                                                `/user/${comment?.by?._id}`
                                             )
                                         }}
                                     >
@@ -116,13 +120,11 @@ export function StoryDetail({ story, onClose }) {
                                             <Avatar
                                                 className="avatar"
                                                 src={comment?.by?.imgUrl}
-                                                alt={username}
+                                                alt={comment?.by?._id}
                                             />
                                         ) : (
                                             <Avatar className="avatar">
-                                                {commentUsernames[
-                                                    comment.id
-                                                ]?.charAt(0)}
+                                                {comment?.by?._id?.charAt(0)}
                                             </Avatar>
                                         )}
                                     </div>
@@ -133,15 +135,11 @@ export function StoryDetail({ story, onClose }) {
                                             onClick={() => {
                                                 onClose()
                                                 navigate(
-                                                    `/user/${
-                                                        commentUsernames[
-                                                            comment.id
-                                                        ]
-                                                    }`
+                                                    `/user/${comment?.by?.username}`
                                                 )
                                             }}
                                         >
-                                            {commentUsernames[comment.id] + ` `}{' '}
+                                            {comment?.by?.username + ' '}
                                             <span className="comment-text">
                                                 {comment.txt}
                                             </span>

@@ -30,28 +30,28 @@ const iconsData = [
 
 export function NavBarIcons({ handleIconClick, activeLink }) {
     const user = useSelector((storeState) => storeState.userModule.user)
-    const [username, setUsername] = useState('') // State for username
+    // const [username, setUsername] = useState('') // State for username
 
-    useEffect(() => {
-        async function fetchStoryUsername() {
-            try {
-                const fetchedUsername = await userService.getUsernameById(
-                    user._id
-                )
-                console.log(
-                    'StoryHeader Cmp - Successfully fetched username: ',
-                    fetchedUsername
-                )
-                setUsername(fetchedUsername) // Set the username in state
-            } catch {
-                console.error(
-                    'StoryHeader Cmp - cannot fetch username of the story creator'
-                )
-            }
-        }
+    // useEffect(() => {
+    //     async function fetchStoryUsername() {
+    //         try {
+    //             const fetchedUsername = await userService.getUsernameById(
+    //                 user._id
+    //             )
+    //             console.log(
+    //                 'StoryHeader Cmp - Successfully fetched username: ',
+    //                 fetchedUsername
+    //             )
+    //             setUsername(fetchedUsername) // Set the username in state
+    //         } catch {
+    //             console.error(
+    //                 'StoryHeader Cmp - cannot fetch username of the story creator'
+    //             )
+    //         }
+    //     }
 
-        fetchStoryUsername()
-    }, [user._id]) // Dependency array: useEffect will run when user._id changes
+    //     fetchStoryUsername()
+    // }, [user._id]) // Dependency array: useEffect will run when user._id changes
 
     return (
         <>
@@ -68,11 +68,11 @@ export function NavBarIcons({ handleIconClick, activeLink }) {
                             <Avatar
                                 className="avatar"
                                 src={user?.imgUrl}
-                                alt={username}
+                                alt={user?.username}
                             />
                         ) : (
                             <Avatar className="avatar">
-                                {username.charAt(0)}
+                                {user?.username.charAt(0)}
                             </Avatar>
                         )
                     ) : (
