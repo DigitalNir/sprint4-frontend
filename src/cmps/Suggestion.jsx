@@ -4,6 +4,7 @@ import { Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { updateFollowStatus } from '../store/user.actions'
+import { useNavigate } from 'react-router'
 // import { toggleUserFollow } from '../store/user.actions'
 
 export function Suggestion() {
@@ -14,6 +15,7 @@ export function Suggestion() {
     // (u) => u._id === userService.getLoggedinUser()?._id || false
     // )
     // )
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -89,9 +91,19 @@ export function Suggestion() {
                                 src={suggestedUser.imgUrl}
                                 alt={suggestedUser.username + 'image'}
                                 title={suggestedUser.username + `'s image`}
+                                onClick={() =>
+                                    navigate(`/user/${suggestedUser?.username}`)
+                                }
                             />
                             <div className="username-suggested flex column">
-                                <span className="username">
+                                <span
+                                    className="username"
+                                    onClick={() =>
+                                        navigate(
+                                            `/user/${suggestedUser?.username}`
+                                        )
+                                    }
+                                >
                                     {suggestedUser.username}
                                 </span>
                                 <span>Suggested for you</span>

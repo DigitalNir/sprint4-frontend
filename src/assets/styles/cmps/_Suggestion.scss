@@ -19,6 +19,7 @@
                 height: 44px;
                 width: 44px;
                 margin-inline-end: 12px;
+                cursor: pointer;
             }
             .username-suggested {
                 justify-content: space-around;
@@ -28,6 +29,7 @@
 
                 line-height: 18px;
                 .username {
+                    cursor: pointer;
                     font-size: 14px;
                     color: #000000;
                     font-weight: 600;

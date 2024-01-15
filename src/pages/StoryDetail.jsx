@@ -66,7 +66,7 @@ export function StoryDetail({ story, onClose }) {
                 <section className="story-detail">
                     <StoryHeader story={story} />
                     <div className="story-text-comments">
-                        <div className="story-avatar-user-text flex align-center">
+                        <div className="story-avatar-user-text flex">
                             <div
                                 onClick={() =>
                                     navigate(`/user/${story?.by?.username}`)
