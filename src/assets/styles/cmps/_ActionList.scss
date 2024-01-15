@@ -1,0 +1,62 @@
+.action-list {
+    .list-header {
+        box-sizing: border-box;
+        padding: 10px;
+        height: 42px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: 600;
+        border: 1px solid #dbdbdb;
+    }
+
+    .user-action-container {
+        display: grid;
+        grid-template-columns: 1fr 180px 1fr;
+        margin-block-end: 10px;
+
+        .user-img {
+            margin-inline-start: 16px;
+            align-self: center;
+            height: 44px;
+            width: 44px;
+            margin-inline-end: 12px;
+        }
+        .username-fullname {
+            justify-content: space-around;
+
+            font-size: 12px;
+            // background-color: blue;
+
+            line-height: 18px;
+            .username {
+                font-size: 14px;
+                color: #000000;
+                font-weight: 600;
+            }
+
+            span {
+                font-size: 12px;
+                color: #737373;
+                font-weight: 400;
+            }
+        }
+        button {
+            background: unset;
+            box-sizing: border-box;
+            width: 50px;
+            height: 40px;
+            padding: 8px;
+            margin: 0;
+            font-size: 12px;
+            font-family: inherit;
+            line-height: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #0095f6;
+            &:hover {
+                color: black;
+            }
+        }
+    }
+}
