@@ -27,6 +27,7 @@ export function ProfilePage() {
     const [isStoryDetailModalOpen, setIsModalOpen] = useState(false)
     const loggedinUser = useSelector((storeState) => storeState.userModule.user)
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
+    const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     // const navigate = useNavigate()
 
     useEffect(() => {
@@ -91,6 +92,14 @@ export function ProfilePage() {
         setIsFollowersModalOpen(false) // Close the modal
     }
 
+    function handleOpenFollowingModal() {
+        setIsFollowingModalOpen(true)
+    }
+
+    function handleCloseFollowingModal() {
+        setIsFollowingModalOpen(false) // Close the modal
+    }
+
     async function handleToggleFollow() {
         try {
             const { updatedUserToFollow, updatedCurrentUser } =
@@ -150,14 +159,20 @@ export function ProfilePage() {
                                     <a> posts</a>
                                 </section>
 
-                                <section onClick={handleOpenFollowersModal}>
+                                <section
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={handleOpenFollowersModal}
+                                >
                                     <a className="user-number">
                                         {user?.followers?.length}
                                     </a>
                                     <a> followers</a>
                                 </section>
 
-                                <section>
+                                <section
+                                    onClick={handleOpenFollowingModal}
+                                    style={{ cursor: 'pointer' }}
+                                >
                                     <a className="user-number">
                                         {user?.following?.length}
                                     </a>
@@ -244,10 +259,7 @@ export function ProfilePage() {
                     )}
                 </main>
             </div>
-            {/* <script
-                src="https://kit.fontawesome.com/7de500428a.js"
-                crossOrigin="anonymous"
-            ></script> */}
+
             {/* Modal Component */}
             {isStoryDetailModalOpen && (
                 <Modal
@@ -270,7 +282,27 @@ export function ProfilePage() {
                     onClose={handleCloseFollowersModal}
                 >
                     {/* Modal content here */}
-                    <ActionList listType="Followers" users={user.followers} />
+                    <ActionList
+                        listType="Followers"
+                        users={user.followers}
+                        onClose={handleCloseFollowersModal}
+                    />
+                </Modal>
+            )}
+
+            {/* ActionList - Following -  Modal Component */}
+            {isFollowingModalOpen && user.following.length > 0 && (
+                <Modal
+                    className="following-modal"
+                    isOpen={isFollowingModalOpen}
+                    onClose={handleCloseFollowingModal}
+                >
+                    {/* Modal content here */}
+                    <ActionList
+                        listType="Following"
+                        users={user.following}
+                        onClose={handleCloseFollowingModal}
+                    />
                 </Modal>
             )}
         </>

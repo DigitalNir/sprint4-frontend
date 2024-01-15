@@ -4,10 +4,12 @@ import { userService } from '../services/user.service'
 import { updateFollowStatus } from '../store/user.actions'
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 
-const ActionList = ({ listType, users }) => {
+const ActionList = ({ listType, users, onClose }) => {
     // const [usersWithUsernames, setUsersWithUsernames] = useState([])
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     // useEffect(() => {
     //     if (usersProp && usersProp.length) {
@@ -62,13 +64,23 @@ const ActionList = ({ listType, users }) => {
                     return (
                         <li key={user._id} className="user-action-container">
                             <Avatar
+                                onClick={() => {
+                                    onClose()
+                                    navigate(`/user/${user.username}`)
+                                }}
                                 className="user-img"
                                 src={user.imgUrl}
                                 alt={user.username + 'image'}
                                 title={user.username + `'s image`}
                             />
                             <div className="username-fullname flex column">
-                                <span className="username">
+                                <span
+                                    className="username"
+                                    onClick={() => {
+                                        onClose()
+                                        navigate(`/user/${user.username}`)
+                                    }}
+                                >
                                     {user.username}
                                 </span>
                                 {console.log('user fullname', user.fullname)}
