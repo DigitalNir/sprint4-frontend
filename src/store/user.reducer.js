@@ -1,4 +1,5 @@
 import { userService } from '../services/user.service.js'
+// import { UPDATE_USER_FOLLOW_STATUS } from './user.actions'
 
 export const INCREMENT = 'INCREMENT'
 export const DECREMENT = 'DECREMENT'
@@ -8,6 +9,7 @@ export const SET_WATCHED_USER = 'SET_WATCHED_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const SET_SCORE = 'SET_SCORE'
+export const UPDATE_USER_FOLLOW_STATUS = 'UPDATE_USER_FOLLOW_STATUS'
 
 const initialState = {
     // count: 10,
@@ -49,6 +51,22 @@ export function userReducer(state = initialState, action) {
         //         user: { ...state.user, score: action.score },
         //     }
         //     break
+
+        case UPDATE_USER_FOLLOW_STATUS:
+            const { updatedUserToFollow, updatedCurrentUser } = action
+            return {
+                ...state,
+                user:
+                    state.user._id === updatedCurrentUser._id
+                        ? updatedCurrentUser
+                        : state.user,
+                users: state.users.map((user) =>
+                    user._id === updatedUserToFollow._id
+                        ? updatedUserToFollow
+                        : user
+                ),
+            }
+
         default:
     }
     // For debug:

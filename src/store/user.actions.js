@@ -10,6 +10,15 @@ import {
     SET_USERS,
     SET_WATCHED_USER,
 } from './user.reducer.js'
+export const UPDATE_USER_FOLLOW_STATUS = 'UPDATE_USER_FOLLOW_STATUS'
+
+export const updateFollowStatus = (updatedUserToFollow, updatedCurrentUser) => {
+    return {
+        type: UPDATE_USER_FOLLOW_STATUS,
+        updatedUserToFollow,
+        updatedCurrentUser,
+    }
+}
 
 export async function loadUsers() {
     try {

@@ -32,6 +32,7 @@
 
 .main-container {
     // flex: 0.8;
+    // flex-direction: column-reverse;
     justify-content: center;
 
     .story-index {
@@ -39,8 +40,11 @@
 
         // flex: 0.7;
     }
+
     .suggestion {
-        margin-top: 108px;
+        margin-inline-start: 64px;
+        width: 316px;
+        // background-color: red;
         // flex: 0.3;
     }
 }

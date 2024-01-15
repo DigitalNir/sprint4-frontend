@@ -20,6 +20,7 @@ export const userService = {
     createEmptyUser,
     getUsernameById,
     toggleFollow,
+    getSuggestedUsersToFollow,
 }
 
 window.userService = userService
@@ -27,6 +28,38 @@ window.userService = userService
 async function getUsers() {
     return await storageService.query('user')
     // return httpService.get(`user`)
+}
+
+async function getSuggestedUsersToFollow() {
+    const loggedinUser = userService.getLoggedinUser()
+
+    if (!loggedinUser) {
+        console.error(
+            'Cannot getSuggestedUsersToFollow - user is not logged in'
+        )
+        throw new Error(
+            'Cannot getSuggestedUsersToFollow - user is not logged in'
+        )
+    }
+
+    try {
+        const users = await getUsers()
+        const suggestedUsersToFollow = users.filter((user) => {
+            const followerIdx = user.followers.findIndex(
+                (follower) => follower._id === loggedinUser._id
+            )
+            return followerIdx === -1
+        })
+        console.log(
+            'User Service - getSuggestedUsersToFollow - Succesfuly got suggestedUsersToFollow'
+        )
+        return suggestedUsersToFollow.slice(0, 5) //return just 5 users
+    } catch (err) {
+        console.error(
+            'User Service - getSuggestedUsersToFollow - error in getting suggestedUsersToFollow'
+        )
+        throw err
+    }
 }
 
 async function getUsernameById(userId) {
@@ -102,42 +135,40 @@ async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
     // return await httpService.post('auth/logout')
 }
+
 async function toggleFollow(userIdToToggleFollow) {
     try {
         const loggedinUser = userService.getLoggedinUser()
-
         if (!loggedinUser) {
             console.error('Cannot toggle follow - user is not logged in')
             throw new Error('Cannot toggle follow - user is not logged in')
         }
 
         const users = await getUsers()
-        const userToFollow = users.find(
+        let userToFollow = users.find(
             (user) => user._id === userIdToToggleFollow
         )
-        const currentUser = users.find((user) => user._id === loggedinUser._id)
+        let currentUser = users.find((user) => user._id === loggedinUser._id)
 
-        // Updating userToFollow followers
         if (!userToFollow.followers) userToFollow.followers = []
         const followIndex = userToFollow.followers.findIndex(
             (follower) => follower._id === loggedinUser._id
         )
-        if (followIndex === -1) userToFollow.followers.push(loggedinUser)
+        if (followIndex === -1)
+            userToFollow.followers.push({ _id: loggedinUser._id })
         else userToFollow.followers.splice(followIndex, 1)
 
-        // Updating loggedinUser following
         if (!currentUser.following) currentUser.following = []
         const followingIndex = currentUser.following.findIndex(
             (following) => following._id === userToFollow._id
         )
-        if (followingIndex === -1) currentUser.following.push(userToFollow)
+        if (followingIndex === -1)
+            currentUser.following.push({ _id: userToFollow._id })
         else currentUser.following.splice(followingIndex, 1)
 
-        // Update users in storage
         await storageService.put('user', userToFollow)
         await storageService.put('user', currentUser)
 
-        // Update loggedinUser in session if it's the same user
         if (loggedinUser._id === currentUser._id) {
             saveLocalUser(currentUser)
         }

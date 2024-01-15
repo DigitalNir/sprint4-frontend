@@ -21,6 +21,7 @@ import { storyService } from '../services/story.service.local'
 // import { storyData } from '../services/story'
 
 export function StoryIndex() {
+    const loggedinUser = useSelector((storeState) => storeState.userModule.user)
     const dispatch = useDispatch()
     const stories = useSelector((storeState) => storeState.storyModule.stories)
     const filterBy = useSelector(
@@ -38,9 +39,11 @@ export function StoryIndex() {
             console.log('err:', err)
             showErrorMsg('Cannot load stories')
         }
-    }, [filterBy])
+    }, [filterBy, loggedinUser])
+    console.log('🚀 ~ StoryIndex ~ stories:', stories)
 
     if (!stories) return 'Loading...'
+    console.log('🚀 ~ StoryIndex ~ stories:', stories)
     return (
         <section className="story-index">
             <StoryList storyData={stories} />
