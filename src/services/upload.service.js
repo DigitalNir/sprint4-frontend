@@ -17,6 +17,7 @@ async function uploadImg(file) {
             body: formData,
         })
         const imgUrl = await res.json()
+        console.log('Upload Service - Successfuly uploaded image')
         return imgUrl
     } catch (err) {
         console.error('Failed to upload', err)
