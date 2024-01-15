@@ -10,7 +10,6 @@ export const userData = [
             {
                 _id: 'u107',
                 fullname: 'Emily',
-                username: 'EmilyC',
                 imgUrl: '../../img/faces/emily.png',
             },
         ],
@@ -27,7 +26,6 @@ export const userData = [
             {
                 _id: 'u109',
                 fullname: 'Alice',
-                username: 'AliceM',
                 imgUrl: '../../img/faces/alice.png',
             },
         ],
@@ -43,7 +41,6 @@ export const userData = [
             {
                 _id: 'u110',
                 fullname: 'Sarah',
-                username: 'SarahK',
                 imgUrl: '../../img/faces/sarah.png',
             },
         ],
@@ -60,7 +57,6 @@ export const userData = [
             {
                 _id: 'u112',
                 fullname: 'Kevin',
-                username: 'KevinT',
                 imgUrl: '../../img/faces/kevin.png',
             },
         ],
@@ -77,7 +73,6 @@ export const userData = [
             {
                 _id: 'u114',
                 fullname: 'Emma',
-                username: 'EmmaP',
                 imgUrl: '../../img/faces/emma.png',
             },
         ],
@@ -95,7 +90,6 @@ export const userData = [
         following: [
             {
                 _id: 'u102',
-                username: 'AnnaS',
                 fullname: 'Anna Smith',
                 imgUrl: '../../img/faces/anna.png',
             },
@@ -124,7 +118,6 @@ export const userData = [
             {
                 _id: 'u103',
                 fullname: 'Michael Brown',
-                username: 'MichaelB',
                 imgUrl: '../../img/faces/michael.png',
             },
         ],
@@ -140,7 +133,6 @@ export const userData = [
             {
                 _id: 'u104',
                 fullname: 'Chris Johnson',
-                username: 'ChrisJ',
                 imgUrl: '../../img/faces/chris.png',
             },
         ],
@@ -167,7 +159,6 @@ export const userData = [
             {
                 _id: 'u105',
                 fullname: 'Linda Gates',
-                username: 'LindaG',
                 imgUrl: '../../img/faces/linda.png',
             },
         ],
@@ -194,7 +185,6 @@ export const userData = [
             {
                 _id: 'u106',
                 fullname: 'David Lee',
-                username: 'DavidL',
                 imgUrl: '../../img/faces/david.png',
             },
         ],
