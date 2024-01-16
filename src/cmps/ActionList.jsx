@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userService } from '../services/user.service'
 import { updateFollowStatus } from '../store/user.actions'
 import { useEffect } from 'react'
@@ -7,6 +7,8 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
 const ActionList = ({ listType, users, onClose }) => {
+    const loggedinUser = useSelector((storeState) => storeState.userModule.user)
+
     // const [usersWithUsernames, setUsersWithUsernames] = useState([])
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -83,15 +85,16 @@ const ActionList = ({ listType, users, onClose }) => {
                                 >
                                     {user.username}
                                 </span>
-                                {console.log('user fullname', user.fullname)}
                                 <span>{user.fullname}</span>
                             </div>
-                            <button
-                                className="btn-follow"
-                                onClick={() => handleToggleFollow(user._id)}
-                            >
-                                {toggleFollowBtnTxt}
-                            </button>
+                            {user._id !== loggedinUser._id && (
+                                <button
+                                    className="btn-follow"
+                                    onClick={() => handleToggleFollow(user._id)}
+                                >
+                                    {toggleFollowBtnTxt}
+                                </button>
+                            )}
                         </li>
                     )
                 })}
