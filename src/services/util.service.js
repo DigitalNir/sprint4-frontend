@@ -10,12 +10,60 @@ export const utilService = {
     loadFromStorage,
     formatTimestamp,
     createLikeStr,
+    createAdvancedLikeStr,
 }
 
 function createLikeStr(likedByLength) {
     if (likedByLength > 1) return `${likedByLength} likes`
     else if (likedByLength === 1) return `1 like`
     else if (likedByLength === 0) return `Be the first to like this`
+}
+
+function createAdvancedLikeStr(likedBy, loggedInUserId, followedUserIds) {
+    const totalLikes = likedBy.length
+    const isLikedByUser = likedBy.some((u) => u._id === loggedInUserId)
+    const namesOfFollowedWhoLiked = likedBy
+        .filter(
+            (u) => followedUserIds.includes(u._id) && u._id !== loggedInUserId
+        )
+        .map((u) => u.username)
+
+    if (totalLikes === 0) return `Be the first to like this`
+
+    let likeStr = ''
+
+    if (isLikedByUser) {
+        if (namesOfFollowedWhoLiked.length === 1 && totalLikes === 2) {
+            // Special case: Liked by you and one other followed user
+            likeStr = `Liked by you and ${namesOfFollowedWhoLiked[0]}`
+        } else {
+            likeStr = 'Liked by you'
+            if (namesOfFollowedWhoLiked.length > 0) {
+                likeStr += `, ${namesOfFollowedWhoLiked.join(', ')}`
+            }
+            const otherLikesCount =
+                totalLikes - namesOfFollowedWhoLiked.length - 1
+            if (otherLikesCount > 0) {
+                likeStr += ` and ${otherLikesCount} other${
+                    otherLikesCount > 1 ? 's' : ''
+                }`
+            }
+        }
+    } else {
+        if (namesOfFollowedWhoLiked.length > 0) {
+            likeStr = `Liked by ${namesOfFollowedWhoLiked.join(', ')}`
+            const otherLikesCount = totalLikes - namesOfFollowedWhoLiked.length
+            if (otherLikesCount > 0) {
+                likeStr += ` and ${otherLikesCount} other${
+                    otherLikesCount > 1 ? 's' : ''
+                }`
+            }
+        } else {
+            likeStr = `${totalLikes} like${totalLikes > 1 ? 's' : ''}`
+        }
+    }
+
+    return likeStr
 }
 
 function makeId(length = 6) {

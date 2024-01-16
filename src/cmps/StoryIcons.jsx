@@ -7,8 +7,11 @@ import { userService } from '../services/user.service'
 import { utilService } from '../services/util.service'
 import { Modal } from './Modal'
 import ActionList from './ActionList'
+import { useSelector } from 'react-redux'
 
 export function StoryIcons({ story }) {
+    const loggedinUser = useSelector((storeState) => storeState.userModule.user)
+
     const [isLiked, setIsLiked] = useState(
         story.likedBy.some((u) => u._id === userService.getLoggedinUser()._id)
     )
@@ -44,7 +47,16 @@ export function StoryIcons({ story }) {
         setIsLikersModalOpen(false) // Close the modal
     }
 
-    let likeStr = utilService.createLikeStr(story.likedBy.length)
+    // let likeStr = utilService.createLikeStr(story.likedBy.length)
+
+    const followedUserIds = loggedinUser.following.map((follow) => follow._id)
+
+    let likeStr = utilService.createAdvancedLikeStr(
+        story.likedBy,
+        loggedinUser._id,
+        followedUserIds
+    )
+    console.log('🚀 ~ StoryIcons ~ likeStr:', likeStr)
 
     const iconLikeCls = `icon-img like ${isLiked ? 'liked' : ''} ${
         isAnimating ? 'pulse' : ''
