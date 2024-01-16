@@ -5,7 +5,7 @@
 @media only screen and (max-width: 766px) {
     .app-header {
         display: block;
-        position: fixed;
+        position: sticky;
         background-color: white;
         z-index: 1000;
         width: 100vw;
