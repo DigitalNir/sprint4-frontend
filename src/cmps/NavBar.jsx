@@ -19,8 +19,6 @@ export function NavBar() {
     const navigate = useNavigate()
 
     const handleIconClick = (pageName) => {
-        console.log('🚀 ~ handleIconClick ~ linkName:', pageName)
-
         setActivePage(pageName)
         if (pageName === 'create') {
             setIsModalOpen(true)

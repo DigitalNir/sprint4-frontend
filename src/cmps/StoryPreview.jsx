@@ -52,9 +52,7 @@ export function StoryPreview({ story }) {
     //     fetchStoryUsername()
     // }, [story.by._id]) // Dependency array: useEffect will run when story.by._id changes
 
-    useEffect(() => {
-        console.log('Updated story comments:', story.comments.length)
-    }, [story.comments.length])
+    useEffect(() => {}, [story.comments.length])
 
     function handleViewComment() {
         setIsStoryModalOpen(true) // Open the modal

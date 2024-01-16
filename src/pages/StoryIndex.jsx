@@ -54,16 +54,10 @@ export function StoryIndex() {
         // }
     }, [filterBy, loggedinUser])
 
-    if (!stories) return 'Loading...'
+    if (!stories || !stories.length) return <Loader />
     return (
-        <>
-            {isLoading ? (
-                <Loader />
-            ) : (
-                <section className="story-index">
-                    <StoryList storyData={stories} />
-                </section>
-            )}
-        </>
+        <section className="story-index">
+            <StoryList storyData={stories} />
+        </section>
     )
 }

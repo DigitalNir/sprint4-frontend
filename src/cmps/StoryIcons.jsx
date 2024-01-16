@@ -56,7 +56,6 @@ export function StoryIcons({ story }) {
         loggedinUser._id,
         followedUserIds
     )
-    console.log('🚀 ~ StoryIcons ~ likeStr:', likeStr)
 
     const iconLikeCls = `icon-img like ${isLiked ? 'liked' : ''} ${
         isAnimating ? 'pulse' : ''
