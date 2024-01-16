@@ -13,6 +13,7 @@ import ProfileTaggedSvg from '../img/svg/profile-page/profile-tagged.svg'
 import { Modal } from '../cmps/Modal'
 import { StoryDetail } from './StoryDetail'
 import ActionList from '../cmps/ActionList'
+import { setActivePage } from '../store/story.actions'
 
 export function ProfilePage() {
     const { username } = useParams()
@@ -29,6 +30,13 @@ export function ProfilePage() {
     const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false)
     const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false)
     // const navigate = useNavigate()
+
+    const isAnotherUserMode = username !== loggedinUser.username
+
+    useEffect(() => {
+        if (isAnotherUserMode) setActivePage('')
+        if (!isAnotherUserMode) setActivePage('profile')
+    }, [])
 
     useEffect(() => {
         async function fetchUser() {
@@ -117,7 +125,6 @@ export function ProfilePage() {
         }
     }
 
-    const isAnotherUserMode = username !== loggedinUser.username
     const toggleFollowBtnTxt = isFollowed ? 'Unfollow' : 'Follow'
 
     return (

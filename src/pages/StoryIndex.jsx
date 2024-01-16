@@ -14,6 +14,7 @@ import {
     updateStory,
     setStoryFilter,
     getActionUpdateStory,
+    setActivePage,
 } from '../store/story.actions'
 
 import { StoryList } from '../cmps/StoryList'
@@ -31,6 +32,10 @@ export function StoryIndex() {
     const filterBy = useSelector(
         (storeState) => storeState.storyModule.filterBy
     )
+
+    useEffect(() => {
+        setActivePage('home')
+    }, [])
 
     useEffect(() => {
         try {

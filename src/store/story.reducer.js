@@ -6,11 +6,13 @@ export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
 export const UNDO_REMOVE_STORY = 'UNDO_REMOVE_STORY'
 export const SET_FILTER_BY = 'SET_FILTER_BY'
+export const SET_ACTIVE_PAGE = 'SET_ACTIVE_PAGE'
 
 const initialState = {
     stories: [],
     lastRemovedStory: null,
     filterBy: storyService.getDefaultFilter(),
+    activePage: '',
 }
 
 export function storyReducer(state = initialState, action = {}) {
@@ -57,6 +59,14 @@ export function storyReducer(state = initialState, action = {}) {
         case SET_FILTER_BY:
             newState = { ...state, filterBy: action.filterBy }
             return newState
+
+        case SET_ACTIVE_PAGE:
+            newState = {
+                ...state,
+                activePage: action.activePage,
+            }
+            return newState
+
         default:
             return initialState
     }

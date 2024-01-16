@@ -6,25 +6,31 @@ import { Modal } from './Modal'
 import { StoryCreate } from './StoryCreate'
 import { useNavigate } from 'react-router'
 import { useSelector } from 'react-redux'
+import { setActivePage } from '../store/story.actions'
 
 export function NavBar() {
-    const [activeLink, setActiveLink] = useState(null)
+    // const [activeLink, setActiveLink] = useState(null)
+    const activePage = useSelector(
+        (storeState) => storeState.storyModule.activePage
+    )
     const [isModalOpen, setIsModalOpen] = useState(false)
     const user = useSelector((storeState) => storeState.userModule.user)
 
     const navigate = useNavigate()
 
-    const handleIconClick = (linkName) => {
-        setActiveLink(linkName)
-        if (linkName === 'create') {
+    const handleIconClick = (pageName) => {
+        console.log('🚀 ~ handleIconClick ~ linkName:', pageName)
+
+        setActivePage(pageName)
+        if (pageName === 'create') {
             setIsModalOpen(true)
         }
 
-        if (linkName === 'profile') {
+        if (pageName === 'profile') {
             navigate(`/user/${user.username}`)
         }
 
-        if (linkName === 'home') {
+        if (pageName === 'home') {
             navigate(`/`)
         }
     }
@@ -47,11 +53,11 @@ export function NavBar() {
                     </a>
                 </div>
                 <NavBarIcons
-                    activeLink={activeLink}
+                    activeLink={activePage}
                     handleIconClick={handleIconClick}
                 />
             </nav>
-            {isModalOpen && activeLink === 'create' && (
+            {isModalOpen && activePage === 'create' && (
                 <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
                     {/* Modal content here */}
                     <StoryCreate onCloseModal={handleCloseModal} />

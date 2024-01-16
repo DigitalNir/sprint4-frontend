@@ -5,6 +5,7 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
 import {
     ADD_STORY,
     REMOVE_STORY,
+    SET_ACTIVE_PAGE,
     SET_STORIES,
     UNDO_REMOVE_STORY,
     UPDATE_STORY,
@@ -18,17 +19,30 @@ export function getActionRemoveStory(storyId) {
         storyId,
     }
 }
+
 export function getActionAddStory(story) {
     return {
         type: ADD_STORY,
         story,
     }
 }
+
 export function getActionUpdateStory(story) {
     return {
         type: UPDATE_STORY,
         story,
     }
+}
+
+export function getActionSetActivePage(activePage) {
+    return {
+        type: SET_ACTIVE_PAGE,
+        activePage,
+    }
+}
+
+export function setActivePage(pageName) {
+    store.dispatch(getActionSetActivePage(pageName))
 }
 
 export async function loadStories() {
