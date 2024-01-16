@@ -57,22 +57,26 @@ export function StoryCreate({ onCloseModal, storyProp }) {
 
     async function handleSubmit(ev) {
         ev.preventDefault()
-        const cloudinaryObject = await uploadService.uploadImg(image)
 
-        // The following if statement might not be required. Check later if need to remove
+        // Handle the file error for new stories (when no image is selected)
         if (!previewUrl && !story._id) {
-            // If no Id exists, we are in Create mode and not. So File is required.
-            setFileError('File is required') // Set error message if no file
+            setFileError('File is required')
             return
         }
         setFileError('') // Reset error message
 
-        // let storyToAdd = storyService.getEmptyStory()
+        let imageUrl = previewUrl // Start with the existing or previous image URL
+
+        // If a new image has been chosen, upload it
+        if (image) {
+            const cloudinaryObject = await uploadService.uploadImg(image)
+            imageUrl = cloudinaryObject.url
+        }
 
         let storyToSave = {
             ...story,
             txt: text,
-            imgUrl: cloudinaryObject.url,
+            imgUrl: imageUrl, // Use the new or existing image URL
             by: user,
         }
         if (!storyToSave._id) {
