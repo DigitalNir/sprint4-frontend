@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { updateFollowStatus } from '../store/user.actions'
 import { useNavigate } from 'react-router'
+import Loader from '../pages/Loader'
 // import { toggleUserFollow } from '../store/user.actions'
 
 export function Suggestion() {
@@ -70,7 +71,7 @@ export function Suggestion() {
     }
 
     // const toggleFollowBtnTxt = isFollowing ? 'Unfollow' : 'Follow'
-
+    // if (!suggestedUsers || !suggestedUsers.length) return <Loader />
     return (
         <aside className="suggestion">
             <span className="suggested-for-you">Suggested for you</span>
