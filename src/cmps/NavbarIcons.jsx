@@ -6,26 +6,85 @@ import Message from '../img/svg/message.svg'
 import Notification from '../img/svg/notification.svg'
 import Create from '../img/svg/create.svg'
 import More from '../img/svg/more.svg'
+
+import HomeActive from '../img/svg/active/home-active.svg'
+import SearchActive from '../img/svg/active/search-active.svg'
+import ExploreActive from '../img/svg/active/explore-active.svg'
+import ReelsActive from '../img/svg/active/reels-active.svg'
+import MessageActive from '../img/svg/active/message-active.svg'
+import NotificationActive from '../img/svg/active/notification-active.svg'
+import CreateActive from '../img/svg/active/create-active.svg'
+import MoreActive from '../img/svg/active/more-active.svg'
+
 import { Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useState } from 'react'
 
 const iconsData = [
-    { name: 'home', src: Home, alt: 'Home', title: 'Home' },
-    { name: 'search', src: Search, alt: 'Search', title: 'Search' },
-    { name: 'explore', src: Explore, alt: 'Explore', title: 'Explore' },
-    { name: 'reels', src: Reels, alt: 'Reels', title: 'Reels' },
-    { name: 'message', src: Message, alt: 'Message', title: 'Message' },
+    {
+        name: 'home',
+        src: Home,
+        srcActive: HomeActive,
+        alt: 'Home',
+        title: 'Home',
+    },
+    {
+        name: 'search',
+        src: Search,
+        srcActive: SearchActive,
+        alt: 'Search',
+        title: 'Search',
+    },
+    {
+        name: 'explore',
+        src: Explore,
+        srcActive: ExploreActive,
+        alt: 'Explore',
+        title: 'Explore',
+    },
+    {
+        name: 'reels',
+        src: Reels,
+        srcActive: ReelsActive,
+        alt: 'Reels',
+        title: 'Reels',
+    },
+    {
+        name: 'message',
+        src: Message,
+        srcActive: MessageActive,
+        alt: 'Message',
+        title: 'Message',
+    },
     {
         name: 'notification',
         src: Notification,
+        srcActive: NotificationActive,
         alt: 'Notification',
         title: 'Notification',
     },
-    { name: 'create', src: Create, alt: 'Create', title: 'Create' },
-    { name: 'profile', src: null, alt: 'Profile', title: 'Profile' }, // Special case for profile
-    { name: 'more', src: More, alt: 'More', title: 'More' },
+    {
+        name: 'create',
+        src: Create,
+        srcActive: CreateActive,
+        alt: 'Create',
+        title: 'Create',
+    },
+    {
+        name: 'profile',
+        src: null,
+        srcActive: null,
+        alt: 'Profile',
+        title: 'Profile',
+    }, // Special case for profile
+    {
+        name: 'more',
+        src: More,
+        srcActive: MoreActive,
+        alt: 'More',
+        title: 'More',
+    },
 ]
 
 export function NavBarIcons({ handleIconClick, activeLink }) {
@@ -78,7 +137,11 @@ export function NavBarIcons({ handleIconClick, activeLink }) {
                     ) : (
                         <img
                             className={`icon-img`}
-                            src={icon.src}
+                            src={
+                                activeLink === icon.name
+                                    ? icon.srcActive
+                                    : icon.src
+                            }
                             alt={icon.alt}
                             title={icon.title}
                         />
