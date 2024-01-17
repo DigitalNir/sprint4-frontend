@@ -11,8 +11,10 @@
 .form-add-comment {
     display: flex;
     align-items: center;
+    justify-content: space;
     position: relative;
     width: 100%;
+    margin-block-end: 17px;
 
     .add-comment {
         width: 85%;
@@ -23,13 +25,14 @@
         resize: none;
         overflow-wrap: break-word;
         overflow: auto;
+        // background-color: red;
     }
 
     .submit-comment-button {
-        position: relative;
-        // right:
+        // position: absolute;
+        // right: 9px;
         background: unset;
-        margin: 0;
+        // margin: 0;
         font-size: 14px;
         line-height: 18px;
         font-weight: 600;
@@ -61,7 +64,6 @@
 
     .toggle-emoji-picker {
         position: absolute;
-        // left: 0;
         // background-color: red;
         cursor: pointer;
     }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router'
 
 import { Modal } from './Modal'
@@ -19,6 +19,9 @@ const MAX_LENGTH = 43
 export function StoryPreview({ story }) {
     const [isStoryDetailModalOpen, setIsStoryModalOpen] = useState(false)
     const [isShowMore, setIsShowMore] = useState(story.txt.length > MAX_LENGTH)
+    const [loggedinUserComments, setLoggedinUserComments] = useState([])
+    const loggedinUser = useSelector((storeState) => storeState.userModule.user)
+
     // const [username, setUsername] = useState('') // State for username
 
     const dispatch = useDispatch()
@@ -54,12 +57,20 @@ export function StoryPreview({ story }) {
 
     useEffect(() => {}, [story.comments.length])
 
-    function handleViewComment() {
+    function handleOpenStoryDetailModal() {
         setIsStoryModalOpen(true) // Open the modal
     }
 
     function handleCloseStoryDetailModal() {
         setIsStoryModalOpen(false) // Close the modal
+    }
+
+    function handleAddComment() {
+        const commentsAddedByLoggedinUser = story.comments.filter(
+            (comment) => comment.by._id === loggedinUser._id
+        )
+
+        setLoggedinUserComments(commentsAddedByLoggedinUser)
     }
 
     const commentStr = story.comments.length > 1 ? 'comments' : 'comment'
@@ -105,11 +116,38 @@ export function StoryPreview({ story }) {
                     </span>
                 </div>
                 {story.comments.length > 0 && (
-                    <span className="view-comment" onClick={handleViewComment}>
+                    <span
+                        className="view-comment"
+                        onClick={handleOpenStoryDetailModal}
+                    >
                         View {`${story.comments.length} ${commentStr}`}
                     </span>
                 )}
-                <AddComment story={story} />
+
+                {loggedinUserComments?.length === 0 && (
+                    <AddComment story={story} onAddComment={handleAddComment} />
+                )}
+
+                {loggedinUserComments?.length > 0 && (
+                    <ul>
+                        {loggedinUserComments.map((loggedinUserComment) => (
+                            <li
+                                className="loggedin-username"
+                                key={loggedinUserComment._id}
+                            >
+                                {loggedinUser.username}
+                                <span className="loggedin-user-comment">
+                                    {' '}
+                                    {loggedinUserComment.txt}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+                {loggedinUserComments?.length > 0 && (
+                    <AddComment story={story} onAddComment={handleAddComment} />
+                )}
             </section>
             {/* StoryDetail - Modal Component */}
             {isStoryDetailModalOpen && (

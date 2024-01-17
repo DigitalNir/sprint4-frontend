@@ -33,6 +33,12 @@
             font-weight: 600;
             color: #000000;
         }
+
+        .loggedin-username:first-of-type {
+            margin-block-start: 8px;
+            // background-color: green;
+        }
+
         .username {
             cursor: pointer;
             margin-inline-end: 4px;
@@ -57,12 +63,31 @@
             cursor: pointer;
         }
 
+        .add-comment {
+            margin-block-start: 0px;
+            margin-block-end: 0px;
+        }
+
         .snippet-more {
             margin-inline-start: 5px;
         }
 
         .like-count {
             cursor: pointer;
+        }
+
+        .loggedin-username {
+            // margin-block-start: 8px;
+            margin-block-end: 4px;
+            // background-color: red;
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 18px;
+
+            .loggedin-user-comment {
+                // background-color: blue;
+                font-weight: 400;
+            }
         }
     }
 }

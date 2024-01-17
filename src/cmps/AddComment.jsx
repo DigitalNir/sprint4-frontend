@@ -6,7 +6,7 @@ import EmojiPicker from 'emoji-picker-react'
 import { Modal } from './Modal'
 import EmojiSvg from '../img/svg/emoji.svg'
 
-export function AddComment({ story }) {
+export function AddComment({ story, onAddComment }) {
     const [commentText, setCommentText] = useState('')
     const [isEmojiModalOpen, setIsEmojiModalOpen] = useState(false)
 
@@ -27,6 +27,10 @@ export function AddComment({ story }) {
             )
 
             console.log('Successfully added comment')
+
+            // Check if onAddComment is a function before calling it
+            if (typeof onAddComment === 'function') onAddComment()
+
             setCommentText('') // Reset the input field after submission
 
             dispatch(getActionUpdateStory(updatedStory))
