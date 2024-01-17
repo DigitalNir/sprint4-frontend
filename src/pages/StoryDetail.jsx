@@ -11,7 +11,7 @@ import { AddComment } from '../cmps/AddComment'
 import { utilService } from '../services/util.service'
 import { storyService } from '../services/story.service.local'
 
-export function StoryDetail({ story, onClose }) {
+export function StoryDetail({ story, onClose, onAddComment }) {
     // const [username, setUsername] = useState('') // State for story creator username
     // const [commentUsernames, setCommentUsernames] = useState({}) // State for comment usernames
     const navigate = useNavigate()
@@ -171,7 +171,7 @@ export function StoryDetail({ story, onClose }) {
                     </div>
                     <div className="story-addcomment">
                         <StoryIcons story={story} />
-                        <AddComment story={story} />
+                        <AddComment onAddComment={onAddComment} story={story} />
                     </div>
                 </section>
             </>

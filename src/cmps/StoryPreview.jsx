@@ -69,6 +69,10 @@ export function StoryPreview({ story }) {
         const commentsAddedByLoggedinUser = story.comments.filter(
             (comment) => comment.by._id === loggedinUser._id
         )
+        console.log(
+            '🚀 ~ handleAddComment ~ commentsAddedByLoggedinUser:',
+            commentsAddedByLoggedinUser
+        )
 
         setLoggedinUserComments(commentsAddedByLoggedinUser)
     }
@@ -130,10 +134,14 @@ export function StoryPreview({ story }) {
 
                 {loggedinUserComments?.length > 0 && (
                     <ul>
+                        {console.log(
+                            'loggedinUserComments',
+                            loggedinUserComments
+                        )}
                         {loggedinUserComments.map((loggedinUserComment) => (
                             <li
                                 className="loggedin-username"
-                                key={loggedinUserComment._id}
+                                key={loggedinUserComment.id}
                             >
                                 {loggedinUser.username}
                                 <span className="loggedin-user-comment">
@@ -156,7 +164,10 @@ export function StoryPreview({ story }) {
                     onClose={handleCloseStoryDetailModal}
                 >
                     {/* Modal content here */}
-                    <StoryDetail story={story} />
+                    <StoryDetail
+                        story={story}
+                        onAddComment={handleAddComment}
+                    />
                 </Modal>
             )}
         </article>

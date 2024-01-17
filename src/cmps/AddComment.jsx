@@ -29,8 +29,10 @@ export function AddComment({ story, onAddComment }) {
             console.log('Successfully added comment')
 
             // Check if onAddComment is a function before calling it
-            if (typeof onAddComment === 'function') onAddComment()
-
+            if (typeof onAddComment === 'function') {
+                console.log('on add comment is function')
+                onAddComment()
+            }
             setCommentText('') // Reset the input field after submission
 
             dispatch(getActionUpdateStory(updatedStory))
