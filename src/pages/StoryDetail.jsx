@@ -110,9 +110,10 @@ export function StoryDetail({ story, onClose }) {
                                     <div
                                         className="avatar-wrapper"
                                         onClick={() => {
-                                            onClose()
+                                            if (typeof onClose === 'function')
+                                                onClose()
                                             navigate(
-                                                `/user/${comment?.by?._id}`
+                                                `/user/${comment?.by?.username}`
                                             )
                                         }}
                                     >
@@ -133,7 +134,12 @@ export function StoryDetail({ story, onClose }) {
                                             className="comment-username"
                                             style={{ whiteSpace: 'pre-wrap' }}
                                             onClick={() => {
-                                                onClose()
+                                                if (
+                                                    typeof onClose ===
+                                                    'function'
+                                                )
+                                                    onClose()
+
                                                 navigate(
                                                     `/user/${comment?.by?.username}`
                                                 )
